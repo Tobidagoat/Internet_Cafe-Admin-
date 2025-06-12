@@ -1,0 +1,199 @@
+.background_anchor_pane{
+    -fx-background-color:#202225;
+    -fx-pref-width:1500px;
+    -fx-pref-height:800px;
+
+}
+.sidebar_anchor_pane{
+    -fx-background-color:#292b2f;
+    -fx-pref-width:200px;
+    -fx-pref-height:800px;
+    -fx-border-width:0 1px 0 0;
+    -fx-border-color:#494949;
+   
+}
+.topbar_anchor_pane{
+    -fx-background-color:#292b2f;
+    -fx-pref-width:1300px;
+    -fx-pref-height:60px;
+    -fx-border-width:0 0 1px  0;
+    -fx-border-color:#494949;
+
+}
+.bottombar_anchor_pane{
+    -fx-background-color:#292b2f;
+    -fx-pref-width:1300px;
+    -fx-pref-height:60px;
+    -fx-border-width: 1px 0 0  0;
+    -fx-border-color:#494949;
+
+}
+.content_anchor_pane{
+    -fx-background-color:#202225;
+    -fx-pref-width:1300px;
+    -fx-pref-height:680px;
+    -fx-border-width: 0 0 0  1px;
+    -fx-border-color:#494949;
+
+}
+.sidebar_button{
+    -fx-pref-width:200px;
+    -fx-pref-height:70px;
+    -fx-background-color:#49494900;
+    -fx-border-width:1px;
+    
+}
+
+.sidebar_button:selected,
+.sidebar_button.active {
+    -fx-border-width:0 0 0 4px;
+    -fx-border-color: rgb(255, 106, 0);
+    -fx-background-color: #494949;
+   
+}
+
+.sidebar_button_icon{
+    -fx-fill: white;
+    -fx-font-size:26px;
+} 
+
+.customer_cards_anchor_pane{
+    -fx-background-color:#292b2f;
+    -fx-pref-width:360px;
+    -fx-pref-height:150px;
+    -fx-border-width: 1px ;
+    -fx-border-radius:10px;
+    -fx-background-radius:10px;
+
+    -fx-border-color:#494949;
+
+}
+.customer_cards_text{
+   
+    -fx-font-size:20px;
+}
+.customer_add_button{
+    -fx-pref-width:180px;
+    -fx-pref-height:40px;
+    -fx-background-color:rgb(255, 106, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-border-radius:10px;
+    -fx-background-radius:10px;
+    -fx-padding-left:0px;
+    
+}
+.customer_tableview_anchor_pane{
+    -fx-background-color:#292b2f;
+    -fx-pref-width:1200px;
+    -fx-pref-height:410px;
+    -fx-border-width: 1px ;
+    -fx-border-radius:10px 10px 0px 0px ;
+    -fx-background-radius:10px 10px 0px 0px;
+
+    -fx-border-color:#494949;
+
+
+}
+.table-view{
+    -fx-background-radius: 10px 10px 10px 10px;
+    -fx-background-color: #292b2f;
+    -fx-pref-width:1200px;
+
+    
+}
+.table-view .column-header-background
+{
+    
+    -fx-background-color: #202225;
+
+    
+   
+
+}
+.table-view .column-header-background .label
+{ 
+    -fx-padding: 15px 0px 15px 0px;
+    -fx-text-fill:white;
+   
+}
+.filler{
+    -fx-background-color: transparent;
+}
+.table-row-cell:filled{
+      -fx-background-radius: 10px 10px 0px 0px;
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-border-color: rgba(88, 88, 88, 0.3);
+}
+
+
+.table-row-cell:focused:selected{
+    -fx-text-fill: black;
+    -fx-background-color: rgba(215,171,99,0.3);
+    -fx-color: black;
+}
+.table-row-cell{
+    -fx-border-width:1px;
+    -fx-border-color: rgba(88, 88, 88, 0.3);
+
+}
+
+.menu-button {
+    -fx-pref-width:100px;
+    -fx-pref-height:40px;
+    -fx-background-color: #292b2f;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
+    -fx-border-width:1px;
+    -fx-border-color:#494949;
+     -fx-border-radius:10px;
+    -fx-background-radius:10px;
+
+}
+.menu-button .label{
+    -fx-text-fill:white;
+}
+.menu-button:hover {
+    -fx-background-color:#494949;
+}
+
+.menu-item {
+    -fx-background-color: #494949;
+}
+
+.menu-item:hover {
+    -fx-background-color: #292b2f;
+    -fx-text-fill: #000;
+}
+.context-menu {
+    -fx-background-color: transparent; /* dark background */
+   
+}
+.customer_search_bar{
+      -fx-pref-width:250px;
+    -fx-pref-height:40px;
+    -fx-background-color:#494949;
+     -fx-border-radius:10px;
+    -fx-background-radius:10px;
+    -fx-border-width:1px;
+    -fx-border-color:rgb(111, 111, 111);
+    -fx-text-fill:white;
+
+
+}
+.customer_search_bar_button{
+    -fx-background-color:#494949;
+    -pref-width:50px;
+    -pref-height:50px;
+
+}
+.customer_searh_bar_icon{
+     -fx-fill: rgb(157, 157, 157);
+    -fx-font-size:20px;
+
+}
+
+
