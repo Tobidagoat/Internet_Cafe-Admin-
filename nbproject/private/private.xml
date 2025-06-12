@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/model/room.java</file>
             <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/internet_cafe_admin/Internet_Cafe_admin.java</file>
             <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/controller/LoginController.java</file>
             <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/view/login.fxml</file>
@@ -10,6 +11,8 @@
             <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/database/DbConnection.java</file>
             <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/view/signup.fxml</file>
             <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/css/style.css</file>
+            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/view/room.fxml</file>
+            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/controller/RoomController.java</file>
         </group>
     </open-files>
 </project-private>

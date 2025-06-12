@@ -84,7 +84,7 @@ public class LoginController implements Initializable {
             valid=false;}
         
         if(valid){
-            String sql="Select * from admin where admin_name=? and password=?";
+            String sql="Select * from admins where admin_name=? and password=?";
             pst=con.prepareStatement(sql);
             
             pst.setString(1, username);
@@ -93,7 +93,7 @@ public class LoginController implements Initializable {
             rs=pst.executeQuery();
 //            Stage stage=Internet_Cafe_admin.stage;
             
-            root = FXMLLoader.load(getClass().getResource("/view/signup.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/room.fxml"));
             Scene scene = new Scene(root);
 //            stage.initStyle(StageStyle.UTILITY);
             stage.setScene(scene);

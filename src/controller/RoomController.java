@@ -4,7 +4,12 @@
  */
 package controller;
 
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
+import database.DbConnection;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +20,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.room;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.FlowPane;
 
 /**
  * FXML Controller class
@@ -27,52 +43,138 @@ public class RoomController implements Initializable {
     private Button btngeneral;
     @FXML
     private Button btnprivate;
+    @FXML
+    private FlowPane cardcontainer;
+    @FXML
+    private AnchorPane roompane;
+    @FXML
+    private FlowPane pccontainer;
+    @FXML
+    private AnchorPane pcpane;
     
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
     List<room> roomlist;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-        for(room room:roomlist){
-            AnchorPane roomcard=createroomcard(room);
-        }
+        DbConnection db=new DbConnection();
+        try {
+            con=db.getConnection();
+            loadrooms("general");
+        } catch (ClassNotFoundException ex) {
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }    
-
-    @FXML
-    private void btngeneralaction(ActionEvent event) {
+    
+public void loadrooms(String roomcategory) throws SQLException, IOException{
+        btngeneral.setVisible(true);
+        btngeneral.setDisable(false);
+        btnprivate.setVisible(true);
+        btnprivate.setDisable(false);
+        roompane.setVisible(true);
+        pcpane.setVisible(false);
+    cardcontainer.getChildren().clear();
+    String sql="Select * from rooms where room_category Like ?";
+    pst=con.prepareStatement(sql);
+    pst.setString(1, roomcategory);
+    rs=pst.executeQuery();
+    
+    while(rs.next()){
+        String id=rs.getString("room_id");
+        String type=rs.getString("room_type");
+        
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/card.fxml"));
+        AnchorPane card=loader.load();
+        
+        CardController cardcontrol=loader.getController();
+        
+        cardcontrol.setdata("Room - "+id, type,this);
+        
+        //animation!!
+        FadeTransition ft=new FadeTransition(Duration.millis(500),card);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+        cardcontainer.getChildren().add(card);
+    }
+}
+    public void loadpcforroom(int roomid) throws SQLException, IOException{
+        pcpane.setVisible(true);
+        roompane.setVisible(false);
+        btngeneral.setVisible(false);
+        btngeneral.setDisable(true);
+        btnprivate.setVisible(false);
+        btnprivate.setDisable(true);
+        
+        pccontainer.getChildren().clear();
+        pst=con.prepareStatement("Select * from rooms where room_id = ?");
+        pst.setInt(1, roomid);
+        rs=pst.executeQuery();
+        
+        while(rs.next()){
+            int pcamount=rs.getInt("total_pc");
+            System.out.println(pcamount);
+            int no=1;
+            for(int i=0;i<pcamount;i++){
+                String type="";
+            
+            String pcname="PC - "+no;
+            no++;
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/card.fxml"));
+            AnchorPane card=loader.load();
+            
+            CardController cardcontrol=loader.getController();
+        
+            cardcontrol.setdata(pcname, type,this);
+            
+            //animation!!
+            FadeTransition ft=new FadeTransition(Duration.millis(500),card);
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+            
+            pccontainer.getChildren().add(card);
+            }
+        }        
     }
 
     @FXML
-    private void btnprivateaction(ActionEvent event) {
+    private void btngeneralaction(ActionEvent event) throws SQLException, IOException {
+        loadrooms("general");
+        btngeneral.setStyle("-fx-background-color: #ffffff;"
+                + "-fx-border-color:  #494949;"
+                + "-fx-text-fill:  #141619;"
+                + "-fx-background-radius:  10px 0 0 0;"
+                + "-fx-border-radius:  10px 0 0 0;");
+        btnprivate.setStyle("-fx-background-color:  #141619;"
+                + "-fx-border-color:  #494949;"
+                + "-fx-text-fill: #ffffff;"
+                + "-fx-background-radius:  0 10px 0 0;"
+                + "-fx-border-radius:  0 10px 0 0;");
     }
 
-    private AnchorPane createroomcard(room room) {
-        AnchorPane card=new AnchorPane();
-        card.setPrefSize(274, 274);
-        
-        Label namelabel=new Label(room.getName());
-        namelabel.setStyle("-fx-font-size:22px;"
-                + "-fx-font-weight: bold;");
-        
-        
-        AnchorPane.setTopAnchor(namelabel, 35.0);
-        AnchorPane.setLeftAnchor(namelabel, 10.0);
-        AnchorPane.setRightAnchor(namelabel, 10.0);
-        
-        namelabel.setMaxWidth(Double.MAX_VALUE);
-        namelabel.setAlignment(Pos.CENTER);
-        
-        card.setStyle("-fx-background-color: #202225;"
-                + "-fx-background-radius: 4px;"
-                + "-fx-border-radius: 4px;"
-                + "-fx-border-color: #494949;");
-        
-        card.getChildren().add(namelabel);
-        
-        return card;
+    @FXML
+    private void btnprivateaction(ActionEvent event) throws SQLException, IOException {
+        loadrooms("private");
+       btnprivate.setStyle("-fx-background-color: #ffffff;"
+                + "-fx-border-color:  #494949;"
+                + "-fx-text-fill:  #141619;"
+                + "-fx-background-radius:  0 10px 0 0;"
+                + "-fx-border-radius:  0 10px 0 0;");
+        btngeneral.setStyle("-fx-background-color:  #141619;"
+                + "-fx-border-color:  #494949;"
+                + "-fx-text-fill: #ffffff;"
+                + "-fx-background-radius:  10px 0 0 0;"
+                + "-fx-border-radius:  10px 0 0 0;");
     }
+    
     
 }
