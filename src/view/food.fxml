@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1550.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="4.0" layoutY="-5.0" prefHeight="804.0" prefWidth="160.0" style="-fx-background-color: #202225; -fx-border-color: #494949;">
+               <children>
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="HOME" layoutX="63.0" layoutY="200.0" size="3em" />
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="BOOK" layoutX="63.0" layoutY="264.0" size="3em" />
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="BAR_CHART" layoutX="63.0" layoutY="320.0" size="3em" />
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="USER" layoutX="63.0" layoutY="382.0" size="3em" />
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="COMMENTS" layoutX="63.0" layoutY="441.0" size="3em" />
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="SIGN_OUT" layoutX="63.0" layoutY="770.0" size="3em" />
+                  <FontAwesomeIcon fill="#a6a4a4" glyphName="GEAR" layoutX="63.0" layoutY="710.0" size="3em" />
+                  <Button layoutX="59.0" layoutY="166.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="59.0" layoutY="227.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="59.0" layoutY="287.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="59.0" layoutY="350.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="59.0" layoutY="409.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="59.0" layoutY="672.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="59.0" layoutY="739.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="44.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+            <AnchorPane layoutX="157.0" layoutY="-8.0" prefHeight="70.0" prefWidth="1402.0" style="-fx-background-color: #202225; -fx-border-color: #494949;">
+               <children>
+                  <Text layoutX="88.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search   by   name" wrappingWidth="114.153564453125" />
+                  <TextField layoutX="33.0" layoutY="18.0" prefHeight="34.0" prefWidth="606.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 5;" />
+                  <Text fill="WHITE" layoutX="145.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search  by  name" wrappingWidth="168.341796875">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" layoutX="50.0" layoutY="44.0" size="2em" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="157.0" layoutY="57.0" prefHeight="743.0" prefWidth="1402.0" style="-fx-background-color: #1C1F21; -fx-border-color: #494949;">
+               <children>
+                  <Button layoutX="29.0" layoutY="24.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="178.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 5;" text="Food" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="207.0" layoutY="24.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="178.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 5;" text="Orders" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <AnchorPane layoutX="28.0" layoutY="65.0" prefHeight="653.0" prefWidth="1351.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 5;">
+                     <children>
+                        <AnchorPane layoutX="25.0" layoutY="30.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="26.0" layoutY="350.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="350.0" layoutY="30.0" prefHeight="273.0" prefWidth="273.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="1016.0" layoutY="350.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="682.0" layoutY="30.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="682.0" layoutY="350.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="350.0" layoutY="350.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="1016.0" layoutY="30.0" prefHeight="274.0" prefWidth="274.0" style="-fx-border-color: #494949; -fx-border-radius: 3; -fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken Pad Thai">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="32.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 10.00">
+                                 <font>
+                                    <Font name="Candara Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="1249.0" layoutY="519.0" mnemonicParsing="false" opacity="0.0" prefHeight="96.0" prefWidth="93.0" />
+                        <Circle fill="WHITE" layoutX="1294.0" layoutY="567.0" radius="40.0" stroke="GREY" strokeType="INSIDE" />
+                        <FontAwesomeIcon glyphName="PLUS" layoutX="1270.0" layoutY="590.0" size="5em" wrappingWidth="46.97108840942383" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
