@@ -19,7 +19,7 @@ public class Internet_Cafe_admin extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage=stage;
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
         
         Scene scene = new Scene(root);
         

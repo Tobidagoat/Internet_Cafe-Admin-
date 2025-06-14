@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/internet_cafe_admin/Internet_Cafe_admin.java</file>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/controller/LoginController.java</file>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/view/login.fxml</file>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/controller/SignupController.java</file>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/database/DbConnection.java</file>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/view/signup.fxml</file>
-            <file>file:/C:/Users/USER/OneDrive/Documents/NetBeansProjects/Internet_Cafe_admin/src/css/style.css</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/CustomerController.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/model/customer.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/internet_cafe_admin/Internet_Cafe_admin.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/AddCustomerController.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/database/DbConnection.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/view/addCustomer.fxml</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

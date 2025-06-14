@@ -66,6 +66,7 @@
     -fx-background-radius:10px;
 
     -fx-border-color:#494949;
+    
 
 }
 .customer_cards_text{
@@ -83,6 +84,14 @@
     -fx-padding-left:0px;
     
 }
+.customer_add_button:hover{
+    -fx-background-color:rgb(205, 85, 0);
+}
+.customer_add_button:pressed{
+    -fx-background-color:rgb(254, 160, 93);
+}
+
+/* Table style */
 .customer_tableview_anchor_pane{
     -fx-background-color:#292b2f;
     -fx-pref-width:1200px;
@@ -113,30 +122,62 @@
 }
 .table-view .column-header-background .label
 { 
+    -fx-border-width:1px;
     -fx-padding: 15px 0px 15px 0px;
     -fx-text-fill:white;
    
 }
 .filler{
-    -fx-background-color: transparent;
+    -fx-background-color: #292b2f;
 }
-.table-row-cell:filled{
-      -fx-background-radius: 10px 10px 0px 0px;
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-border-color: rgba(88, 88, 88, 0.3);
-}
-
 
 .table-row-cell:focused:selected{
-    -fx-text-fill: black;
-    -fx-background-color: rgba(215,171,99,0.3);
-    -fx-color: black;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-color: rgb(156, 156, 156);
 }
+.table-row-cell:filled{
+    -fx-border-width:1px;
+    -fx-background-color: #292b2f;
+    -fx-border-color: rgba(88, 88, 88, 0.3);
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+
+
 .table-row-cell{
     -fx-border-width:1px;
-    -fx-border-color: rgba(88, 88, 88, 0.3);
+    -fx-border-color: #292b2f;
+    -fx-background-color: #292b2f;
 
 }
+.table-view .corner{
+    -fx-background-color:#292b2f ;
+}
+ /* table scroll bar style */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-height: 10px;
+}
+
+.table-view .scroll-bar .track{
+    -fx-background-color:#292b2f;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: rgb(255, 106, 0);
+    -fx-background-radius: 5px;
+}
+
+.table-view .scroll-bar .thumb:hover {
+    -fx-background-color: rgb(255, 106, 0);
+}
+
 
 .menu-button {
     -fx-pref-width:100px;
