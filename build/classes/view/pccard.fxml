@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#loadpackage" prefHeight="274.4" prefWidth="274.4" style="-fx-border-color: #494949; -fx-border-radius: 4; -fx-background-color: #202225; -fx-background-radius: 4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PcCardController">
+   <children>
+      <Label fx:id="lbpcno" alignment="CENTER" layoutX="105.0" layoutY="118.0" text="PC - 1" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Candara Bold" size="30.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="19.0" layoutY="10.0" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: black; -fx-background-radius: 15px; -fx-opacity: 0.3;" />
+      <Label fx:id="lbstatus" layoutX="31.0" layoutY="17.0" text="Available" textFill="#57ff76">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

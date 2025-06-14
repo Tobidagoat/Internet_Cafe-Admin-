@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#loadpc" prefHeight="274.4" prefWidth="274.4" style="-fx-border-color: #494949; -fx-border-radius: 4; -fx-background-color: #202225; -fx-background-radius: 4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#loadpc" prefHeight="274.4" prefWidth="274.4" style="-fx-border-color: #494949; -fx-border-radius: 4; -fx-background-color: #202225; -fx-background-radius: 4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RoomCardController">
    <children>
       <Label layoutX="48.0" layoutY="251.0" text="Online" textFill="WHITE">
          <font>

@@ -19,7 +19,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import model.room;
+//import model.room;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -30,7 +30,10 @@ import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -55,7 +58,7 @@ public class RoomController implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
-    List<room> roomlist;
+//    List<room> roomlist;
     /**
      * Initializes the controller class.
      */
@@ -75,10 +78,7 @@ public class RoomController implements Initializable {
     }    
     
 public void loadrooms(String roomcategory) throws SQLException, IOException{
-        btngeneral.setVisible(true);
-        btngeneral.setDisable(false);
-        btnprivate.setVisible(true);
-        btnprivate.setDisable(false);
+       
         roompane.setVisible(true);
         pcpane.setVisible(false);
     cardcontainer.getChildren().clear();
@@ -91,10 +91,10 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
         String id=rs.getString("room_id");
         String type=rs.getString("room_type");
         
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/card.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/roomcard.fxml"));
         AnchorPane card=loader.load();
         
-        CardController cardcontrol=loader.getController();
+        RoomCardController cardcontrol=loader.getController();
         
         cardcontrol.setdata("Room - "+id, type,this);
         
@@ -109,31 +109,23 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
     public void loadpcforroom(int roomid) throws SQLException, IOException{
         pcpane.setVisible(true);
         roompane.setVisible(false);
-        btngeneral.setVisible(false);
-        btngeneral.setDisable(true);
-        btnprivate.setVisible(false);
-        btnprivate.setDisable(true);
+        
         
         pccontainer.getChildren().clear();
-        pst=con.prepareStatement("Select * from rooms where room_id = ?");
+        pst=con.prepareStatement("Select * from pcs where room_id = ?");
         pst.setInt(1, roomid);
         rs=pst.executeQuery();
         
         while(rs.next()){
-            int pcamount=rs.getInt("total_pc");
-            System.out.println(pcamount);
-            int no=1;
-            for(int i=0;i<pcamount;i++){
-                String type="";
-            
+            String no=rs.getString("pc_no");            
             String pcname="PC - "+no;
-            no++;
-            FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/card.fxml"));
+           
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/pccard.fxml"));
             AnchorPane card=loader.load();
             
-            CardController cardcontrol=loader.getController();
+            PcCardController cardcontrol=loader.getController();
         
-            cardcontrol.setdata(pcname, type,this);
+            cardcontrol.setpcinfo(pcname,this);
             
             //animation!!
             FadeTransition ft=new FadeTransition(Duration.millis(500),card);
@@ -142,10 +134,25 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
             ft.play();
             
             pccontainer.getChildren().add(card);
-            }
+            
         }        
     }
-
+    
+    public void showpackages(String pcno) throws IOException{
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/package.fxml"));
+        AnchorPane popup=loader.load();
+        
+        Stage popupstage=new Stage();
+        popupstage.initModality(Modality.APPLICATION_MODAL);
+        popupstage.setTitle("Select Package");
+        popupstage.setScene(new Scene(popup));
+        popupstage.show();
+        
+//        PackageController popupcontroller=loader.getController();
+//        popupcontroller.setPCID(pcid);
+//        
+    }
+    
     @FXML
     private void btngeneralaction(ActionEvent event) throws SQLException, IOException {
         loadrooms("general");
@@ -175,6 +182,7 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
                 + "-fx-background-radius:  10px 0 0 0;"
                 + "-fx-border-radius:  10px 0 0 0;");
     }
+   
     
     
 }

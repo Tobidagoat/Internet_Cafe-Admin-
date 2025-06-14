@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
  *
  * @author USER
  */
-public class CardController implements Initializable {
+public class RoomCardController implements Initializable {
 
     @FXML
     private Label lbroomno;

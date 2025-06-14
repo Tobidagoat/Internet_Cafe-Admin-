@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" layoutX="12.0" layoutY="12.0" prefHeight="454.0" prefWidth="693.0" spacing="20.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+               <children>
+                  <Label alignment="CENTER" prefHeight="58.0" prefWidth="190.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="FREE" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\$0">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label text="GREAT FOR STARTERS">
+                     <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Discover  how to create your first projects." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="185.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5;" text="GET STARTED" />
+                  <VBox alignment="CENTER" prefHeight="130.0" prefWidth="226.0" spacing="15.0">
+                     <children>
+                        <Label text="3 new projects/month">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                        <Label prefHeight="14.0" prefWidth="127.0" text="Basic interaction">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="RED" glyphName="PLUS" rotate="45.0" />
+                           </graphic>
+                        </Label>
+                        <Label prefHeight="14.0" prefWidth="127.0" text="Assets library">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="RED" glyphName="PLUS" rotate="45.0" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.8627451062202454" green="0.8627451062202454" blue="0.8627451062202454" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(100,0,255,0.3), 10, 0, 0, 5);">
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.8627451062202454" green="0.8627451062202454" blue="0.8627451062202454" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <children>
+                  <Label alignment="CENTER" prefHeight="58.0" prefWidth="190.0" style="-fx-background-color: linear-gradient(to bottom right, #aca4eb, #b36cff); -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="LITE" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\$7/mo">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label text="FOR PLANNED PROJECTS">
+                     <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Bring your designs to the next level and export them." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="185.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5;" text="GET STARTED" />
+                  <VBox alignment="CENTER" prefHeight="130.0" prefWidth="226.0" spacing="15.0">
+                     <children>
+                        <Label text="3 new projects/month">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                        <Label prefHeight="14.0" prefWidth="126.0" text="Basic interaction">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                        <Label prefHeight="14.0" prefWidth="127.0" text="Assets library">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(255,93,0,0.3), 10, 0, 0, 5);">
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.8627451062202454" green="0.8627451062202454" blue="0.8627451062202454" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <children>
+                  <Label alignment="CENTER" prefHeight="58.0" prefWidth="190.0" style="-fx-background-color: linear-gradient(to bottom right, #f7b7ee, #ffad3d); -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="PRO" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\$12/mo">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label text="FOR PROFESSIONAL USE">
+                     <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Enjoy limitless use with interactive export options." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="185.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5;" text="GET STARTED" />
+                  <VBox alignment="CENTER" prefHeight="130.0" prefWidth="226.0" spacing="15.0">
+                     <children>
+                        <Label text="3 new projects/month">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                        <Label prefHeight="14.0" prefWidth="127.0" text="Basic interaction">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                        <Label prefHeight="14.0" prefWidth="127.0" text="Assets library">
+                           <font>
+                              <Font name="Calibri" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="#00ff26" glyphName="CHECK" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
