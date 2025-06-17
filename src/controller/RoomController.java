@@ -125,7 +125,7 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
             
             PcCardController cardcontrol=loader.getController();
         
-            cardcontrol.setpcinfo(pcname,this);
+            cardcontrol.setpcinfo(pcname,this,roomid);
             
             //animation!!
             FadeTransition ft=new FadeTransition(Duration.millis(500),card);
@@ -139,6 +139,7 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
     }
     
     public void showpackages(String pcno) throws IOException{
+        
         FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/package.fxml"));
         AnchorPane popup=loader.load();
         

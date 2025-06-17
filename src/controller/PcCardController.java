@@ -26,6 +26,7 @@ public class PcCardController implements Initializable {
     
     private RoomController controller;
     private String pcno;
+    private int roomid;
     /**
      * Initializes the controller class.
      */
@@ -34,16 +35,19 @@ public class PcCardController implements Initializable {
         // TODO
     }    
     
-    public void setpcinfo(String pcno, RoomController controller){
+    public void setpcinfo(String pcno, RoomController controller,int roomid){
         this.pcno=pcno;
         this.controller=controller;
+        this.roomid=roomid;
         lbpcno.setText(pcno);
         
     }
     
     @FXML
     private void loadpackage(MouseEvent event) throws IOException {
+        
         controller.showpackages(pcno);
+       
     }
     
 }

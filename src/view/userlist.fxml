@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="347.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+   <children>
+      <AnchorPane prefHeight="48.0" prefWidth="348.0" style="-fx-border-color: black; -fx-border-width: 0 0 1px 0;">
+         <children>
+            <Label layoutX="124.0" layoutY="11.0" text="Choose Users">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ScrollPane layoutY="48.0" prefHeight="400.0" prefWidth="348.0">
+         <content>
+            <VBox prefHeight="399.0" prefWidth="346.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
