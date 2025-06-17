@@ -1,1 +1,20 @@
+# === NetBeans ===
 nbproject/private/
+nbproject/configs/
+
+# === Java Build Output ===
+build/
+dist/
+*.class
+
+# === Logs ===
+*.log
+
+# === Editor/OS Trash ===
+*.swp
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+desktop.ini
+
