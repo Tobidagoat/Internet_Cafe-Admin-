@@ -112,7 +112,7 @@ public class CustomerController implements Initializable {
             initCustomerList();
             cTable.setItems(customerList);
         }else{
-            String sql = "select * from user where customer_id like ? or customer_name like ?";
+            String sql = "select * from users where customer_id like ? or customer_name like ?";
             
             pst = con.prepareStatement(sql);
             pst.setString(1, txtSearch.getText()+"%");
@@ -180,7 +180,7 @@ public class CustomerController implements Initializable {
     
     public void initCustomerList() throws SQLException{
         customerList = FXCollections.observableArrayList();
-        String sql = "select * from user";
+        String sql = "select * from users";
         st= con.createStatement();
         rs =st.executeQuery(sql);
         
