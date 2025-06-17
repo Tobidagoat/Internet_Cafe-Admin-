@@ -97,10 +97,23 @@ public class AddCustomerController implements Initializable {
         
         
         if(txtName.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Pls Fill the Name!");
+            JOptionPane.showMessageDialog(null, "Please Fill the Name!");
         }else if(txtPhone.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Pls Fill the Phone Number!");
-        }else{
+            JOptionPane.showMessageDialog(null, "Plsease Fill the Phone Number!");    
+        }else if(txtPhone.getText().length()!=9){
+            if(!txtPhone.getText().startsWith("09")){
+                JOptionPane.showMessageDialog(null, "Phone Number is not Eligible!");  
+            }
+            else if(txtPhone.getText().length()!=11){
+                 JOptionPane.showMessageDialog(null, "Phone Number is not Eligible!");  
+            }
+        }
+        else if(!txtEmail.getText().isEmpty()){
+            if(!txtEmail.getText().endsWith("@gmail.com")){
+                JOptionPane.showMessageDialog(null, "E-mail is not Eligible!");
+            }
+        }
+        else{
             
              LocalDate date = LocalDate.now();
             String day = date.toString();

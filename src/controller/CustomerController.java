@@ -29,8 +29,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,24 +43,6 @@ import model.customer;
 public class CustomerController implements Initializable {
 
 
-    @FXML
-    private ToggleButton btnHome;
-    @FXML
-    private ToggleGroup sideBarToggleGroup;
-    @FXML
-    private ToggleButton btnData;
-    @FXML
-    private ToggleButton btnBooking;
-    @FXML
-    private ToggleButton btnFood;
-    @FXML
-    private ToggleButton btnCustomer;
-    @FXML
-    private ToggleButton btnLogout;
-    @FXML
-    private ToggleButton btnSetting;
-    @FXML
-    private Button btnAddCustomer;
     @FXML
     private TableView<customer> cTable;
     @FXML
@@ -83,6 +63,9 @@ public class CustomerController implements Initializable {
     private TextField txtSearch;
     @FXML
     private Button btnSearch;
+    
+    
+
     /**
      * Initializes the controller class.
      */
@@ -120,33 +103,7 @@ public class CustomerController implements Initializable {
         
     }    
     
-    @FXML
-    private void HandleHomeAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void HandleDataAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void HandleBookingAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void HandleFoodAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void HandleCustomerAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void HandleLogoutAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void HandleSettingAction(ActionEvent event) {
-    }
+   
     
     @FXML
     private void HandleSearchAction(ActionEvent event) throws SQLException {
@@ -241,6 +198,8 @@ public class CustomerController implements Initializable {
             cEmail.setCellValueFactory(new PropertyValueFactory("email"));
             cProfile.setCellValueFactory(new PropertyValueFactory("profile"));
             cDate.setCellValueFactory(new PropertyValueFactory("date"));
+            
+           
             
             cTable.setItems(customerList);
     }
