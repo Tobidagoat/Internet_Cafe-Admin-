@@ -49,7 +49,7 @@ public class DefaultController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            loadUI("/view/Customer.fxml");
+            loadUI("/view/login.fxml");
             // TODO
         } catch (IOException ex) {
             Logger.getLogger(DefaultController.class.getName()).log(Level.SEVERE, null, ex);
