@@ -1,0 +1,99 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
+ */
+package controller;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+
+/**
+ * FXML Controller class
+ *
+ * @author Linn Hein Htet
+ */
+public class DefaultController implements Initializable {
+
+    @FXML
+    private ToggleButton btnHome;
+    @FXML
+    private ToggleGroup sideBarToggleGroup;
+    @FXML
+    private ToggleButton btnData;
+    @FXML
+    private ToggleButton btnBooking;
+    @FXML
+    private ToggleButton btnFood;
+    @FXML
+    private ToggleButton btnCustomer;
+    @FXML
+    private ToggleButton btnLogout;
+    @FXML
+    private ToggleButton btnSetting;
+    @FXML
+    private AnchorPane mainContentAnchorPane;
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            loadUI("/view/Customer.fxml");
+            // TODO
+        } catch (IOException ex) {
+            Logger.getLogger(DefaultController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }    
+
+    @FXML
+    private void HandleSwitchHomeAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleSwitchDataAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleSwitchBookingAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleSwitchFoodAction(ActionEvent event) throws IOException {
+        loadUI("/view/login.fxml");
+    }
+
+    @FXML
+    private void HandleSwitchCustomerAction(ActionEvent event) throws IOException {
+         loadUI("/view/Customer.fxml");
+    }
+
+    @FXML
+    private void HandleSwitchLogoutAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleSwitchSettingAction(ActionEvent event) {
+    }
+    
+    public void loadUI(String fxmlPath) throws IOException{
+        AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource(fxmlPath));
+        mainContentAnchorPane.getChildren().clear();
+        mainContentAnchorPane.getChildren().add(newLoadedPane);
+        
+        AnchorPane.setTopAnchor(newLoadedPane, 0.0);
+        AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+        
+        
+    }
+}
