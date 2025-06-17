@@ -1,0 +1,60 @@
+.background_anchor_pane{
+    -fx-background-color:#202225;
+    -fx-pref-width:500px;
+    -fx-pref-height:400px;
+
+}
+.container-hbox{
+    -fx-pref-width:500px;
+    -fx-pref-height:80px;
+    -fx-spacing:100px;
+
+}
+.label{
+    -fx-text-fill:white;
+    -fx-font-size:20px;
+}
+.disable-label{
+        -fx-font-size:15px;
+    
+}
+.text-field{
+      -fx-pref-width:250px;
+    -fx-pref-height:40px;
+    -fx-background-color:#202225;
+     -fx-border-radius:10px;
+    -fx-background-radius:10px;
+    -fx-border-width:1px;
+    -fx-border-color:rgb(111, 111, 111);
+    -fx-text-fill:white;
+
+
+}
+.cancel-btn{
+    -fx-pref-width:150px;
+    -fx-pref-height:40px;
+    -fx-border-radius:10px;
+    -fx-background-radius:10px;
+     -fx-background-color:#202225;
+     -fx-border-width:1px;
+    -fx-border-color:rgb(111, 111, 111);
+     -fx-text-fill:white;
+    -fx-font-size:15px;
+
+    
+
+
+}
+.Add-btn{
+    -fx-pref-width:150px;
+    -fx-pref-height:40px;
+    -fx-border-radius:10px;
+    -fx-background-radius:10px;
+     -fx-background-color:rgb(255, 106, 0);
+     -fx-border-width:1px;
+    -fx-border-color:rgb(111, 111, 111);
+     -fx-text-fill:white;
+    -fx-font-size:15px;
+
+
+}
