@@ -65,7 +65,8 @@ public class DefaultController implements Initializable {
     }
 
     @FXML
-    private void HandleSwitchBookingAction(ActionEvent event) {
+    private void HandleSwitchBookingAction(ActionEvent event) throws IOException {
+        loadUI("/view/room.fxml");
     }
 
     @FXML

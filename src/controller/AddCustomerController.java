@@ -119,7 +119,7 @@ public class AddCustomerController implements Initializable {
             String day = date.toString();
             
             
-            String sql = "insert into user (customer_name,ph_no,e_mail,date) values(?,?,?,?)";
+            String sql = "insert into users (customer_name,ph_no,e_mail,date) values(?,?,?,?)";
             pst = con.prepareStatement(sql);
             pst.setString(1, txtName.getText().trim());
             pst.setString(2, txtPhone.getText().trim());

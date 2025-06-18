@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # === NetBeans ===
 nbproject/private/
 nbproject/configs/
@@ -18,3 +19,6 @@ dist/
 Thumbs.db
 desktop.ini
 
+=======
+nbproject/private/
+>>>>>>> f27507a391f06c50af20a15ccdaa14934ecf8a06
