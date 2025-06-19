@@ -23,7 +23,7 @@
 .bottombar_anchor_pane{
     -fx-background-color:#292b2f;
     -fx-pref-width:1400px;
-    -fx-pref-height:60px;
+    -fx-pref-height:40px;
     -fx-border-width: 1px 0 0  0;
     -fx-border-color:#494949;
 
@@ -31,7 +31,7 @@
 .content_anchor_pane{
     -fx-background-color:#202225;
     -fx-pref-width:1400px;
-    -fx-pref-height:680px;
+    -fx-pref-height:700px;
     -fx-border-width: 0 0 0  1px;
     -fx-border-color:#494949;
 
@@ -73,6 +73,24 @@
    
     -fx-font-size:20px;
 }
+.customer_cards_data_text{
+
+    
+    -fx-text-fill: white;
+    -fx-font-size:40px;
+}
+.total_customer_icon{
+    -fx-font-size:40px;
+    -fx-fill:rgb(208, 0, 255)
+}
+.active_customer_icon{
+    -fx-font-size:43px;
+    -fx-fill:rgb(0, 255, 98)
+}
+.loyal_customer_icon{
+    -fx-font-size:40px;
+    -fx-fill:rgb(255, 217, 0)
+}
 .customer_add_button{
     -fx-pref-width:180px;
     -fx-pref-height:40px;
@@ -108,6 +126,8 @@
     -fx-background-radius: 10px 10px 10px 10px;
     -fx-background-color: #292b2f;
     -fx-pref-width:1200px;
+    -fx-font-size:14px;
+    
 
     
 }
@@ -141,6 +161,7 @@
     -fx-background-color: #292b2f;
     -fx-border-color: rgba(88, 88, 88, 0.3);
     -fx-text-fill: rgb(255, 255, 255);
+    -fx-alignment:center-left;
 }
 
 
@@ -227,8 +248,7 @@
 }
 .customer_search_bar_button{
     -fx-background-color:#494949;
-    -pref-width:50px;
-    -pref-height:50px;
+    
 
 }
 .customer_searh_bar_icon{
