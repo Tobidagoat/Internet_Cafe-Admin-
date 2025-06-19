@@ -30,8 +30,8 @@
             <Font name="Arial Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="txtusername" alignment="CENTER" layoutX="381.0" layoutY="146.0" prefHeight="26.0" prefWidth="178.0" promptText="username" stylesheets="@../css/style.css" />
-      <PasswordField fx:id="txtpassword" alignment="CENTER" layoutX="381.0" layoutY="212.0" prefHeight="26.0" prefWidth="178.0" promptText="password" stylesheets="@../css/style.css" />
+      <TextField fx:id="txtusername" alignment="CENTER" layoutX="381.0" layoutY="146.0" onAction="#usertxt" prefHeight="26.0" prefWidth="178.0" promptText="username" stylesheets="@../css/style.css" />
+      <PasswordField fx:id="txtpassword" alignment="CENTER" layoutX="381.0" layoutY="212.0" onAction="#passwordtxt" prefHeight="26.0" prefWidth="178.0" promptText="password" stylesheets="@../css/style.css" />
       <FontAwesomeIcon glyphName="USER" layoutX="390.0" layoutY="163.0" />
       <FontAwesomeIcon glyphName="LOCK" layoutX="390.0" layoutY="230.0" />
       <Button fx:id="btnlogin" layoutX="381.0" layoutY="277.0" mnemonicParsing="false" onAction="#loginaction" prefHeight="26.0" prefWidth="178.0" styleClass="button-login" stylesheets="@../css/style.css" text="Log In" textFill="WHITE">

@@ -113,4 +113,13 @@ public class LoginController implements Initializable {
         stage.close();
     }
     
+    @FXML
+    void usertxt(ActionEvent event) {
+        txtpassword.requestFocus();
+    }
+    @FXML
+    void passwordtxt(ActionEvent event) {
+        btnlogin.fire();
+    }
+    
 }

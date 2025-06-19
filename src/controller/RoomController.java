@@ -31,7 +31,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -53,11 +55,13 @@ public class RoomController implements Initializable {
     @FXML
     private FlowPane pccontainer;
     @FXML
-    private AnchorPane pcpane;
+    private ScrollPane pcpane;
     
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+    private String roomtype;
+    private int pcid;
 //    List<room> roomlist;
     /**
      * Initializes the controller class.
@@ -76,40 +80,40 @@ public class RoomController implements Initializable {
             Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }    
-    
-public void loadrooms(String roomcategory) throws SQLException, IOException{
-       
-        roompane.setVisible(true);
-        pcpane.setVisible(false);
-    cardcontainer.getChildren().clear();
-    String sql="Select * from rooms where room_category Like ?";
-    pst=con.prepareStatement(sql);
-    pst.setString(1, roomcategory);
-    rs=pst.executeQuery();
-    
-    while(rs.next()){
-        String id=rs.getString("room_id");
-        String type=rs.getString("room_type");
-        
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/roomcard.fxml"));
-        AnchorPane card=loader.load();
-        
-        RoomCardController cardcontrol=loader.getController();
-        
-        cardcontrol.setdata("Room - "+id, type,this);
-        
-        //animation!!
-        FadeTransition ft=new FadeTransition(Duration.millis(500),card);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-        ft.play();
-        cardcontainer.getChildren().add(card);
+    //method for separating rooms with general and private
+    public void loadrooms(String roomcategory) throws SQLException, IOException{
+
+            roompane.setVisible(true);
+            pcpane.setVisible(false);
+        cardcontainer.getChildren().clear();
+        String sql="Select * from rooms where room_category Like ?";
+        pst=con.prepareStatement(sql);
+        pst.setString(1, roomcategory);
+        rs=pst.executeQuery();
+
+        while(rs.next()){
+            int id=rs.getInt("room_id");
+            roomtype=rs.getString("room_type");
+
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/roomcard.fxml"));
+            AnchorPane card=loader.load();
+
+            RoomCardController cardcontrol=loader.getController();
+
+            cardcontrol.setdata(id, roomtype,this);
+
+            //animation!!
+            FadeTransition ft=new FadeTransition(Duration.millis(500),card);
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+            cardcontainer.getChildren().add(card);
+        }
     }
-}
-    public void loadpcforroom(int roomid) throws SQLException, IOException{
+    //method for loading pcs when u tap a roomcard
+    public void loadpcforroom(int roomid) throws SQLException, IOException, ClassNotFoundException{
         pcpane.setVisible(true);
         roompane.setVisible(false);
-        
         
         pccontainer.getChildren().clear();
         pst=con.prepareStatement("Select * from pcs where room_id = ?");
@@ -117,15 +121,16 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
         rs=pst.executeQuery();
         
         while(rs.next()){
-            String no=rs.getString("pc_no");            
+            int no=rs.getInt("pc_no");           
             String pcname="PC - "+no;
+            int pcid=rs.getInt("pc_id");
            
             FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/pccard.fxml"));
             AnchorPane card=loader.load();
             
             PcCardController cardcontrol=loader.getController();
-        
-            cardcontrol.setpcinfo(pcname,this,roomid);
+            cardcontrol.setRoomType(roomtype);
+            cardcontrol.setpcinfo(pcname,this,roomid,pcid);
             
             //animation!!
             FadeTransition ft=new FadeTransition(Duration.millis(500),card);
@@ -138,20 +143,37 @@ public void loadrooms(String roomcategory) throws SQLException, IOException{
         }        
     }
     
-    public void showpackages(String pcno) throws IOException{
+    public void showuserlist(int pcid,int roomid) throws IOException{
+        
+        FXMLLoader userloader=new FXMLLoader(getClass().getResource("/view/userlist.fxml"));
+        AnchorPane userpopup=userloader.load();
+        UserlistController usercontroller=userloader.getController();
+        usercontroller.setroomtype(roomtype);
+        
+        Stage popupstage=new Stage();
+        popupstage.initModality(Modality.APPLICATION_MODAL);
+        popupstage.setTitle("");
+        popupstage.setScene(new Scene(userpopup));
+        popupstage.showAndWait();
+    }
+    //load the modal when u tap a pc
+    public void showpackages(int pcid,int roomid) throws IOException, ClassNotFoundException, SQLException{
+        
         
         FXMLLoader loader=new FXMLLoader(getClass().getResource("/view/package.fxml"));
         AnchorPane popup=loader.load();
         
+        PackageController controller=loader.getController();
+        controller.setpcandroom(pcid,roomid);
+        String roomtype=controller.getroomtype(roomid);
+        controller.setroominfo(roomtype, pcid, roomid);
+                
         Stage popupstage=new Stage();
         popupstage.initModality(Modality.APPLICATION_MODAL);
         popupstage.setTitle("Select Package");
         popupstage.setScene(new Scene(popup));
-        popupstage.show();
+        popupstage.showAndWait();
         
-//        PackageController popupcontroller=loader.getController();
-//        popupcontroller.setPCID(pcid);
-//        
     }
     
     @FXML

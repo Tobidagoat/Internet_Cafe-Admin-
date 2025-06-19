@@ -3,12 +3,10 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="725.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
    <children>
@@ -42,8 +40,7 @@
          </font>
       </Label>
       <FontIcon disable="true" iconColor="WHITE" iconLiteral="fa-plus" iconSize="17" layoutX="281.0" layoutY="94.0" />
-      <TextField fx:id="lbusers" layoutX="75.0" layoutY="75.0" />
-      <AnchorPane layoutX="487.0" layoutY="125.0" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+      <AnchorPane fx:id="diamondpackage" layoutX="487.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
          <children>
             <Label alignment="CENTER" layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to bottom right, #aca4eb, #b36cff); -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="Diamond" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -90,7 +87,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="255.0" layoutY="125.0" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+      <AnchorPane fx:id="goldpackage" layoutX="255.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
          <children>
             <Label alignment="CENTER" layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to bottom right, #ffe93d, #ffee5c); -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="Gold" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -137,7 +134,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="23.0" layoutY="125.0" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+      <AnchorPane fx:id="silverpackage" layoutX="23.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
          <children>
             <Label alignment="CENTER" layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="Silver" textAlignment="CENTER">
                <font>
@@ -184,5 +181,10 @@
             </Label>
          </children>
       </AnchorPane>
+      <Label fx:id="lbusers" alignment="CENTER" layoutX="72.0" layoutY="78.0" prefHeight="15.0" prefWidth="170.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

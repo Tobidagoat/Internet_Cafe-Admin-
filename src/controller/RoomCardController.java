@@ -32,7 +32,7 @@ public class RoomCardController implements Initializable {
     private Label lbroomcategory;
     
     private RoomController controller;
-    private String roomid;
+    private int roomid;
     /**
      * Initializes the controller class.
      */
@@ -40,21 +40,18 @@ public class RoomCardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
-    public void setdata(String roomid, String roomtype,RoomController controller){
+    public void setdata(int roomid, String roomtype,RoomController controller){
         this.roomid=roomid;
         this.controller=controller;
-        lbroomno.setText(roomid);
+        lbroomno.setText("PC - "+roomid);
         lbroomcategory.setText(roomtype);
         
     }
     @FXML
-    public void loadpc(MouseEvent event) throws SQLException, IOException{
+    public void loadpc(MouseEvent event) throws SQLException, IOException, ClassNotFoundException{
         System.out.println("hehehaha");
         System.out.println(roomid);
-        String numberstr=roomid.replaceAll("[^0-9]", "");
-        int number=Integer.parseInt(numberstr);
-        System.out.println(number);
-        controller.loadpcforroom(number);
+        controller.loadpcforroom(roomid);
         
 //        if(controller != null){
 //            controller.loadpcforroom(roomid);
