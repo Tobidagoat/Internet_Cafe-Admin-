@@ -28,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -54,7 +55,8 @@ public class UserlistController implements Initializable {
     private Stage packagestage;
     private Label selectedlabel;
     private int userlimit=1;
-    private List<CheckBox>allcheckboxes=new ArrayList<>();
+    private List<String> allusers=new ArrayList<>();
+    private List<String> selectedusers=new ArrayList<>();
     Connection con;
     ResultSet rs;
     Statement stmt;
@@ -99,41 +101,62 @@ public class UserlistController implements Initializable {
         String sql="Select * from users";
         pst=con.prepareStatement(sql);
         rs=pst.executeQuery(sql);
+        allusers.clear();
         while(rs.next()){
             String name=rs.getString("customer_name");
-            CheckBox check=new CheckBox(name);
-            allcheckboxes.add(check);
-            check.setOnAction(event->{handleselectlimit();});
-            HBox userbox=new HBox(check);
-            userbox.setPadding(new Insets(10));
-            userbox.setSpacing(10);
-            userbox.setStyle("-fx-background-color: #f0f0f0;"
-                    + "-fx-border-color: #ccc;"
-                    + "-fx-bordr-radius: 8;"
-                    + "-fx-background-radius: 8;");
-            listvbox.getChildren().add(userbox);
+            allusers.add(name);
         }
+        showuser(allusers);
     }
     
-    private void handleselectlimit(){
-        int selectcount=0;
-        for (CheckBox cb: allcheckboxes){
-            if(cb.isSelected()){
-                selectcount++;
-            }
+    private void showuser(List<String> usersToShow) {
+    listvbox.getChildren().clear();
+
+    for (String name : usersToShow) {
+        CheckBox check = new CheckBox(name);
+        if (selectedusers.contains(name)) {
+            check.setSelected(true);
         }
-        if (selectcount>=userlimit){
-            for(CheckBox cb: allcheckboxes){
-                if(!cb.isSelected()){
-                    cb.setDisable(true);
+
+        check.setOnAction(event -> {
+            if (check.isSelected()) {
+                if (selectedusers.size() < userlimit) {
+                    selectedusers.add(name);
+                } else {
+                    check.setSelected(false);
                 }
+            } else {
+                selectedusers.remove(name);
             }
-        }else{
-            for(CheckBox cb: allcheckboxes){
-                cb.setDisable(false);
+            updateCheckboxStates();
+        });
+
+        HBox box = new HBox(check);
+        box.setPadding(new Insets(10));
+        box.setSpacing(10);
+        box.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #ccc;");
+        listvbox.getChildren().add(box);
+    }
+}
+    
+    private void updateCheckboxStates() {
+    for (Node node : listvbox.getChildren()) {
+        if (node instanceof HBox hb) {
+            for (Node child : hb.getChildren()) {
+                if (child instanceof CheckBox cb) {
+                    if (!cb.isSelected()) {
+                        cb.setDisable(selectedusers.size() >= userlimit);
+                    } else {
+                        cb.setDisable(false);
+                    }
+                }
             }
         }
     }
+    }
+
+    
+   
     @FXML
     private void listconfirmaction(ActionEvent event) throws ClassNotFoundException, SQLException {
         List<String> selectuserlist= new ArrayList<>();
@@ -178,8 +201,20 @@ public class UserlistController implements Initializable {
         this.selectedlabel=label;
     }
      @FXML
-    void txtsearchaction(ActionEvent event) {
-        
+    private void txtsearchaction(ActionEvent event) {
+        String keyword = txtsearch.getText().toLowerCase().trim();
+        List<String> filtered = new ArrayList<>();
+        for (String name : allusers) {
+            if (name.toLowerCase().contains(keyword)) {
+                filtered.add(name);
+            }
+        }
+        showuser(filtered);
     }
-    
+    @FXML
+    private void txtsearchkey(KeyEvent event) {
+    txtsearchaction(null); 
+    }
+
+
 }
