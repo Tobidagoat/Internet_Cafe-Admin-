@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/CustomerController.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/model/customer.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/internet_cafe_admin/Internet_Cafe_admin.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/AddCustomerController.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/DefaultController.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/view/Update_Customer.fxml</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/Update_CustomerController.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/database/DbConnection.java</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/view/addCustomer.fxml</file>
+            <file>file:/D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/controller/LoginController.java</file>
+        </group>
+    </open-files>
+</project-private>
