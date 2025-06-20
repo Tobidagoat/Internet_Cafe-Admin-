@@ -96,7 +96,7 @@ public class AddCustomerController implements Initializable {
         txtPhone.setText("");
         txtEmail.setText("");
     }
-
+    @FXML
     private void HandleAddAction(ActionEvent event) throws SQLException, IOException {
         
         
@@ -151,6 +151,8 @@ public class AddCustomerController implements Initializable {
         };
         
            }
+    
+    
     public void setOnCustomerAdded(Runnable onCustomerAdded){
         this.onCustomerAdded = onCustomerAdded;
     }

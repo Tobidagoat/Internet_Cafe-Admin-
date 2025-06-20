@@ -46,6 +46,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import controller.Update_CustomerController;
+import javafx.scene.input.KeyEvent;
 
 import model.customer;
 /**
@@ -340,6 +341,33 @@ public class CustomerController implements Initializable {
     
     @FXML
     private void HandleFilterAction(ActionEvent event) {
+    }
+    
+     @FXML
+    void HandleAutoSearchAction(KeyEvent event) throws SQLException {
+        
+        if(txtSearch.getText().isEmpty()){
+            initCustomerList();
+            cTable.setItems(customerList);
+        }else{
+            String sql = "select * from users where customer_id like ? or customer_name like ?";
+            
+            pst = con.prepareStatement(sql);
+            pst.setString(1, txtSearch.getText()+"%");
+            pst.setString(2, txtSearch.getText()+"%");
+            rs = pst.executeQuery();
+            boolean found = false;
+            customerList.removeAll(customerList);
+            
+            while(rs.next()){
+                found =true;
+                customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date")));
+            }
+            
+            
+        }
+
+
     }
     
     

@@ -100,7 +100,7 @@
                   <MenuItem mnemonicParsing="false" text="Action 2" />
                </items>
             </MenuButton>
-            <TextField fx:id="txtSearch" layoutX="863.0" layoutY="31.0" onAction="#HandleSearchBarAction" promptText="Search" styleClass="customer_search_bar" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="20.0" />
+            <TextField fx:id="txtSearch" layoutX="863.0" layoutY="31.0" onAction="#HandleSearchBarAction" onKeyReleased="#HandleAutoSearchAction" promptText="Search" styleClass="customer_search_bar" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="20.0" />
             <Button fx:id="btnSearch" layoutX="1043.0" layoutY="27.0" mnemonicParsing="false" onAction="#HandleSearchAction" prefHeight="26.0" prefWidth="42.0" styleClass="customer_search_bar_button" />
             <FontIcon disable="true" iconLiteral="fa-search" layoutX="1060.0" layoutY="47.0" styleClass="customer_searh_bar_icon" />
          </children>
