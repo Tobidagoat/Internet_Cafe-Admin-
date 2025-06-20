@@ -95,6 +95,8 @@ public class DefaultController implements Initializable {
         
         AnchorPane.setTopAnchor(newLoadedPane, 0.0);
         AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+         AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+          AnchorPane.setRightAnchor(newLoadedPane, 0.0);
         
         
     }

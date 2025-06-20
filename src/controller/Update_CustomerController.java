@@ -5,37 +5,31 @@
 package controller;
 
 import database.DbConnection;
-import internet_cafe_admin.Internet_Cafe_admin;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
-
+import model.customer;
 
 /**
  * FXML Controller class
  *
  * @author Linn Hein Htet
  */
-public class AddCustomerController implements Initializable {
+public class Update_CustomerController implements Initializable {
 
     @FXML
     private TextField txtName;
@@ -45,17 +39,16 @@ public class AddCustomerController implements Initializable {
     private TextField txtEmail;
     @FXML
     private Button btnCancel;
-    private Button btnAdd;
-    
-     Statement st;
-    PreparedStatement pst;
-    
-    Connection con = null;
-    private Runnable onCustomerAdded;
     @FXML
     private Button btnUpdate;
     
+    ObservableList<customer> customerList;
+      Statement st;
+    PreparedStatement pst;
+    private Runnable onCustomerAdded;
     
+    Connection con = null;
+    int ccId;
     
 
     /**
@@ -65,14 +58,17 @@ public class AddCustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         DbConnection db = new DbConnection();
-        
         try {
             con = db.getConnection();
             
+            
+            
+            
+
+            
         } catch (ClassNotFoundException ex) {
-           
+            Logger.getLogger(Update_CustomerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }    
 
     @FXML
@@ -83,7 +79,6 @@ public class AddCustomerController implements Initializable {
     @FXML
     private void HandlePhoneAction(ActionEvent event) {
         txtEmail.requestFocus();
-
     }
 
     @FXML
@@ -92,15 +87,15 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     private void HandleCancelAction(ActionEvent event) {
-        txtName.setText("");
+         txtName.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
     }
+
     @FXML
-    private void HandleAddAction(ActionEvent event) throws SQLException, IOException {
+    private void HandleUpdateAction(ActionEvent event) throws SQLException {
         
-        
-        if(txtName.getText().isEmpty()){
+                if(txtName.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Please Fill the Name!");
         }
         else if(txtPhone.getText().isEmpty()){
@@ -120,16 +115,16 @@ public class AddCustomerController implements Initializable {
                         JOptionPane.showMessageDialog(null, "E-mail is not Eligible!");
                     }
                     else{
-                          LocalDate date = LocalDate.now();
-                          String day = date.toString();
+                         
             
             
-                          String sql = "insert into users (customer_name,ph_no,e_mail,date) values (?,?,?,?)";
+                          String sql = "update users set customer_name =?,ph_no =?, e_mail=? where customer_id =?";
                           pst = con.prepareStatement(sql);
                           pst.setString(1, txtName.getText().trim());
                           pst.setString(2, txtPhone.getText().trim());
                           pst.setString(3, txtEmail.getText().trim());
-                          pst.setString(4, day);
+                          pst.setInt(4, ccId);
+                          
             
            
            
@@ -138,7 +133,7 @@ public class AddCustomerController implements Initializable {
                           if(onCustomerAdded !=null){
                             onCustomerAdded.run();
                             }
-                          Stage stage = (Stage)btnAdd.getScene().getWindow();
+                          Stage stage = (Stage)btnUpdate.getScene().getWindow();
                           stage.close();
            
                         
@@ -147,35 +142,20 @@ public class AddCustomerController implements Initializable {
                 
                 
             }
-<<<<<<< HEAD
-        }
-        else{
-            
-             LocalDate date = LocalDate.now();
-            String day = date.toString();
-            
-            
-            String sql = "insert into users (customer_name,ph_no,e_mail,date) values(?,?,?,?)";
-            pst = con.prepareStatement(sql);
-            pst.setString(1, txtName.getText().trim());
-            pst.setString(2, txtPhone.getText().trim());
-            pst.setString(3, txtEmail.getText().trim());
-            pst.setString(4, day);
-            
-=======
->>>>>>> fck_customer
-           
-        };
         
-           }
-    
-    
-    public void setOnCustomerAdded(Runnable onCustomerAdded){
+        
+    }
+    }
+    public void UpdateData (int id,String name, String phno, String email){
+        
+        this.ccId = id;
+        txtName.setText(name);
+        txtPhone.setText(phno);
+        txtEmail.setText(email);
+    }
+     public void setOnCustomerAdded(Runnable onCustomerAdded){
         this.onCustomerAdded = onCustomerAdded;
     }
+    
 
-    
-    
-    
-    
 }
