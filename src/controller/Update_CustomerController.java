@@ -45,7 +45,7 @@ public class Update_CustomerController implements Initializable {
     ObservableList<customer> customerList;
       Statement st;
     PreparedStatement pst;
-    private Runnable onCustomerAdded;
+    private Runnable onCustomerAdded1;
     
     Connection con = null;
     int ccId;
@@ -130,15 +130,34 @@ public class Update_CustomerController implements Initializable {
            
                           pst.executeUpdate();
            
-                          if(onCustomerAdded !=null){
-                            onCustomerAdded.run();
+                          if(onCustomerAdded1 !=null){
+                            onCustomerAdded1.run();
                             }
                           Stage stage = (Stage)btnUpdate.getScene().getWindow();
                           stage.close();
            
                         
                     }
-        }
+        }else{
+                     String sql = "update users set customer_name =?,ph_no =?, e_mail=? where customer_id =?";
+                          pst = con.prepareStatement(sql);
+                          pst.setString(1, txtName.getText().trim());
+                          pst.setString(2, txtPhone.getText().trim());
+                          pst.setString(3, txtEmail.getText().trim());
+                          pst.setInt(4, ccId);
+                          
+            
+           
+           
+                          pst.executeUpdate();
+           
+                          if(onCustomerAdded1 !=null){
+                            onCustomerAdded1.run();
+                            }
+                          Stage stage = (Stage)btnUpdate.getScene().getWindow();
+                          stage.close();
+
+                }
                 
                 
             }
@@ -153,8 +172,8 @@ public class Update_CustomerController implements Initializable {
         txtPhone.setText(phno);
         txtEmail.setText(email);
     }
-     public void setOnCustomerAdded(Runnable onCustomerAdded){
-        this.onCustomerAdded = onCustomerAdded;
+     public void setOnCustomerAdded1(Runnable onCustomerAdded1){
+        this.onCustomerAdded1 = onCustomerAdded1;
     }
     
 

@@ -45,6 +45,7 @@ public class AddCustomerController implements Initializable {
     private TextField txtEmail;
     @FXML
     private Button btnCancel;
+    @FXML
     private Button btnAdd;
     
      Statement st;
@@ -120,7 +121,31 @@ public class AddCustomerController implements Initializable {
                         JOptionPane.showMessageDialog(null, "E-mail is not Eligible!");
                     }
                     else{
-                          LocalDate date = LocalDate.now();
+                        addData();
+                          
+                        
+                    }
+        }else{
+                         addData();
+           
+                        
+                    }
+
+                
+                
+            }
+
+        }
+                
+           }
+    
+    
+    public void setOnCustomerAdded(Runnable onCustomerAdded){
+        this.onCustomerAdded = onCustomerAdded;
+    }
+    
+    public void addData() throws SQLException{
+        LocalDate date = LocalDate.now();
                           String day = date.toString();
             
             
@@ -136,43 +161,16 @@ public class AddCustomerController implements Initializable {
                           pst.executeUpdate();
            
                           if(onCustomerAdded !=null){
+                                      
+                              
                             onCustomerAdded.run();
                             }
+                          System.out.println("dummy test");
                           Stage stage = (Stage)btnAdd.getScene().getWindow();
                           stage.close();
            
-                        
-                    }
-        }
-                
-                
-            }
-<<<<<<< HEAD
-        }
-        else{
-            
-             LocalDate date = LocalDate.now();
-            String day = date.toString();
-            
-            
-            String sql = "insert into users (customer_name,ph_no,e_mail,date) values(?,?,?,?)";
-            pst = con.prepareStatement(sql);
-            pst.setString(1, txtName.getText().trim());
-            pst.setString(2, txtPhone.getText().trim());
-            pst.setString(3, txtEmail.getText().trim());
-            pst.setString(4, day);
-            
-=======
->>>>>>> fck_customer
-           
-        };
-        
-           }
     
-    
-    public void setOnCustomerAdded(Runnable onCustomerAdded){
-        this.onCustomerAdded = onCustomerAdded;
-    }
+}
 
     
     

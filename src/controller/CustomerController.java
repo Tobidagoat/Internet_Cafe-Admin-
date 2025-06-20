@@ -161,7 +161,8 @@ public class CustomerController implements Initializable {
               customer c =(customer)cTable.getSelectionModel().getSelectedItem();
               String ccName= c.getName();
               String ccPhone = c.getPhno();
-              String ccEmail = c.getEmail();
+              String ccEmail = null;
+              ccEmail=c.getEmail();
               int ccId = c.getCid();
              
               
@@ -176,20 +177,13 @@ public class CustomerController implements Initializable {
                 controller.UpdateData(ccId, ccName, ccPhone, ccEmail);
                 
                 
-                controller.setOnCustomerAdded(()->{
+                controller.setOnCustomerAdded1(()->{
             try {
-                
                 loadTable();
             } catch (SQLException ex) {
                 Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
-             
-             
          });
-          
-          
-                
                     Stage editStage = new Stage();
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.setScene(new Scene(editRoot));
