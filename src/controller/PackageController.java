@@ -28,6 +28,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.scene.control.ComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,6 +52,8 @@ public class PackageController implements Initializable {
     private AnchorPane goldpackage;
     @FXML
     private AnchorPane silverpackage;
+    @FXML
+    private ComboBox<String> timecombobox;
     
     DbConnection db=new DbConnection();
     Connection con;
@@ -65,8 +68,11 @@ public class PackageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+        timecombobox.getItems().addAll(
+        "1 minute", "1 hour", "2 hours", "3 hours"
+    );
+        timecombobox.setValue("1 hour");
+    } 
 
    
 
@@ -141,6 +147,8 @@ public class PackageController implements Initializable {
         String selectedpackage=this.selectedpackage;
         String selectedusers=this.lbusers.getText();
         String roomtype=getroomtype(selectedroomid);
+        String selectedtime = timecombobox.getValue();
+        int duration= converttime(selectedtime);
         
         if(selectedusers.isEmpty()||selectedpackage==null){
             JOptionPane.showMessageDialog(null, "Please select both user and a package.");
@@ -148,15 +156,16 @@ public class PackageController implements Initializable {
         }
         String message="User : "+String.join(",", selectedusers)+"|Package : "+selectedpackage;
         
+        
         if(roomtype.equalsIgnoreCase("couple")){
             List<String> pclist=getpcfromroomid(selectedroomid);
             
             for(String pc: pclist){
-                //sendtoclient(pc,message);
+                //sendtoclient(pc,selectedroomid,selectedpackage,duration);
                 System.out.println("Sent to Couple pc: "+pc);
             }
         }else{
-            //sendtoclient(selectedpcid,message);
+            //sendtoclient(selectedpcid,selectedroomid,selectedpackage,duration);
             System.out.println("Sent to pc: "+selectedpcid);
         }
         
@@ -165,6 +174,15 @@ public class PackageController implements Initializable {
         
     }
     
+    private int converttime(String time){
+        switch(time){
+            case "1 minute": return 15 * 60;
+            case "1 hour": return 60 * 60;
+            case "2 hours": return 2 * 60 * 60;
+            case "3 hours": return 3 * 60 * 60;
+            default: return 60 * 60;
+        }
+    }
     
     
 

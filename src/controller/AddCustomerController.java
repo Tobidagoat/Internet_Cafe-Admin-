@@ -143,13 +143,7 @@ public class AddCustomerController implements Initializable {
            
                         
                     }
-        }
-                
-                
-            }
-<<<<<<< HEAD
-        }
-        else{
+        }  else{
             
              LocalDate date = LocalDate.now();
             String day = date.toString();
@@ -162,10 +156,15 @@ public class AddCustomerController implements Initializable {
             pst.setString(3, txtEmail.getText().trim());
             pst.setString(4, day);
             
-=======
->>>>>>> fck_customer
+
            
         };
+                
+                
+            }
+
+        }
+      
         
            }
     
