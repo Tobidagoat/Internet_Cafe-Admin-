@@ -1,0 +1,87 @@
+/* === CHART CONTAINER === */
+.chart {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+    -fx-border-color: #333;
+    -fx-border-width: 0 0 1 0;
+    -fx-text-fill:white;
+    -fx-tick-label-fill: rgb(255, 106, 0);
+}
+
+/* === PLOT BACKGROUND === */
+.chart-plot-background {
+    -fx-background-color: linear-gradient(to bottom, #000000, #000000);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* === GRID LINES === */
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+    -fx-stroke: #2a2929;
+    -fx-stroke-dash-array: 2 2;
+}
+
+/* === AXIS STYLING === */
+.axis {
+    -fx-tick-label-fill: rgb(255, 106, 0);
+    -fx-tick-length: 5;
+    -fx-minor-tick-visible: false;
+}
+
+.axis-label {
+    -fx-text-fill: rgb(255, 106, 0);
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-radius: 10;
+}
+
+/* === AREA FILL === */
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(0, 144, 255, 0.2); /* Internet income */
+}
+
+.default-color1.chart-series-area-fill {
+    -fx-fill: rgba(255, 128, 0, 0.25); /* Food income */
+}
+
+/* === LINE COLOR === */
+.default-color0.chart-series-line {
+    -fx-stroke: #0090ff;
+    -fx-stroke-width: 2px;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: #ff8000;
+    -fx-stroke-width: 2px;
+}
+
+/* === SYMBOLS (Dots) === */
+.chart-line-symbol {
+    -fx-background-radius: 3px;
+    -fx-padding: 3;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #0090ff, white;
+}
+
+.default-color1.chart-line-symbol {
+    -fx-background-color: #ff8000, white;
+}
+
+/* === Tooltip (optional) === */
+.chart-tooltip {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+    -fx-padding: 5;
+    -fx-font-size: 11px;
+}

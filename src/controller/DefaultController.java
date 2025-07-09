@@ -62,7 +62,8 @@ public class DefaultController implements Initializable {
     }
 
     @FXML
-    private void HandleSwitchDataAction(ActionEvent event) {
+    private void HandleSwitchDataAction(ActionEvent event) throws IOException {
+        loadUI("/view/data.fxml");
     }
 
     @FXML

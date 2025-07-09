@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="content_anchor_pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataController">
+   <children>
+      <HBox alignment="CENTER" layoutX="483.0" layoutY="16.0" prefHeight="74.0" prefWidth="451.0" styleClass="data_date_switch_container" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0">
+         <children>
+            <ToggleButton fx:id="btn1week" mnemonicParsing="false" onAction="#Handle1weekAction" styleClass="data_date_switch_toggle_btn" text="1W">
+               <toggleGroup>
+                  <ToggleGroup fx:id="date_switch_group" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="btn1month" mnemonicParsing="false" onAction="#Handle1monthAction" prefHeight="26.0" prefWidth="70.0" styleClass="data_date_switch_toggle_btn" text="1M" toggleGroup="$date_switch_group" />
+            <ToggleButton fx:id="btn3month" mnemonicParsing="false" onAction="#Handle3monthAction" styleClass="data_date_switch_toggle_btn" text="3M" toggleGroup="$date_switch_group" />
+            <ToggleButton fx:id="btnAllTime" mnemonicParsing="false" onAction="#HandleAllTimeAction" styleClass="data_date_switch_toggle_btn" text="ALL" toggleGroup="$date_switch_group" />
+         </children>
+         <stylesheets>
+            <URL value="@../css/fx_style.css" />
+            <URL value="@../css/chart_style.css" />
+         </stylesheets>
+      </HBox>
+      <AnchorPane layoutX="47.0" layoutY="110.0" prefHeight="402.0" prefWidth="699.0" style="-fx-background-color: #161719; -fx-background-radius: 20;">
+         <children>
+            <AreaChart fx:id="areaChart" layoutY="-59.0" prefHeight="374.0" prefWidth="687.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <xAxis>
+                <NumberAxis autoRanging="true" label="Date" fx:id="xAxis" />
+               </xAxis>
+                <yAxis>
+                <NumberAxis label="Income" />
+                </yAxis>
+            </AreaChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="923.0" layoutY="124.0" prefHeight="281.0" prefWidth="379.0">
+         <children>
+            <PieChart fx:id="pieChart" layoutX="-50.0" layoutY="-87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+   <stylesheets>
+      <URL value="@../css/fx_style.css" />
+      <URL value="@../css/chart_style.css" />
+   </stylesheets>
+</AnchorPane>
