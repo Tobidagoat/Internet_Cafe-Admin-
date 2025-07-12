@@ -46,21 +46,21 @@
 
 /* === AREA FILL === */
 .default-color0.chart-series-area-fill {
-    -fx-fill: rgba(0, 144, 255, 0.2); /* Internet income */
+    -fx-fill: rgba(255, 72, 0, 0.2); /* Internet income */
 }
 
 .default-color1.chart-series-area-fill {
-    -fx-fill: rgba(255, 128, 0, 0.25); /* Food income */
+    -fx-fill: rgba(255, 174, 0, 0.25); /* Food income */
 }
 
 /* === LINE COLOR === */
 .default-color0.chart-series-line {
-    -fx-stroke: #0090ff;
+    -fx-stroke: #ff0000;
     -fx-stroke-width: 2px;
 }
 
 .default-color1.chart-series-line {
-    -fx-stroke: #ff8000;
+    -fx-stroke: rgb(128, 87, 0);
     -fx-stroke-width: 2px;
 }
 
@@ -71,11 +71,11 @@
 }
 
 .default-color0.chart-line-symbol {
-    -fx-background-color: #0090ff, white;
+    -fx-background-color: #0090ff, rgb(0, 255, 30);
 }
 
 .default-color1.chart-line-symbol {
-    -fx-background-color: #ff8000, white;
+    -fx-background-color: #ff8000, rgb(68, 255, 0);
 }
 
 /* === Tooltip (optional) === */
@@ -85,3 +85,22 @@
     -fx-padding: 5;
     -fx-font-size: 11px;
 }
+
+.axis .label {
+    -fx-text-fill: orange;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.chart-title {
+    -fx-text-fill: #ffaa00;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #dddddd;
+    -fx-font-size: 12px;
+}
+    
+

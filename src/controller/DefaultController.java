@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import jdk.jshell.execution.LoaderDelegate;
 
 /**
  * FXML Controller class
@@ -48,6 +50,13 @@ public class DefaultController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+         sideBarToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+        if (newToggle == null) {
+            // Re-select the previous toggle
+            sideBarToggleGroup.selectToggle(oldToggle);
+        }
+    });
         try {
             loadUI("/view/Customer.fxml");
             btnHome.setSelected(true);
@@ -63,7 +72,12 @@ public class DefaultController implements Initializable {
 
     @FXML
     private void HandleSwitchDataAction(ActionEvent event) throws IOException {
-        loadUI("/view/data.fxml");
+       loadUI("/view/data.fxml");
+       
+   
+        
+
+        
     }
 
     @FXML
@@ -90,7 +104,8 @@ public class DefaultController implements Initializable {
     }
     
     public void loadUI(String fxmlPath) throws IOException{
-        AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        AnchorPane newLoadedPane = loader.load();
         mainContentAnchorPane.getChildren().clear();
         mainContentAnchorPane.getChildren().add(newLoadedPane);
         
@@ -101,4 +116,5 @@ public class DefaultController implements Initializable {
         
         
     }
+   
 }

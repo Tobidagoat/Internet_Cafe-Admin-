@@ -269,10 +269,21 @@
     -fx-background-radius:10px;
     -fx-text-fill:white;
     -fx-border-color:rgb(255, 106, 0);
+    -fx-background-insets: 0;
     
 }
-.data_date_switch_toggle_btn:selected:focused{
-    -fx-background-color:rgb(255, 106, 0);
+
+.data_date_switch_toggle_btn:hover {
+    -fx-background-color: #000000;
+    -fx-text-fill:rgb(255, 106, 0);
+}
+
+.selected-toggle {
+    -fx-background-color: rgb(255, 106, 0);
+    -fx-text-fill: white;
+    -fx-border-color:rgb(0, 0, 0);
+     
+    
 }
 
 

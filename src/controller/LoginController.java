@@ -98,6 +98,7 @@ public class LoginController implements Initializable {
 //            stage.initStyle(StageStyle.UTILITY);
             stage.setScene(scene);
             stage.centerOnScreen();
+            stage.setMaximized(true);
             stage.show();
         }
     }

@@ -14,9 +14,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
@@ -28,12 +26,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Button;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -45,15 +41,16 @@ import javafx.util.StringConverter;
 public class DataController implements Initializable {
 
     @FXML
-    private ToggleButton btn1week;
+    private Button btn1month;
+
     @FXML
-    private ToggleGroup date_switch_group;
+    private Button btn1week;
+
     @FXML
-    private ToggleButton btn1month;
+    private Button btn3month;
+
     @FXML
-    private ToggleButton btn3month;
-    @FXML
-    private ToggleButton btnAllTime;
+    private Button btnAllTime;
     @FXML
     private AreaChart<Number, Number> areaChart;
     @FXML 
@@ -63,19 +60,14 @@ public class DataController implements Initializable {
     @FXML
     private PieChart pieChart;
     
+    private Button selectedToggle = null;
+   
     //AreaChart elements
     
     private XYChart.Series<Number, Number> gamingIncomeSeries = new XYChart.Series<>();
-    private XYChart.Series<Number, Number> foodIncomeSeries = new XYChart.Series<>();
-    
+    private XYChart.Series<Number, Number> foodIncomeSeries = new XYChart.Series<>(); 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    
-     
-     
-     
-     
-    
-    
+       
     Connection con;
     Statement st;
     ResultSet rs;
@@ -90,7 +82,7 @@ public class DataController implements Initializable {
         DbConnection db = new DbConnection();
         try {
             con = db.getConnection();
-            // TODO
+            
         } catch (ClassNotFoundException ex) {
             System.out.println("db not connected");
         }
@@ -99,28 +91,14 @@ public class DataController implements Initializable {
         
         areaChart.setTitle("Sale Information");
         areaChart.getData().addAll(gamingIncomeSeries, foodIncomeSeries);
-        
-        
         gamingIncomeSeries.setName("Internet cafe Income");
         foodIncomeSeries.setName("Food Income");
-        
-        //Calling this month
-        LocalDate today = LocalDate.now();
-        LocalDate startOfMonth = today.withDayOfMonth(1);
-        LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
-        
-        long lowerBound = startOfMonth.toEpochDay();
-        long upperBound = endOfMonth.toEpochDay();
 
-        
-        xAxis.setTickUnit(1); // 1 day
+        btn1month.fire();
+         
         xAxis.setMinorTickCount(0); // No half-days or fractions
         xAxis.setForceZeroInRange(false); // avoid left side hug
         xAxis.setAutoRanging(false);
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        
-        
         
         //Formatting Date
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
@@ -134,10 +112,7 @@ public class DataController implements Initializable {
             return LocalDate.parse(string, formatter).toEpochDay();
     }
 });
-
-
-
-        
+ 
         //Real-time update
        Timeline timeline = new Timeline(
         new KeyFrame(Duration.ZERO, e -> {
@@ -147,39 +122,64 @@ public class DataController implements Initializable {
                  System.out.println("db not connected in time frame ");
                 
             }
-        }),          // 👉 fire immediately!
-        new KeyFrame(Duration.seconds(5))                         // 👉 then wait 5 sec
+        }),     
+        new KeyFrame(Duration.seconds(5)) 
         );
 
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         
+        
+        //Pie Chart
+        
+        pieChart.setData(getPieChartData());
+        pieChart.setTitle("Best Sold Top-5 Food&Drink");
+        pieChart.setVisible(true);
+        pieChart.setLabelsVisible(true);
+        
+         
+        
    
         
     }    
 
-    @FXML
-    private void Handle1weekAction(ActionEvent event) {
+     @FXML
+    void HandleToggle(ActionEvent event) {
+
+        Button clicked = (Button) event.getSource();
+    setToggle(clicked); 
+    }
+    
+    private void setToggle(Button btn) {
+    if (selectedToggle != null) {
+        selectedToggle.getStyleClass().remove("selected-toggle");
     }
 
-    @FXML
-    private void Handle1monthAction(ActionEvent event) {
-    }
+    selectedToggle = btn;
+    selectedToggle.getStyleClass().add("selected-toggle");
 
-    @FXML
-    private void Handle3monthAction(ActionEvent event) {
-    }
+//    System.out.println("Selected: " + btn.getText());
 
-    @FXML
-    private void HandleAllTimeAction(ActionEvent event) {
+    // Trigger custom logic
+    if (btn == btn1week) {
+        call1week();
+    } else if (btn == btn1month) {
+        call1month();
+    } else if (btn == btn3month) {
+        call3month();
+    }else if(btn==btnAllTime){
+        try {
+            callAllTime();
+        } catch (SQLException ex) {
+            System.out.println("Error alll time");
+        }
     }
+}
 
     private void updateChartData() throws SQLException {
-        
-        
-        
-        String sql ="select sale.sale_date, total_price, total_food_price from sale, food_order where sale.sale_date = food_order.sale_date order by sale.sale_date ASC;";
+  
+        String sql ="SELECT d.sale_date, m.total_main AS main_income, f.total_food AS food_income FROM ( SELECT sale_date FROM sale UNION SELECT sale_date FROM food_order ) d LEFT JOIN ( SELECT sale_date, SUM(total_price) AS total_main FROM sale GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN ( SELECT sale_date, SUM(total_food_price) AS total_food FROM food_order GROUP BY sale_date) f ON d.sale_date = f.sale_date ORDER BY d.sale_date ASC;";
         st = con.prepareStatement(sql);
         rs = st.executeQuery(sql);
         
@@ -189,22 +189,106 @@ public class DataController implements Initializable {
                 LocalDate date = LocalDate.parse(dateStr, formatter);
                 long epochDay = date.toEpochDay(); // convert to numeric X value
 
-                
-                    double gamingIncome = rs.getDouble("total_price");
-                    double foodIncome = rs.getDouble("total_food_price");
+                    double gamingIncome = rs.getDouble("main_income");
+                    double foodIncome = rs.getDouble("food_income");
 
                     Platform.runLater(() -> {
                         gamingIncomeSeries.getData().add(new XYChart.Data<>(epochDay, gamingIncome));
                        foodIncomeSeries.getData().add(new XYChart.Data<>(epochDay, foodIncome));
                         areaChart.requestLayout();
-
-
                     });
-
-                    
-                
          }
     }
+    public void call1week(){
+        
+    }
+    public void call1month(){
+        LocalDate today = LocalDate.now();
+        LocalDate startOfMonth = today.withDayOfMonth(1);
+        LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+        
+        long lowerBound = startOfMonth.toEpochDay();
+        long upperBound = endOfMonth.toEpochDay();
+        xAxis.setLowerBound(lowerBound);
+        xAxis.setUpperBound(upperBound);
+        xAxis.setTickUnit(1);
+    }
+    public void call3month(){
+         LocalDate today = LocalDate.now();
+        LocalDate startOfMonth = today.minusMonths(2).withDayOfMonth(1);
+        LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+        
+        long lowerBound = startOfMonth.toEpochDay();
+        long upperBound = endOfMonth.toEpochDay();
+        xAxis.setLowerBound(lowerBound);
+        xAxis.setUpperBound(upperBound);
+        xAxis.setTickUnit(10);
+        
+    }
+    public void callAllTime() throws SQLException{
+        String sql = "select sale_date from sale  ORDER BY sale_date ASC limit 1;";
+        st = con.prepareStatement(sql);
+        rs =st.executeQuery(sql);
+        String date=null;
+        while(rs.next()){
+             date = rs.getString("sale_date"); 
+             
+        }
+         LocalDate today = LocalDate.now();
+         LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+         LocalDate startday =LocalDate.parse(date);
+         
+         
+        long lowerBound = startday.toEpochDay();
+        long upperBound = endOfMonth.toEpochDay();
+        xAxis.setLowerBound(lowerBound);
+        xAxis.setUpperBound(upperBound);
+        xAxis.setTickUnit(10);
+         
+        
+    }
+    public ObservableList<PieChart.Data> getPieChartData() {
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    int total_sold_of_top_5 = 0;
+    
+    // Get total sold of top 5
+    String sqll = "SELECT SUM(total_sold) AS top5_total_qty FROM (SELECT SUM(food_order_detail.qty) AS total_sold FROM food_order_detail JOIN foods ON foods.food_id = food_order_detail.food_id GROUP BY foods.food_id ORDER BY total_sold DESC LIMIT 5) AS top5;";
+    try {
+        st = con.prepareStatement(sqll);
+        rs = st.executeQuery(sqll);
+        
+        if(rs.next()) {
+            total_sold_of_top_5 = rs.getInt("top5_total_qty");
+        }
+    } catch (SQLException ex) {
+        System.out.println("pie chart data pull error: total sum of top 5");
+        ex.printStackTrace();
+        return pieChartData; // return empty list if error
+    }
+    
+    // Get individual food data
+    String sql = "SELECT foods.food_name as famous_food, SUM(food_order_detail.qty) AS total_sold FROM food_order_detail JOIN foods ON foods.food_id = food_order_detail.food_id GROUP BY foods.food_id, foods.food_name ORDER BY total_sold DESC LIMIT 5;";
+    try {
+        st = con.prepareStatement(sql);
+        rs = st.executeQuery(sql);
+        
+        while(rs.next()) {
+            int total_sold = rs.getInt("total_sold");
+            // Cast to double before division to avoid integer division
+            double percentage = ((double)total_sold / total_sold_of_top_5) * 100;
+            pieChartData.add(new PieChart.Data(rs.getString("famous_food"), percentage));
+        }
+    } catch (SQLException ex) {
+        System.out.println("pie chart data pull error");
+        ex.printStackTrace();
+    }
+    
+    return pieChartData;
+}
+    
+  
+
+
     
    
 }
