@@ -78,7 +78,7 @@ public class RoomController implements Initializable {
             Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
     }    
     //method for separating rooms with general and private
     public void loadrooms(String roomcategory) throws SQLException, IOException{
@@ -121,7 +121,7 @@ public class RoomController implements Initializable {
         rs=pst.executeQuery();
         
         while(rs.next()){
-            int no=rs.getInt("pc_no");           
+            int no=rs.getInt("pc_no");      
             String pcname="PC - "+no;
             int pcid=rs.getInt("pc_id");
            

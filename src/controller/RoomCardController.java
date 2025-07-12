@@ -43,14 +43,12 @@ public class RoomCardController implements Initializable {
     public void setdata(int roomid, String roomtype,RoomController controller){
         this.roomid=roomid;
         this.controller=controller;
-        lbroomno.setText("PC - "+roomid);
+        lbroomno.setText("ROOM - "+roomid);
         lbroomcategory.setText(roomtype);
         
     }
     @FXML
     public void loadpc(MouseEvent event) throws SQLException, IOException, ClassNotFoundException{
-        System.out.println("hehehaha");
-        System.out.println(roomid);
         controller.loadpcforroom(roomid);
         
 //        if(controller != null){

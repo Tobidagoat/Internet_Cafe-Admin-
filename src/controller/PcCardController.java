@@ -4,15 +4,18 @@
  */
 package controller;
 
+import internet_cafe_admin.server;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -28,15 +31,19 @@ public class PcCardController implements Initializable {
     
     private RoomController controller;
     private String pcno;
-    private int pcid;
+    public int pcid;
     private int roomid;
     private String roomtype;
+    server s = new server();
+    ArrayList<String> userlist;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
     }    
     public void setRoomType(String roomtype) {
     this.roomtype = roomtype;
@@ -49,17 +56,25 @@ public class PcCardController implements Initializable {
         this.pcid=pcid;
         this.roomtype=roomtype;
             
-        
         lbpcno.setText(pcno);
         
     }
     
+   
+    
     @FXML
     private void loadpackage(MouseEvent event) throws IOException, ClassNotFoundException, SQLException {
-        if(roomtype.equalsIgnoreCase("general")){
-            controller.showuserlist(pcid, roomid);
-        }else{
-            controller.showpackages(pcid,roomid);
+        userlist =s.getConnectedClients();
+        String s="pc"+pcid;
+        if(userlist.contains(s)){        
+            if(roomtype.equalsIgnoreCase("general")){
+                controller.showuserlist(pcid, roomid);
+            }else{
+                controller.showpackages(pcid,roomid);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "This pc is not connected yet.");
         }
        
     }

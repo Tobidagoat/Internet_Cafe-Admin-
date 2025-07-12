@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controller;
 
 import database.DbConnection;
+import internet_cafe_admin.server;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -31,11 +28,6 @@ import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javax.swing.JOptionPane;
 
-/**
- * FXML Controller class
- *
- * @author USER
- */
 public class PackageController implements Initializable {
 
     @FXML
@@ -45,7 +37,7 @@ public class PackageController implements Initializable {
     @FXML
     private Button btnuseradd;
     @FXML
-    private Label lbusers;    
+    private Label lbusers;
     @FXML
     private AnchorPane diamondpackage;
     @FXML
@@ -54,8 +46,8 @@ public class PackageController implements Initializable {
     private AnchorPane silverpackage;
     @FXML
     private ComboBox<String> timecombobox;
-    
-    DbConnection db=new DbConnection();
+
+    DbConnection db = new DbConnection();
     Connection con;
     PreparedStatement stmt;
     private String selectedpackage;
@@ -63,128 +55,120 @@ public class PackageController implements Initializable {
     private int pcid;
     private int roomid;
     private String roomtype;
-    /**
-     * Initializes the controller class.
-     */
+    private List<Integer> selectedUserIds = new ArrayList<>();
+
+    server s = new server();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         timecombobox.getItems().addAll(
-        "1 minute", "1 hour", "2 hours", "3 hours"
-    );
+                "1 minute", "1 hour", "2 hours", "3 hours"
+        );
         timecombobox.setValue("1 hour");
-    } 
-
-   
+    }
 
     @FXML
     private void btnbackaction(ActionEvent event) {
-        Stage stage=(Stage) btnsubmit.getScene().getWindow();
+        Stage stage = (Stage) btnsubmit.getScene().getWindow();
         stage.close();
-        
     }
-    
-    public void setroominfo(String roomtype,int pcid,int roomid) throws IOException, ClassNotFoundException, SQLException{
-        this.roomtype=roomtype;
-        this.pcid=pcid;
-        this.roomid=roomid;
+
+    public void setroominfo(String roomtype, int pcid, int roomid) throws IOException, ClassNotFoundException, SQLException {
+        this.roomtype = roomtype;
+        this.pcid = pcid;
+        this.roomid = roomid;
     }
 
     @FXML
     private void btnuseraddaction(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
-        FXMLLoader userloader=new FXMLLoader(getClass().getResource("/view/userlist.fxml"));
-        AnchorPane popup=userloader.load();
-        UserlistController controller=userloader.getController();
-        controller.setuserinfo(pcid, roomtype, roomid, "basic_pack",(Stage) btnsubmit.getScene().getWindow());
+        FXMLLoader userloader = new FXMLLoader(getClass().getResource("/view/userlist.fxml"));
+        AnchorPane popup = userloader.load();
+        UserlistController controller = userloader.getController();
+        controller.setuserinfo(pcid, roomtype, roomid, "basic_pack", (Stage) btnsubmit.getScene().getWindow());
         controller.setlabel(lbusers);
         controller.setroomtype(getroomtype(roomid));
-        Stage popupstage=new Stage();
+        Stage popupstage = new Stage();
         popupstage.initModality(Modality.APPLICATION_MODAL);
         popupstage.setScene(new Scene(popup));
         popupstage.showAndWait();
+
+        selectedUserIds = controller.getSelectedUserIds();
     }
-    
+
     @FXML
     void packagecardaction(MouseEvent event) {
-        Node node=(Node) event.getSource();
+        Node node = (Node) event.getSource();
         String packagename = node.getId();
-        selectedpackage=packagename;
+        selectedpackage = packagename;
         System.out.println(packagename);
     }
-    
-    public void setpcandroom(int pcid,int roomid){
-        this.pcid=pcid;
-        this.roomid=roomid;
+
+    public void setpcandroom(int pcid, int roomid) {
+        this.pcid = pcid;
+        this.roomid = roomid;
     }
-    
-    public String getroomtype(int roomid) throws ClassNotFoundException, SQLException{
-        String type="";
-        con=db.getConnection();
-        stmt=con.prepareStatement("Select room_type from rooms where room_id= ?");
+
+    public String getroomtype(int roomid) throws ClassNotFoundException, SQLException {
+        String type = "";
+        con = db.getConnection();
+        stmt = con.prepareStatement("Select room_type from rooms where room_id= ?");
         stmt.setInt(1, roomid);
-        ResultSet rs=stmt.executeQuery();
-        if(rs.next()){
-            type=rs.getString("room_type");
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            type = rs.getString("room_type");
         }
         return type;
     }
-    
-    public List<String> getpcfromroomid(int roomid) throws ClassNotFoundException, SQLException{
-        List<String> pclist=new ArrayList<>();
-        con=db.getConnection();
-        stmt=con.prepareStatement("Select pc_id from pcs where room_id=?");
+
+    public List<String> getpcfromroomid(int roomid) throws ClassNotFoundException, SQLException {
+        List<String> pclist = new ArrayList<>();
+        con = db.getConnection();
+        stmt = con.prepareStatement("Select pc_id from pcs where room_id=?");
         stmt.setInt(1, roomid);
-        ResultSet rs=stmt.executeQuery();
-        while(rs.next()){
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
             pclist.add(rs.getString("pc_id"));
         }
         return pclist;
     }
-    
-     @FXML
+
+    @FXML
     private void btnsubmitaction(ActionEvent event) throws ClassNotFoundException, SQLException {
-        int selectedroomid=this.roomid;
-        int selectedpcid=this.pcid;
-        String selectedpackage=this.selectedpackage;
-        String selectedusers=this.lbusers.getText();
-        String roomtype=getroomtype(selectedroomid);
+        int selectedroomid = this.roomid;
+        int selectedpcid = this.pcid;
+        String selectedpackage = this.selectedpackage;
+        String roomtype = getroomtype(selectedroomid);
         String selectedtime = timecombobox.getValue();
-        int duration= converttime(selectedtime);
-        
-        if(selectedusers.isEmpty()||selectedpackage==null){
+        int duration = converttime(selectedtime);
+
+        if (selectedUserIds.isEmpty() || selectedpackage == null) {
             JOptionPane.showMessageDialog(null, "Please select both user and a package.");
             return;
         }
-        String message="User : "+String.join(",", selectedusers)+"|Package : "+selectedpackage;
-        
-        
-        if(roomtype.equalsIgnoreCase("couple")){
-            List<String> pclist=getpcfromroomid(selectedroomid);
-            
-            for(String pc: pclist){
-                //sendtoclient(pc,selectedroomid,selectedpackage,duration);
-                System.out.println("Sent to Couple pc: "+pc);
-            }
-        }else{
-            //sendtoclient(selectedpcid,selectedroomid,selectedpackage,duration);
-            System.out.println("Sent to pc: "+selectedpcid);
-        }
-        
-        Stage stage=(Stage) btnsubmit.getScene().getWindow();
-        stage.close();
-        
-    }
-    
-    private int converttime(String time){
-        switch(time){
-            case "1 minute": return 15 * 60;
-            case "1 hour": return 60 * 60;
-            case "2 hours": return 2 * 60 * 60;
-            case "3 hours": return 3 * 60 * 60;
-            default: return 60 * 60;
-        }
-    }
-    
-    
 
-    
+        if (roomtype.equalsIgnoreCase("couple")) {
+            List<String> pclist = getpcfromroomid(selectedroomid);
+            s.unlockClient(pclist, selectedUserIds, selectedroomid, selectedpackage, duration);
+            for (String pc : pclist) {
+                System.out.println("Sent to Couple pc: " + pc);
+            }
+        } else {
+            String pcName = "pc" + selectedpcid;
+            s.sendToClient("TO|" + pcName + "|UNLOCK|" + pcName + "|" + selectedUserIds + "|" + selectedroomid + "|" + selectedpackage + "|" + duration);
+            System.out.println("Sent to pc: " + selectedpcid);
+        }
+
+        Stage stage = (Stage) btnsubmit.getScene().getWindow();
+        stage.close();
+    }
+
+    private int converttime(String time) {
+        return switch (time) {
+            case "1 minute" -> 15 * 60;
+            case "1 hour" -> 60 * 60;
+            case "2 hours" -> 2 * 60 * 60;
+            case "3 hours" -> 3 * 60 * 60;
+            default -> 60 * 60;
+        };
+    }
 }

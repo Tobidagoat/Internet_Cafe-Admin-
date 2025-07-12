@@ -9,3 +9,14 @@
     -fx-background-radius: 8px;
     -fx-fill: white;
 }
+.card:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #0078d7;
+    -fx-border-width: 2;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 3);
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+}
+
