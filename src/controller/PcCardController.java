@@ -66,7 +66,7 @@ public class PcCardController implements Initializable {
     private void loadpackage(MouseEvent event) throws IOException, ClassNotFoundException, SQLException {
         userlist =s.getConnectedClients();
         String s="pc"+pcid;
-        if(userlist.contains(s)){        
+        if(userlist.contains(s)){      
             if(roomtype.equalsIgnoreCase("general")){
                 controller.showuserlist(pcid, roomid);
             }else{

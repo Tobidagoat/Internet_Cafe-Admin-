@@ -41,7 +41,7 @@
          </font>
       </Label>
       <FontIcon disable="true" iconColor="WHITE" iconLiteral="fa-plus" iconSize="17" layoutX="281.0" layoutY="94.0" />
-      <AnchorPane fx:id="diamondpackage" layoutX="487.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+      <AnchorPane fx:id="Diamond" layoutX="487.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
          <children>
             <Label alignment="CENTER" layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to bottom right, #aca4eb, #b36cff); -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="Diamond" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -88,7 +88,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="goldpackage" layoutX="255.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+      <AnchorPane fx:id="Gold" layoutX="255.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
          <children>
             <Label alignment="CENTER" layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to bottom right, #ffe93d, #ffee5c); -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="Gold" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -135,7 +135,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="silverpackage" layoutX="23.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+      <AnchorPane fx:id="Silver" layoutX="23.0" layoutY="125.0" onMouseClicked="#packagecardaction" prefHeight="286.0" prefWidth="216.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
          <children>
             <Label alignment="CENTER" layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" text="Silver" textAlignment="CENTER">
                <font>

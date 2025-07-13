@@ -91,7 +91,6 @@ public class LoginController implements Initializable {
             pst.setString(2, password);
             
             rs=pst.executeQuery();
-//            Stage stage=Internet_Cafe_admin.stage;
             
             root = FXMLLoader.load(getClass().getResource("/view/Default.fxml"));
             Scene scene = new Scene(root);

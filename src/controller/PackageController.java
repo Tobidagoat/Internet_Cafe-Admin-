@@ -2,6 +2,7 @@ package controller;
 
 import database.DbConnection;
 import internet_cafe_admin.server;
+import static internet_cafe_admin.server.sendToClient;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -24,6 +25,8 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javax.swing.JOptionPane;
@@ -50,7 +53,9 @@ public class PackageController implements Initializable {
     DbConnection db = new DbConnection();
     Connection con;
     PreparedStatement stmt;
+    ResultSet rs;
     private String selectedpackage;
+    int packageid;
     private String pcno;
     private int pcid;
     private int roomid;
@@ -61,8 +66,15 @@ public class PackageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        timecombobox.getItems().addAll(
-                "1 minute", "1 hour", "2 hours", "3 hours"
+        DbConnection db=new DbConnection();
+        try {
+            con=db.getConnection();
+            
+        } catch (ClassNotFoundException ex) {
+            
+        }
+        timecombobox.getItems().addAll("1 minute",
+                "6 minutes", "1 hour", "2 hours", "3 hours"
         );
         timecombobox.setValue("1 hour");
     }
@@ -110,7 +122,6 @@ public class PackageController implements Initializable {
 
     public String getroomtype(int roomid) throws ClassNotFoundException, SQLException {
         String type = "";
-        con = db.getConnection();
         stmt = con.prepareStatement("Select room_type from rooms where room_id= ?");
         stmt.setInt(1, roomid);
         ResultSet rs = stmt.executeQuery();
@@ -139,32 +150,87 @@ public class PackageController implements Initializable {
         String selectedpackage = this.selectedpackage;
         String roomtype = getroomtype(selectedroomid);
         String selectedtime = timecombobox.getValue();
+        int period=Integer.parseInt(selectedtime.replaceAll("[^0-9]", ""));
         int duration = converttime(selectedtime);
-
+        int packageid=getpackageid(selectedpackage);
+        LocalTime now = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String starttime = now.format(formatter);
+        
         if (selectedUserIds.isEmpty() || selectedpackage == null) {
             JOptionPane.showMessageDialog(null, "Please select both user and a package.");
             return;
         }
-
+        
+        String sql="insert into sale_detail(customer_id,pc_id,room_id,package_id,status_id,start_time,period) values(?, ?, ?, ?, ?, ?, ?)";
+        stmt = con.prepareStatement(sql);   
+            
         if (roomtype.equalsIgnoreCase("couple")) {
             List<String> pclist = getpcfromroomid(selectedroomid);
-            s.unlockClient(pclist, selectedUserIds, selectedroomid, selectedpackage, duration);
-            for (String pc : pclist) {
-                System.out.println("Sent to Couple pc: " + pc);
+            stmt = con.prepareStatement(sql);  
+            
+             for (int i = 0; i < pclist.size(); i++) {
+                String pcName = pclist.get(i);
+                int pcID = Integer.parseInt(pcName.replaceAll("[^0-9]", ""));
+                System.out.println(pcID);
+                int userId = (int) selectedUserIds.get(i);
+                String unlockMsg = "UNLOCK|" + pcName + "|" + userId + "|" + selectedroomid + "|" + selectedpackage + "|" + duration;
+                sendToClient("TO|" + pcName + "|" + unlockMsg);
+                System.out.println(unlockMsg);
+                
+                stmt.setInt(1, userId);
+                stmt.setInt(2, pcID);
+                stmt.setInt(3, selectedroomid);
+                stmt.setInt(4, packageid);
+                stmt.setInt(5, 2);
+                stmt.setString(6, starttime);
+                stmt.setInt(7, period);
+                stmt.executeUpdate();
             }
         } else {
+            
+            int userid=selectedUserIds.get(0);
+            
             String pcName = "pc" + selectedpcid;
             s.sendToClient("TO|" + pcName + "|UNLOCK|" + pcName + "|" + selectedUserIds + "|" + selectedroomid + "|" + selectedpackage + "|" + duration);
+//            System.out.println("userid: "+userid+"pcid: "+selectedpcid+"roomid: "+selectedroomid+"packageid: "+packageid+"time: "+starttime+"period: "+period);
+            stmt.setInt(1, userid);
+            stmt.setInt(2, selectedpcid);
+            stmt.setInt(3, selectedroomid);
+            stmt.setInt(4, packageid);
+            stmt.setInt(5, 2);
+            stmt.setString(6, starttime);
+            stmt.setInt(7, period);
+            stmt.executeUpdate();
+            
             System.out.println("Sent to pc: " + selectedpcid);
         }
 
         Stage stage = (Stage) btnsubmit.getScene().getWindow();
         stage.close();
     }
+    
+    private int getpackageid(String packagename) throws SQLException{
+        
+        String sql="select package_id from package where package_type = ? ";
+        stmt=con.prepareStatement(sql);
+        stmt.setString(1, packagename);
+        rs=stmt.executeQuery();
+        
+        if (rs.next()) {
+            packageid = rs.getInt("package_id");
+            System.out.println(packageid);
+        } else {
+            System.out.println("No matching package found.");
+        }
+        
+        return packageid;
+    }
 
     private int converttime(String time) {
         return switch (time) {
-            case "1 minute" -> 15 * 60;
+            case "1 minute" -> 1 * 60;
+            case "6 minutes" -> 6 * 60;
             case "1 hour" -> 60 * 60;
             case "2 hours" -> 2 * 60 * 60;
             case "3 hours" -> 3 * 60 * 60;

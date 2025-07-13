@@ -3,6 +3,9 @@ package internet_cafe_admin;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class server {
 
@@ -31,7 +34,7 @@ public class server {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            String name = in.readLine(); // first message should be the client name
+            String name = in.readLine();
             if (name == null || name.isBlank()) {
                 out.println("Invalid client name.");
                 socket.close();
@@ -124,18 +127,53 @@ public class server {
         }
     }
 
-    // Handles messages received from clients
-    private static void handleCommand(String msg, String clientName) {
-        if (msg.startsWith("ORDER|")) {
+        
+        private static void handleCommand(String msg, String clientName) {
+           if (msg.startsWith("REQUEST_ADD_TIME|")) {
+               System.out.println("Yea something is wrong");
+            String[] parts = msg.split("\\|");
+            if (parts.length == 2) {
+                String seconds = parts[1];
+
+                System.out.println("🕒 " + clientName + " requested +" + seconds + " seconds.");
+
+                Platform.runLater(() -> {
+                    boolean accepted = showConfirmDialog(clientName, seconds);
+                    if (accepted) {
+                        ClientHandler target = clients.get(clientName);
+                        if (target != null) {
+                            target.sendMessage("ADD_TIME_CONFIRMED|" + seconds);
+                            System.out.println("✅ Accepted. Sent ADD_TIME_CONFIRMED|" + seconds + " to " + clientName);
+                        }
+                    } else {
+                        System.out.println("❌ Admin rejected time add request from " + clientName);
+                    }
+                });
+            }
+        }else if (msg.startsWith("ORDER|")) {
             String[] parts = msg.split("\\|", 2);
             System.out.println("Order from " + clientName + ": " + (parts.length > 1 ? parts[1] : "Unknown item"));
+
         } else if (msg.startsWith("ADD_TIME|")) {
+            // Optional older method
             String[] parts = msg.split("\\|", 2);
             System.out.println(clientName + " requested time extension: " + (parts.length > 1 ? parts[1] : "Unknown time"));
+
         } else {
             System.out.println("Message from " + clientName + ": " + msg);
         }
+}
+        
+        private static boolean showConfirmDialog(String pcName, String seconds) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Add Time Request");
+        alert.setHeaderText("⏳ Time Add Request");
+        alert.setContentText("PC " + pcName + " is requesting +" + seconds + " seconds.\nAccept?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
+
     
     public ArrayList<String> getConnectedClients() {
     synchronized (clients) {
