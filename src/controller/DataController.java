@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -59,6 +60,9 @@ public class DataController implements Initializable {
     private NumberAxis yAxis;
     @FXML
     private PieChart pieChart;
+    @FXML
+    private PieChart pieChart2;
+
     
     private Button selectedToggle = null;
    
@@ -131,13 +135,24 @@ public class DataController implements Initializable {
         timeline.play();
         
         
-        //Pie Chart
+        //Pie Chart for food
         
         pieChart.setData(getPieChartData());
         pieChart.setTitle("Best Sold Top-5 Food&Drink");
         pieChart.setVisible(true);
         pieChart.setLabelsVisible(true);
+        pieChart.setLegendSide(Side.RIGHT);
+        pieChart.setPrefWidth(450); // Limit the chart width
+
         
+        //Pie Chart for package
+        pieChart2.setData(getPieChart2Data());
+        pieChart2.setTitle("Best Sold Packages");
+        pieChart2.setVisible(true);
+        pieChart2.setLabelsVisible(true);
+        pieChart2.setLegendSide(Side.RIGHT);
+        pieChart2.setPrefWidth(450); // Limit the chart width
+
          
         
    
@@ -285,6 +300,46 @@ public class DataController implements Initializable {
     
     return pieChartData;
 }
+    
+    public ObservableList<PieChart.Data> getPieChart2Data(){
+    ObservableList<PieChart.Data> pieChart2Data = FXCollections.observableArrayList();
+    int total_sold_period=0;
+    
+     String sqll = "select sum(period) as total_period from sale_detail;";
+        try {
+        st = con.prepareStatement(sqll);
+        rs = st.executeQuery(sqll);
+        
+        if(rs.next()) {
+            total_sold_period= rs.getInt("total_period");
+        }
+    } catch (SQLException ex) {
+        System.out.println("pie chart data pull error: total period for piechart2");
+        ex.printStackTrace();
+        return pieChart2Data; // return empty list if error
+    }
+    
+    String sql ="SELECT p.package_id, p.package_type as name, SUM(sd.period) AS total_period FROM sale_detail sd JOIN package p ON sd.package_id = p.package_id GROUP BY p.package_id, p.package_type ORDER BY total_period DESC;";
+    
+    try {
+        st = con.prepareStatement(sql);
+        rs = st.executeQuery(sql);
+        
+        while(rs.next()) {
+           int total_period_for_package = rs.getInt("total_period");
+            // Cast to double before division to avoid integer division
+            double percentage = ((double)total_period_for_package / total_sold_period) * 100;
+            
+            pieChart2Data.add(new PieChart.Data(rs.getString("name"), percentage));
+        }
+    } catch (SQLException ex) {
+        System.out.println("pie chart 2 data pull error");
+        ex.printStackTrace();
+    }
+    
+    return pieChart2Data;
+        
+    }
     
   
 

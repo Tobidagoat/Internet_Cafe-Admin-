@@ -78,10 +78,18 @@ public class LoginController implements Initializable {
         if(txtusername.getText().isEmpty()){
             lbusernameerror.setText("Please enter username");
             valid=false;}
+        else{
+            lbusernameerror.setText("");
+        }
+        
             
         if(txtpassword.getText().isEmpty()){
             lbpasserror.setText("Please enter password");
             valid=false;}
+        else{
+            lbpasserror.setText("");
+        }
+           
         
         if(valid){
             String sql="Select * from admins where admin_name=? and password=?";

@@ -102,5 +102,22 @@
     -fx-text-fill: #dddddd;
     -fx-font-size: 12px;
 }
+.chart-pie {
+    -fx-pie-label-visible: false; /* hide ugly labels */
+    -fx-border-color: transparent;
+}
+.chart-legend-pie {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+     -fx-padding: 0 0 0 20; /* Top Right Bottom Left */
+    -fx-alignment: center-right;
+}
+
+.chart-legend-item-pie {
+    -fx-padding: 5px;
+}
+
     
 

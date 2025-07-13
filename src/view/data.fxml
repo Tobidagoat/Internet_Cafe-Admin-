@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
@@ -7,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="content_anchor_pane" stylesheets="@../css/fx_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="content_anchor_pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataController">
    <children>
-      <HBox alignment="CENTER" layoutX="483.0" layoutY="16.0" prefHeight="74.0" prefWidth="451.0" styleClass="data_date_switch_container" stylesheets="@../css/fx_style.css" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0">
+      <HBox alignment="CENTER" layoutX="188.0" layoutY="14.0" prefHeight="74.0" prefWidth="451.0" styleClass="data_date_switch_container" stylesheets="@../css/fx_style.css" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="754.4">
          <children>
             <Button fx:id="btn1week" mnemonicParsing="false" onAction="#HandleToggle" styleClass="data_date_switch_toggle_btn" text="1W" />
             <Button fx:id="btn1month" mnemonicParsing="false" onAction="#HandleToggle" styleClass="data_date_switch_toggle_btn" text="1M" />
@@ -29,17 +31,31 @@
             </AreaChart>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="837.0" layoutY="124.0" prefHeight="282.0" prefWidth="494.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.topAnchor="100.0">
+      <AnchorPane layoutX="837.0" layoutY="124.0" prefHeight="280.0" prefWidth="500.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
          <children>
-            <PieChart fx:id="pieChart" layoutX="-50.0" layoutY="-87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <PieChart fx:id="pieChart" layoutX="-50.0" layoutY="-87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="chart-pie" />
+                  <String fx:value="chart-legend-item-pie" />
+                  <String fx:value="chart-legend-pie" />
+               </styleClass></PieChart>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="837.0" layoutY="398.0" prefHeight="282.0" prefWidth="494.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0">
+      <AnchorPane layoutX="837.0" layoutY="398.0" prefHeight="280.0" prefWidth="500.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">
          <children>
-            <PieChart layoutX="-50.0" layoutY="-87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <PieChart fx:id="pieChart2" layoutX="-50.0" layoutY="-87.0" stylesheets="@../css/chart_style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="chart-pie" />
+                  <String fx:value="chart-legend-item-pie" />
+                  <String fx:value="chart-legend-pie" />
+               </styleClass></PieChart>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="48.0" layoutY="526.0" prefHeight="140.0" prefWidth="342.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="47.0" />
       <AnchorPane layoutX="446.0" layoutY="540.0" prefHeight="140.0" prefWidth="342.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" />
    </children>
+   <stylesheets>
+      <URL value="@../css/fx_style.css" />
+      <URL value="@../css/chart_style.css" />
+   </stylesheets>
 </AnchorPane>

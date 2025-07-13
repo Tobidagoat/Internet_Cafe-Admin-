@@ -1,11 +1,36 @@
+.main_anchor_pane{
+    -fx-background-color: rgba(0, 0, 0, 0.212);
+}
+
+
 .text-field{
-    -fx-background-color: transparent;
-    -fx-border-color: black;
-    -fx-border-width: 0.5px;
+    -fx-background-color: rgba(0, 0, 0, 0.667);
+    -fx-border-color: rgba(255, 98, 0, 0.496);
+    -fx-border-width: 1px;
     -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
 }
 .button-login{
-    -fx-background-color: #9d4edd;
+    -fx-background-color: rgb(255, 106, 0);
     -fx-background-radius: 8px;
     -fx-fill: white;
+}
+
+
+.laying_anchor_pane{
+    -fx-background-color: linear-gradient(from 0% 50% to 100% 100%, rgba(0, 0, 0, 0.279), #dd724e83, #ab864f8d);
+}
+
+.signin_label{
+    -fx-text-fill:rgb(255, 106, 0);
+}
+.close_btn{
+   
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+.close_btn:hover{
+    -fx-border-color: rgba(255, 98, 0, 0.496);
 }
