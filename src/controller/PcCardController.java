@@ -4,19 +4,31 @@
  */
 package controller;
 
+import database.DbConnection;
 import internet_cafe_admin.server;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 
+
+
+   
 /**
  * FXML Controller class
  *
@@ -34,14 +46,27 @@ public class PcCardController implements Initializable {
     public int pcid;
     private int roomid;
     private String roomtype;
+    public AnchorPane card;
+    private String str;
+    private int statusid;
     server s = new server();
     ArrayList<String> userlist;
+    
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        DbConnection db=new DbConnection();
+        
+        try {
+            con=db.getConnection();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PcCardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
     }    
@@ -49,28 +74,59 @@ public class PcCardController implements Initializable {
     this.roomtype = roomtype;
     }
     
-    public void setpcinfo(String pcno, RoomController controller,int roomid,int pcid) throws ClassNotFoundException, SQLException{
+    public void setpcinfo(String pcno, RoomController controller, int roomid, int pcid, AnchorPane card, int statusid) throws ClassNotFoundException, SQLException{
         this.pcno=pcno;
         this.controller=controller;
         this.roomid=roomid;
         this.pcid=pcid;
         this.roomtype=roomtype;
-            
+        this.card=card;
+        this.statusid=statusid;
+        String status=getstatus(statusid);
+        lbstatus.setText(status);
         lbpcno.setText(pcno);
-        
-    }
+        if ("Playing".equalsIgnoreCase(status)) {
+            lbstatus.setStyle("-fx-text-fill: red;");
+        } else {
+            lbstatus.setStyle("-fx-text-fill: green;");
+        }
+       }
     
    
     
-    @FXML
+   
+
+    private String getstatus(int statusid) throws SQLException {
+        String statusname = "";
+        String sql="select status_name from status where status_id= ?";
+        pst=con.prepareStatement(sql);
+        pst.setInt(1, statusid);
+        rs=pst.executeQuery();
+        while(rs.next()){
+            statusname=rs.getString("status_name");
+            System.out.println("status is"+statusname);
+        }
+        return statusname;
+        
+    }
+    
+    public void setStatus(int statusid) throws SQLException{
+        String status=getstatus(statusid);
+        lbstatus.setText(status);
+        if(statusid==1)
+            lbstatus.setStyle("-fx-text-fill: green;");
+        else
+            lbstatus.setStyle("-fx-text-fill: red;");
+    }
+     @FXML
     private void loadpackage(MouseEvent event) throws IOException, ClassNotFoundException, SQLException {
         userlist =s.getConnectedClients();
-        String s="pc"+pcid;
-        if(userlist.contains(s)){      
+        str="pc"+pcid;
+        if(userlist.contains(str)){
             if(roomtype.equalsIgnoreCase("general")){
                 controller.showuserlist(pcid, roomid);
             }else{
-                controller.showpackages(pcid,roomid);
+                controller.showpackages(pcid,roomid,card);
             }
         }
         else{
@@ -78,5 +134,4 @@ public class PcCardController implements Initializable {
         }
        
     }
-    
 }

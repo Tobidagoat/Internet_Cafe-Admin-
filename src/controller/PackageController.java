@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -54,13 +55,17 @@ public class PackageController implements Initializable {
     Connection con;
     PreparedStatement stmt;
     ResultSet rs;
+    private RoomController roomController;
+    private boolean result=false;
     private String selectedpackage;
     int packageid;
     private String pcno;
     private int pcid;
     private int roomid;
     private String roomtype;
+    private String roomcategory;
     private List<Integer> selectedUserIds = new ArrayList<>();
+    private List<String> selectedUsernames = new ArrayList<>();
 
     server s = new server();
 
@@ -85,10 +90,11 @@ public class PackageController implements Initializable {
         stage.close();
     }
 
-    public void setroominfo(String roomtype, int pcid, int roomid) throws IOException, ClassNotFoundException, SQLException {
+    public void setroominfo(String roomtype, int pcid, int roomid, String roomcategory) throws IOException, ClassNotFoundException, SQLException {
         this.roomtype = roomtype;
         this.pcid = pcid;
         this.roomid = roomid;
+        this.roomcategory=roomcategory;
     }
 
     @FXML
@@ -98,13 +104,14 @@ public class PackageController implements Initializable {
         UserlistController controller = userloader.getController();
         controller.setuserinfo(pcid, roomtype, roomid, "basic_pack", (Stage) btnsubmit.getScene().getWindow());
         controller.setlabel(lbusers);
-        controller.setroomtype(getroomtype(roomid));
+        controller.setroomtype(getroomtype(roomid),roomcategory);
         Stage popupstage = new Stage();
         popupstage.initModality(Modality.APPLICATION_MODAL);
         popupstage.setScene(new Scene(popup));
         popupstage.showAndWait();
-
-        selectedUserIds = controller.getSelectedUserIds();
+        selectedUserIds=controller.getSelectedUserIds();
+        selectedUsernames = controller.getSelectedUserNames();
+        lbusers.setText(String.join(", ", selectedUsernames));
     }
 
     @FXML
@@ -119,6 +126,9 @@ public class PackageController implements Initializable {
         this.pcid = pcid;
         this.roomid = roomid;
     }
+    public void setRoomController(RoomController roomController) {
+    this.roomController = roomController;
+}
 
     public String getroomtype(int roomid) throws ClassNotFoundException, SQLException {
         String type = "";
@@ -161,13 +171,10 @@ public class PackageController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please select both user and a package.");
             return;
         }
-        
-        String sql="insert into sale_detail(customer_id,pc_id,room_id,package_id,status_id,start_time,period) values(?, ?, ?, ?, ?, ?, ?)";
-        stmt = con.prepareStatement(sql);   
+         
             
         if (roomtype.equalsIgnoreCase("couple")) {
-            List<String> pclist = getpcfromroomid(selectedroomid);
-            stmt = con.prepareStatement(sql);  
+            List<String> pclist = getpcfromroomid(selectedroomid); 
             
              for (int i = 0; i < pclist.size(); i++) {
                 String pcName = pclist.get(i);
@@ -176,38 +183,28 @@ public class PackageController implements Initializable {
                 int userId = (int) selectedUserIds.get(i);
                 String unlockMsg = "UNLOCK|" + pcName + "|" + userId + "|" + selectedroomid + "|" + selectedpackage + "|" + duration;
                 sendToClient("TO|" + pcName + "|" + unlockMsg);
+                updatestatus(pcID,userId);
+                insertdata(userId, pcID, selectedroomid,packageid,starttime,period);
                 System.out.println(unlockMsg);
-                
-                stmt.setInt(1, userId);
-                stmt.setInt(2, pcID);
-                stmt.setInt(3, selectedroomid);
-                stmt.setInt(4, packageid);
-                stmt.setInt(5, 2);
-                stmt.setString(6, starttime);
-                stmt.setInt(7, period);
-                stmt.executeUpdate();
             }
         } else {
-            
             int userid=selectedUserIds.get(0);
             
             String pcName = "pc" + selectedpcid;
             s.sendToClient("TO|" + pcName + "|UNLOCK|" + pcName + "|" + selectedUserIds + "|" + selectedroomid + "|" + selectedpackage + "|" + duration);
 //            System.out.println("userid: "+userid+"pcid: "+selectedpcid+"roomid: "+selectedroomid+"packageid: "+packageid+"time: "+starttime+"period: "+period);
-            stmt.setInt(1, userid);
-            stmt.setInt(2, selectedpcid);
-            stmt.setInt(3, selectedroomid);
-            stmt.setInt(4, packageid);
-            stmt.setInt(5, 2);
-            stmt.setString(6, starttime);
-            stmt.setInt(7, period);
-            stmt.executeUpdate();
-            
+            updatestatus(selectedpcid,userid);
+            insertdata(userid, selectedpcid, selectedroomid,packageid,starttime,period);
             System.out.println("Sent to pc: " + selectedpcid);
         }
-
+        
+        result=true;
         Stage stage = (Stage) btnsubmit.getScene().getWindow();
         stage.close();
+    }
+    
+    public boolean getresult(){
+        return result;
     }
     
     private int getpackageid(String packagename) throws SQLException{
@@ -236,5 +233,32 @@ public class PackageController implements Initializable {
             case "3 hours" -> 3 * 60 * 60;
             default -> 60 * 60;
         };
+    }
+    
+    private void insertdata(int userid, int pcid, int selectedroomid, int packageid1, String starttime, int period) throws SQLException{
+        String sqlinsert="insert into sale_detail(customer_id,pc_id,room_id,package_id,status_id,start_time,period,sale_date) values(?, ?, ?, ?, ?, ?, ?, ?)";
+        stmt = con.prepareStatement(sqlinsert);  
+        stmt.setInt(1, userid);
+            stmt.setInt(2, pcid);
+            stmt.setInt(3, selectedroomid);
+            stmt.setInt(4, packageid1);
+            stmt.setInt(5, 2);
+            stmt.setString(6, starttime);
+            stmt.setInt(7, period);
+            stmt.setDate(8, java.sql.Date.valueOf(LocalDate.now()));
+            stmt.executeUpdate();
+    }
+
+    private void updatestatus(int pcid, int userid) throws SQLException {
+        roomController.updateCardStatus(pcid, 2);
+        String sql="update pcs set status_id=2 where pc_id= ?";
+        stmt=con.prepareStatement(sql);
+        stmt.setInt(1, pcid);
+        int row=stmt.executeUpdate();
+        
+        if(row>0)
+            System.out.println("status updated successfully");
+        else
+            System.out.println("No Pc Found to update status");
     }
 }

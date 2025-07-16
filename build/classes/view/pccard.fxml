@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="card" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#loadpackage" prefHeight="274.4" prefWidth="274.4" style="-fx-border-color: #494949; -fx-border-radius: 10; -fx-background-color: #202225; -fx-background-radius: 10;" styleClass="card" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PcCardController">
    <children>
-      <Label fx:id="lbpcno" alignment="CENTER" layoutX="105.0" layoutY="118.0" text="PC - 1" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="lbpcno" alignment="CENTER" layoutX="105.0" layoutY="118.0" text="PC - 1" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Candara Bold" size="30.0" />
          </font>

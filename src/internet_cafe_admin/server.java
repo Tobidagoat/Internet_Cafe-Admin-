@@ -1,5 +1,6 @@
 package internet_cafe_admin;
 
+import controller.RoomController;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -154,12 +155,18 @@ public class server {
             String[] parts = msg.split("\\|", 2);
             System.out.println("Order from " + clientName + ": " + (parts.length > 1 ? parts[1] : "Unknown item"));
 
-        } else if (msg.startsWith("ADD_TIME|")) {
-            // Optional older method
-            String[] parts = msg.split("\\|", 2);
-            System.out.println(clientName + " requested time extension: " + (parts.length > 1 ? parts[1] : "Unknown time"));
+        }else if (msg.startsWith("SESSION_END|")) {
+            String[] parts = msg.split("\\|");
+            int pcId = Integer.parseInt(parts[1]);
 
-        } else {
+             Platform.runLater(() -> {
+            if (RoomController.instance != null) {
+                RoomController.instance.updateCardToNormal(pcId);
+            } else {
+                System.out.println("⚠️ RoomController.instance is null");
+            }
+        });
+} else {
             System.out.println("Message from " + clientName + ": " + msg);
         }
 }

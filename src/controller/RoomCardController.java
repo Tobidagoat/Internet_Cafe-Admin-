@@ -50,9 +50,5 @@ public class RoomCardController implements Initializable {
     @FXML
     public void loadpc(MouseEvent event) throws SQLException, IOException, ClassNotFoundException{
         controller.loadpcforroom(roomid);
-        
-//        if(controller != null){
-//            controller.loadpcforroom(roomid);
-//        }
     }
 }
