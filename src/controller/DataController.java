@@ -11,9 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +33,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -53,7 +56,7 @@ public class DataController implements Initializable {
     @FXML
     private Button btnAllTime;
     @FXML
-    private AreaChart<Number, Number> areaChart;
+    public AreaChart<Number, Number> areaChart;
     @FXML 
     private NumberAxis xAxis;
     @FXML 
@@ -62,9 +65,20 @@ public class DataController implements Initializable {
     private PieChart pieChart;
     @FXML
     private PieChart pieChart2;
+     @FXML
+    private Label txtFoodIncome;
+
+    @FXML
+    private Label txtMainIncome;
+
+    @FXML
+    private Label txtTotalIncome;
 
     
     private Button selectedToggle = null;
+    
+    private Timeline chartTimeline;
+
    
     //AreaChart elements
     
@@ -92,48 +106,8 @@ public class DataController implements Initializable {
         }
         
         //Area Chart Set-up
-        
-        areaChart.setTitle("Sale Information");
-        areaChart.getData().addAll(gamingIncomeSeries, foodIncomeSeries);
-        gamingIncomeSeries.setName("Internet cafe Income");
-        foodIncomeSeries.setName("Food Income");
-
         btn1month.fire();
-         
-        xAxis.setMinorTickCount(0); // No half-days or fractions
-        xAxis.setForceZeroInRange(false); // avoid left side hug
-        xAxis.setAutoRanging(false);
-        
-        //Formatting Date
-        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number object) {
-            return LocalDate.ofEpochDay(object.longValue()).format(formatter);  // Example: "Jul 9"
-        }
 
-        @Override
-        public Number fromString(String string) {
-            return LocalDate.parse(string, formatter).toEpochDay();
-    }
-});
- 
-        //Real-time update
-       Timeline timeline = new Timeline(
-        new KeyFrame(Duration.ZERO, e -> {
-            try {
-                updateChartData();
-            } catch (SQLException ex) {
-                 System.out.println("db not connected in time frame ");
-                
-            }
-        }),     
-        new KeyFrame(Duration.seconds(5)) 
-        );
-
-
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-        
         
         //Pie Chart for food
         
@@ -142,7 +116,7 @@ public class DataController implements Initializable {
         pieChart.setVisible(true);
         pieChart.setLabelsVisible(true);
         pieChart.setLegendSide(Side.RIGHT);
-        pieChart.setPrefWidth(450); // Limit the chart width
+        pieChart.setPrefWidth(450); 
 
         
         //Pie Chart for package
@@ -151,12 +125,18 @@ public class DataController implements Initializable {
         pieChart2.setVisible(true);
         pieChart2.setLabelsVisible(true);
         pieChart2.setLegendSide(Side.RIGHT);
-        pieChart2.setPrefWidth(450); // Limit the chart width
-
-         
+        pieChart2.setPrefWidth(450); 
         
-   
+        //Total income
+        setTotalIncome();
         
+        //Main income
+        setMainIncome();
+        
+        //Food income
+        setFoodIncome();
+        
+    
     }    
 
      @FXML
@@ -174,7 +154,6 @@ public class DataController implements Initializable {
     selectedToggle = btn;
     selectedToggle.getStyleClass().add("selected-toggle");
 
-//    System.out.println("Selected: " + btn.getText());
 
     // Trigger custom logic
     if (btn == btn1week) {
@@ -192,73 +171,89 @@ public class DataController implements Initializable {
     }
 }
 
-    private void updateChartData() throws SQLException {
-  
-        String sql ="SELECT d.sale_date, m.total_main AS main_income, f.total_food AS food_income FROM ( SELECT sale_date FROM sale UNION SELECT sale_date FROM food_order ) d LEFT JOIN ( SELECT sale_date, SUM(total_price) AS total_main FROM sale GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN ( SELECT sale_date, SUM(total_food_price) AS total_food FROM food_order GROUP BY sale_date) f ON d.sale_date = f.sale_date ORDER BY d.sale_date ASC;";
-        st = con.prepareStatement(sql);
-        rs = st.executeQuery(sql);
-        
-         while (rs.next()) {
-                
-                String dateStr =  rs.getString("sale_date");
-                LocalDate date = LocalDate.parse(dateStr, formatter);
-                long epochDay = date.toEpochDay(); // convert to numeric X value
+    private void updateChartData(Granularity granularity) throws SQLException {
+   String sql="";
+        switch(granularity){
+            case DAILY -> sql = "SELECT d.sale_date as week_start, m.total_main AS main_income, f.total_food AS food_income FROM ( SELECT sale_date FROM sale UNION SELECT sale_date FROM food_order ) d LEFT JOIN ( SELECT sale_date, SUM(total_price) AS total_main FROM sale GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN ( SELECT sale_date, SUM(total_food_price) AS total_food FROM food_order GROUP BY sale_date) f ON d.sale_date = f.sale_date ORDER BY d.sale_date ASC;";
+                case WEEKLY -> sql = "SELECT STR_TO_DATE(CONCAT(YEARWEEK(d.sale_date, 1), ' Monday'), '%X%V %W') AS week_start, SUM(m.total_main) AS main_income, SUM(f.total_food) AS food_income FROM ( SELECT DISTINCT sale_date FROM sale UNION SELECT DISTINCT sale_date FROM food_order ) d LEFT JOIN ( SELECT sale_date, SUM(total_price) AS total_main FROM sale GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN ( SELECT sale_date, SUM(total_food_price) AS total_food FROM food_order GROUP BY sale_date ) f ON d.sale_date = f.sale_date GROUP BY YEARWEEK(d.sale_date, 1) ORDER BY week_start ASC";   
+        }
 
-                    double gamingIncome = rs.getDouble("main_income");
-                    double foodIncome = rs.getDouble("food_income");
 
-                    Platform.runLater(() -> {
-                        gamingIncomeSeries.getData().add(new XYChart.Data<>(epochDay, gamingIncome));
-                       foodIncomeSeries.getData().add(new XYChart.Data<>(epochDay, foodIncome));
-                        areaChart.requestLayout();
-                    });
-         }
+    PreparedStatement st = con.prepareStatement(sql);
+    ResultSet rs = st.executeQuery();
+
+    // ✅ Create fresh series
+    XYChart.Series<Number, Number> gamingIncomeSeries = new XYChart.Series<>();
+    XYChart.Series<Number, Number> foodIncomeSeries = new XYChart.Series<>();
+    gamingIncomeSeries.setName("Internet Cafe Income");
+    foodIncomeSeries.setName("Food Income");
+
+    while (rs.next()) {
+        LocalDate date = rs.getDate("week_start").toLocalDate();
+        long epochDay = date.toEpochDay();
+
+        double gamingIncome = rs.getDouble("main_income");
+        double foodIncome = rs.getDouble("food_income");
+
+        gamingIncomeSeries.getData().add(new XYChart.Data<>(epochDay, gamingIncome));
+        foodIncomeSeries.getData().add(new XYChart.Data<>(epochDay, foodIncome));
     }
+
+    rs.close();
+    st.close();
+
+    // ✅ Safely update chart on JavaFX thread
+    Platform.runLater(() -> {
+        areaChart.getData().clear(); // remove old series
+        areaChart.getData().addAll(gamingIncomeSeries, foodIncomeSeries); // add new ones
+    });
+}
+
     public void call1week(){
+        LocalDate today = LocalDate.now();
+        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        
+         CreateAreaChart(startOfWeek, endOfWeek, 1, Granularity.DAILY);
+
         
     }
     public void call1month(){
+        
+        
         LocalDate today = LocalDate.now();
         LocalDate startOfMonth = today.withDayOfMonth(1);
         LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
         
-        long lowerBound = startOfMonth.toEpochDay();
-        long upperBound = endOfMonth.toEpochDay();
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        xAxis.setTickUnit(1);
+        CreateAreaChart(startOfMonth, endOfMonth, 1, Granularity.DAILY);
+
+        
+        
     }
     public void call3month(){
          LocalDate today = LocalDate.now();
         LocalDate startOfMonth = today.minusMonths(2).withDayOfMonth(1);
         LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
         
-        long lowerBound = startOfMonth.toEpochDay();
-        long upperBound = endOfMonth.toEpochDay();
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        xAxis.setTickUnit(10);
+         CreateAreaChart(startOfMonth, endOfMonth, 3, Granularity.WEEKLY);
+        
+
         
     }
     public void callAllTime() throws SQLException{
-        String sql = "select sale_date from sale  ORDER BY sale_date ASC limit 1;";
+        String sql = "select Min(sale_date) as sale_date from sale";
         st = con.prepareStatement(sql);
         rs =st.executeQuery(sql);
-        String date=null;
+        LocalDate startday=null;
         while(rs.next()){
-             date = rs.getString("sale_date"); 
+              startday = rs.getDate("sale_date").toLocalDate();
              
         }
          LocalDate today = LocalDate.now();
          LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
-         LocalDate startday =LocalDate.parse(date);
          
+          CreateAreaChart(startday, endOfMonth, 3, Granularity.WEEKLY);
          
-        long lowerBound = startday.toEpochDay();
-        long upperBound = endOfMonth.toEpochDay();
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        xAxis.setTickUnit(10);
          
         
     }
@@ -327,7 +322,7 @@ public class DataController implements Initializable {
         
         while(rs.next()) {
            int total_period_for_package = rs.getInt("total_period");
-            // Cast to double before division to avoid integer division
+
             double percentage = ((double)total_period_for_package / total_sold_period) * 100;
             
             pieChart2Data.add(new PieChart.Data(rs.getString("name"), percentage));
@@ -340,6 +335,124 @@ public class DataController implements Initializable {
     return pieChart2Data;
         
     }
+    
+    
+    public enum Granularity {
+    DAILY, WEEKLY, MONTHLY
+}
+
+    public void CreateAreaChart(LocalDate from, LocalDate to, int tickUnit, Granularity granularity) {
+        
+    areaChart.getData().clear(); 
+
+    // Reset axis
+    areaChart.setTitle("Sale Information");
+    long lowerBound = from.toEpochDay();
+    long upperBound = to.toEpochDay();
+    xAxis.setLowerBound(lowerBound);
+    xAxis.setUpperBound(upperBound);
+    xAxis.setTickUnit(tickUnit);
+    xAxis.setMinorTickCount(0);
+    xAxis.setForceZeroInRange(false);
+    xAxis.setAutoRanging(false);
+
+    // Format labels
+    xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+        @Override
+        public String toString(Number object) {
+            return LocalDate.ofEpochDay(object.longValue()).format(formatter);
+        }
+        @Override
+        public Number fromString(String string) {
+            return LocalDate.parse(string, formatter).toEpochDay();
+        }
+    });
+
+    
+    
+   
+    
+    
+    
+    
+    
+        try {
+            //    if (chartTimeline != null) {
+//    chartTimeline.stop();
+//    chartTimeline = null;
+//}
+//
+//    
+//    Timeline charTimeline = new Timeline(
+//        new KeyFrame(Duration.ZERO, e -> {
+//            try {
+//                 updateChartData(granularity);
+//                
+//            } catch (SQLException ex) {
+//                System.out.println("DB not connected in time frame");
+//            }
+//        }),
+//        new KeyFrame(Duration.seconds(5))
+//    );
+//    charTimeline.setCycleCount(Timeline.INDEFINITE);
+//    charTimeline.play();
+
+
+updateChartData(granularity);
+        } catch (SQLException ex) {
+            System.out.println("Update area chart data error");
+        }
+    }
+        
+        public void setTotalIncome(){
+            int total =0;
+        try {
+            String sql = "SELECT (SELECT SUM(total_price) FROM sale) + (SELECT SUM(total_food_price) FROM food_order) AS total_income;";
+            st = con.prepareStatement(sql);
+            rs =st.executeQuery(sql);
+            if(rs.next())
+                 total = rs.getInt("total_income");
+            txtTotalIncome.setText(Integer.toString(total));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("total income error");
+        }
+        }
+        public void setMainIncome(){
+            int total =0;
+        try {
+            String sql = "SELECT sum(total_price) as main_income from sale";
+            st = con.prepareStatement(sql);
+            rs =st.executeQuery(sql);
+            if(rs.next())
+                 total = rs.getInt("main_income");
+            txtMainIncome.setText(Integer.toString(total));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("main income error");
+        }
+        }
+        public void setFoodIncome(){
+            int total =0;
+        try {
+            String sql = "SELECT sum(total_food_price) as food_income from food_order";
+            st = con.prepareStatement(sql);
+            rs =st.executeQuery(sql);
+            if(rs.next())
+                 total = rs.getInt("food_income");
+            txtFoodIncome.setText(Integer.toString(total));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("total income error");
+        }
+            
+        }
+
+
+
     
   
 

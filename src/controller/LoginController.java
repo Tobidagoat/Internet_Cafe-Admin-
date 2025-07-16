@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -70,24 +71,27 @@ public class LoginController implements Initializable {
 
     @FXML
     private void loginaction(ActionEvent event) throws SQLException, IOException {
-        boolean valid=true;
+        boolean valid=false;
         
         String username=txtusername.getText();
         String password=txtpassword.getText();
         
         if(txtusername.getText().isEmpty()){
             lbusernameerror.setText("Please enter username");
-            valid=false;}
+           
+        }
         else{
             lbusernameerror.setText("");
-        }
-        
             
+        }    
         if(txtpassword.getText().isEmpty()){
             lbpasserror.setText("Please enter password");
-            valid=false;}
+         }
         else{
             lbpasserror.setText("");
+        }
+        if(!txtusername.getText().isEmpty() && !txtpassword.getText().isEmpty()){
+            valid=true;
         }
            
         
@@ -100,14 +104,22 @@ public class LoginController implements Initializable {
             
             rs=pst.executeQuery();
 //            Stage stage=Internet_Cafe_admin.stage;
-            
-            root = FXMLLoader.load(getClass().getResource("/view/Default.fxml"));
+
+           if(rs.next()){
+               root = FXMLLoader.load(getClass().getResource("/view/Default.fxml"));
             Scene scene = new Scene(root);
 //            stage.initStyle(StageStyle.UTILITY);
             stage.setScene(scene);
             stage.centerOnScreen();
             stage.setMaximized(true);
+            
             stage.show();
+               
+           }else{
+               JOptionPane.showMessageDialog(null, "Username or Password  is wrong!");
+           }
+            
+            
         }
     }
 
