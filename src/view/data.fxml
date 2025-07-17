@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="content_anchor_pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataController">
+   <children>
+      <HBox alignment="CENTER" layoutX="194.0" layoutY="14.0" prefHeight="74.0" prefWidth="451.0" styleClass="data_date_switch_container" stylesheets="@../css/fx_style.css" AnchorPane.leftAnchor="194.0" AnchorPane.rightAnchor="760.4">
+         <children>
+            <Button fx:id="btn1week" mnemonicParsing="false" onAction="#HandleToggle" styleClass="data_date_switch_toggle_btn" text="1W" />
+            <Button fx:id="btn1month" mnemonicParsing="false" onAction="#HandleToggle" styleClass="data_date_switch_toggle_btn" text="1M" />
+            <Button fx:id="btn3month" mnemonicParsing="false" onAction="#HandleToggle" styleClass="data_date_switch_toggle_btn" text="3M" />
+            <Button fx:id="btnAllTime" mnemonicParsing="false" onAction="#HandleToggle" styleClass="data_date_switch_toggle_btn" text="ALL" />
+         </children>
+      </HBox>
+      <AnchorPane layoutX="47.0" layoutY="110.0" prefHeight="418.0" prefWidth="743.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" stylesheets="@../css/chart_style.css" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="611.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <AreaChart fx:id="areaChart" layoutY="-59.0" prefHeight="374.0" prefWidth="687.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+               <xAxis>
+                <NumberAxis autoRanging="true" label="Date" tickLabelRotation="40.0" fx:id="xAxis" />
+               </xAxis>
+                <yAxis>
+                <NumberAxis label="Income" />
+                </yAxis>
+            </AreaChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="837.0" layoutY="124.0" prefHeight="280.0" prefWidth="500.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <PieChart fx:id="pieChart" layoutX="-50.0" layoutY="-87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="chart-pie" />
+                  <String fx:value="chart-legend-item-pie" />
+                  <String fx:value="chart-legend-pie" />
+               </styleClass></PieChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="837.0" layoutY="398.0" prefHeight="280.0" prefWidth="500.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="80.0">
+         <children>
+            <PieChart fx:id="pieChart2" layoutX="-50.0" layoutY="-87.0" stylesheets="@../css/chart_style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="chart-pie" />
+                  <String fx:value="chart-legend-item-pie" />
+                  <String fx:value="chart-legend-pie" />
+               </styleClass></PieChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="48.0" layoutY="526.0" prefHeight="140.0" prefWidth="342.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="540.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Total Income" textFill="#ffaa00" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtTotalIncome" layoutX="104.0" layoutY="55.0" text="9786756" textFill="WHITE" AnchorPane.bottomAnchor="35.400000000000006">
+               <font>
+                  <Font name="System Bold" size="33.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="445.0" layoutY="540.0" prefHeight="67.0" prefWidth="342.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.rightAnchor="611.0" AnchorPane.topAnchor="540.0">
+         <children>
+            <Label layoutX="28.0" layoutY="21.0" text="Main Income" textFill="#ffaa00" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="21.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtMainIncome" layoutX="226.0" layoutY="16.0" text="9786756" textFill="WHITE" AnchorPane.rightAnchor="25.19999999999999">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="445.0" layoutY="610.0" prefHeight="67.0" prefWidth="342.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="611.0">
+         <children>
+            <Label fx:id="txtFoodIncome" layoutX="220.0" layoutY="18.0" text="9786756" textFill="WHITE" AnchorPane.rightAnchor="21.599999999999966">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="22.0" text="Food Income" textFill="#ffaa00" AnchorPane.leftAnchor="30.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+   <stylesheets>
+      <URL value="@../css/fx_style.css" />
+      <URL value="@../css/chart_style.css" />
+   </stylesheets>
+</AnchorPane>

@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -25,6 +26,8 @@ public class Internet_Cafe_admin extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+       
+
         stage.show();
         new Thread(() -> {
             server s = new server();
