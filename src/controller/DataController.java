@@ -15,6 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -127,16 +128,7 @@ public class DataController implements Initializable {
         pieChart2.setLegendSide(Side.RIGHT);
         pieChart2.setPrefWidth(450); 
         
-        //Total income
-        setTotalIncome();
         
-        //Main income
-        setMainIncome();
-        
-        //Food income
-        setFoodIncome();
-        
-    
     }    
 
      @FXML
@@ -215,6 +207,27 @@ public class DataController implements Initializable {
         LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         
          CreateAreaChart(startOfWeek, endOfWeek, 1, Granularity.DAILY);
+         
+         try {
+            //Total income
+            setTotalIncome(Granularity.oneweek);
+        } catch (SQLException ex) {
+            System.out.println("error from init settotalincome");
+        }
+         
+          try {
+            //Main income
+            setMainIncome(Granularity.oneweek);
+        } catch (SQLException ex) {
+            System.out.println("set main income error");
+        }
+          
+           try {
+            //Food income
+            setFoodIncome(Granularity.oneweek);
+        } catch (SQLException ex) {
+            System.out.println("set food income error");
+        }
 
         
     }
@@ -226,6 +239,27 @@ public class DataController implements Initializable {
         LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
         
         CreateAreaChart(startOfMonth, endOfMonth, 1, Granularity.DAILY);
+        
+        try {
+            //Total income
+            setTotalIncome(Granularity.onemonth);
+        } catch (SQLException ex) {
+            System.out.println("error from init settotalincome");
+        }
+        
+        try {
+            //Main income
+            setMainIncome(Granularity.onemonth);
+        } catch (SQLException ex) {
+            System.out.println("set main income error");
+        }
+        
+         try {
+            //Food income
+            setFoodIncome(Granularity.onemonth);
+        } catch (SQLException ex) {
+            System.out.println("set food income error");
+        }
 
         
         
@@ -236,6 +270,28 @@ public class DataController implements Initializable {
         LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
         
          CreateAreaChart(startOfMonth, endOfMonth, 3, Granularity.WEEKLY);
+         
+         try {
+            //Total income
+            setTotalIncome(Granularity.threemonth);
+        } catch (SQLException ex) {
+            System.out.println("error from init settotalincome");
+        }
+         
+         try {
+            //Main income
+            setMainIncome(Granularity.threemonth);
+        } catch (SQLException ex) {
+            System.out.println("set main income error");
+        }
+         
+          try {
+            //Food income
+            setFoodIncome(Granularity.threemonth);
+        } catch (SQLException ex) {
+            System.out.println("set food income error");
+        }
+         
         
 
         
@@ -253,6 +309,27 @@ public class DataController implements Initializable {
          LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
          
           CreateAreaChart(startday, endOfMonth, 3, Granularity.WEEKLY);
+          
+          try {
+            //Total income
+            setTotalIncome(Granularity.alltime);
+        } catch (SQLException ex) {
+            System.out.println("error from init settotalincome");
+        }
+          
+          try {
+            //Main income
+            setMainIncome(Granularity.alltime);
+        } catch (SQLException ex) {
+            System.out.println("set main income error");
+        }
+          
+           try {
+            //Food income
+            setFoodIncome(Granularity.alltime);
+        } catch (SQLException ex) {
+            System.out.println("set food income error");
+        }
          
          
         
@@ -338,7 +415,7 @@ public class DataController implements Initializable {
     
     
     public enum Granularity {
-    DAILY, WEEKLY, MONTHLY
+    DAILY, WEEKLY, MONTHLY , oneweek, onemonth,threemonth, alltime
 }
 
     public void CreateAreaChart(LocalDate from, LocalDate to, int tickUnit, Granularity granularity) {
@@ -367,14 +444,6 @@ public class DataController implements Initializable {
             return LocalDate.parse(string, formatter).toEpochDay();
         }
     });
-
-    
-    
-   
-    
-    
-    
-    
     
         try {
             //    if (chartTimeline != null) {
@@ -404,52 +473,138 @@ updateChartData(granularity);
         }
     }
         
-        public void setTotalIncome(){
-            int total =0;
-        try {
-            String sql = "SELECT (SELECT SUM(total_price) FROM sale) + (SELECT SUM(total_food_price) FROM food_order) AS total_income;";
-            st = con.prepareStatement(sql);
-            rs =st.executeQuery(sql);
-            if(rs.next())
-                 total = rs.getInt("total_income");
-            txtTotalIncome.setText(Integer.toString(total));
+//        public void setTotalIncome(){
+//            int total =0;
+//        try {
+//            String sql = "SELECT (SELECT SUM(total_price) FROM sale) + (SELECT SUM(total_food_price) FROM food_order) AS total_income;";
+//            st = con.prepareStatement(sql);
+//            rs =st.executeQuery(sql);
+//            if(rs.next())
+//                 total = rs.getInt("total_income");
+//            txtTotalIncome.setText(Integer.toString(total));
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("total income error");
+//        }
+//        }
+    
+    public void setTotalIncome(Granularity granularity) throws SQLException {
+        int total =0;
+    LocalDate today = LocalDate.now();
+    LocalDate startDate = null;
+    switch (granularity) {
+        case oneweek -> startDate =today.minusWeeks(1);
+        case onemonth -> startDate =today.minusMonths(1);
+        case threemonth ->startDate = today.minusMonths(3);
+        case alltime ->startDate =null;
+    };
+
+    String sql;
+    if (startDate != null) {
+        sql = """
+              SELECT
+                  COALESCE((SELECT SUM(total_price) FROM sale WHERE sale_date >= ?), 0) +
+                  COALESCE((SELECT SUM(total_food_price) FROM food_order WHERE sale_date >= ?), 0)
+              AS total_income
+              """;
+    } else {
+        sql = """
+              SELECT
+                  COALESCE((SELECT SUM(total_price) FROM sale), 0) +
+                  COALESCE((SELECT SUM(total_food_price) FROM food_order), 0)
+              AS total_income
+              """;
+    }
+
+    pst = con.prepareStatement(sql);
+        if (startDate != null) {
+            Date sqlDate = java.sql.Date.valueOf(startDate);;
+            pst.setDate(1, (java.sql.Date) sqlDate);
+            pst.setDate(2, (java.sql.Date) sqlDate);
+        }
+
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            total = rs.getInt("total_income");
             
-        } catch (SQLException ex) {
-            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("total income error");
-        }
-        }
-        public void setMainIncome(){
-            int total =0;
-        try {
-            String sql = "SELECT sum(total_price) as main_income from sale";
-            st = con.prepareStatement(sql);
-            rs =st.executeQuery(sql);
-            if(rs.next())
-                 total = rs.getInt("main_income");
-            txtMainIncome.setText(Integer.toString(total));
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("main income error");
-        }
-        }
-        public void setFoodIncome(){
-            int total =0;
-        try {
-            String sql = "SELECT sum(total_food_price) as food_income from food_order";
-            st = con.prepareStatement(sql);
-            rs =st.executeQuery(sql);
-            if(rs.next())
-                 total = rs.getInt("food_income");
-            txtFoodIncome.setText(Integer.toString(total));
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("total income error");
-        }
             
         }
+        txtTotalIncome.setText(Integer.toString(total));
+    
+
+   
+}
+
+    
+    public void setMainIncome(Granularity granularity) throws SQLException{
+    int total =0;
+    LocalDate today = LocalDate.now();
+    LocalDate startDate = null;
+    switch (granularity) {
+        case oneweek -> startDate =today.minusWeeks(1);
+        case onemonth -> startDate =today.minusMonths(1);
+        case threemonth ->startDate = today.minusMonths(3);
+        case alltime ->startDate =null;
+    };
+
+    String sql;
+    if (startDate != null) {
+        sql = "SELECT COALESCE(SUM(total_price), 0) AS main_income FROM sale WHERE sale_date >= ?";
+    } else {
+        sql = "SELECT COALESCE(SUM(total_price), 0) AS main_income FROM sale";
+    }
+
+    pst = con.prepareStatement(sql);
+        if (startDate != null) {
+            Date sqlDate = java.sql.Date.valueOf(startDate);
+            pst.setDate(1, (java.sql.Date) sqlDate);
+           
+        }
+
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            total = rs.getInt("main_income");
+            
+            
+        }
+        txtMainIncome.setText(Integer.toString(total));
+            }
+        
+        
+       public void setFoodIncome(Granularity granularity) throws SQLException{
+    int total =0;
+    LocalDate today = LocalDate.now();
+    LocalDate startDate = null;
+    switch (granularity) {
+        case oneweek -> startDate =today.minusWeeks(1);
+        case onemonth -> startDate =today.minusMonths(1);
+        case threemonth ->startDate = today.minusMonths(3);
+        case alltime ->startDate =null;
+    };
+
+    String sql;
+    if (startDate != null) {
+        sql = "SELECT COALESCE(SUM(total_food_price), 0) AS food_income FROM food_order WHERE sale_date >= ?";
+    } else {
+        sql = "SELECT COALESCE(SUM(total_food_price), 0) AS food_income FROM food_order";
+    }
+
+    pst = con.prepareStatement(sql);
+        if (startDate != null) {
+            Date sqlDate = java.sql.Date.valueOf(startDate);
+            pst.setDate(1, (java.sql.Date) sqlDate);
+           
+        }
+
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            total = rs.getInt("food_income");
+            
+            
+        }
+        txtFoodIncome.setText(Integer.toString(total));
+            }
 
 
 
