@@ -154,6 +154,7 @@ public class server {
         }else if (msg.startsWith("ORDER|")) {
             String[] parts = msg.split("\\|", 2);
             System.out.println("Order from " + clientName + ": " + (parts.length > 1 ? parts[1] : "Unknown item"));
+            
 
         }else if (msg.startsWith("SESSION_END|")) {
             String[] parts = msg.split("\\|");
