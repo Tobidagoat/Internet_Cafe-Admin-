@@ -158,7 +158,7 @@ public class UserlistController implements Initializable {
         for (User user : selectedusers) userIds.add(user.id);
 
         if (roomcategory.equalsIgnoreCase("general")) {
-            String selectedPackage = "Silver";
+            String selectedPackage = "Normal";
             int duration = 3600;
             LocalTime now = LocalTime.now();
             String starttime = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
