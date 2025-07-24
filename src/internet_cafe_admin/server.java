@@ -1,9 +1,13 @@
 package internet_cafe_admin;
 
+import controller.DashboardController;
 import controller.RoomController;
 import java.io.*;
 import java.net.*;
+import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -131,25 +135,26 @@ public class server {
         
         private static void handleCommand(String msg, String clientName) {
            if (msg.startsWith("REQUEST_ADD_TIME|")) {
-               System.out.println("Yea something is wrong");
             String[] parts = msg.split("\\|");
             if (parts.length == 2) {
                 String seconds = parts[1];
-
                 System.out.println("🕒 " + clientName + " requested +" + seconds + " seconds.");
-
+                
                 Platform.runLater(() -> {
-                    boolean accepted = showConfirmDialog(clientName, seconds);
-                    if (accepted) {
-                        ClientHandler target = clients.get(clientName);
-                        if (target != null) {
-                            target.sendMessage("ADD_TIME_CONFIRMED|" + seconds);
-                            System.out.println("✅ Accepted. Sent ADD_TIME_CONFIRMED|" + seconds + " to " + clientName);
-                        }
-                    } else {
-                        System.out.println("❌ Admin rejected time add request from " + clientName);
-                    }
-                });
+            if (DashboardController.instance != null) {
+                try {
+                    int sec = Integer.parseInt(seconds);
+                    DashboardController.instance.addTimeRequestCard(clientName, sec);
+            } catch (NumberFormatException e) {
+                    System.out.println("Invalid seconds value from client " + clientName);
+            }   catch (SQLException ex) {
+                    Logger.getLogger(server.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                System.out.println("⚠️ DashboardController.instance is null");
+            }
+            });
+
             }
         }else if (msg.startsWith("ORDER|")) {
             String[] parts = msg.split("\\|", 2);

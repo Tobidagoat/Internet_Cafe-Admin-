@@ -56,6 +56,7 @@ public class PackageController implements Initializable {
     PreparedStatement stmt;
     ResultSet rs;
     private RoomController roomController;
+    private DashboardController dashboard=DashboardController.getInstance();
     private boolean result=false;
     private String selectedpackage;
     int packageid;
@@ -102,7 +103,7 @@ public class PackageController implements Initializable {
         FXMLLoader userloader = new FXMLLoader(getClass().getResource("/view/userlist.fxml"));
         AnchorPane popup = userloader.load();
         UserlistController controller = userloader.getController();
-        controller.setuserinfo(pcid, roomtype, roomid, "basic_pack", (Stage) btnsubmit.getScene().getWindow());
+        controller.setuserinfo(pcid, roomtype, roomid, "Normal", (Stage) btnsubmit.getScene().getWindow());
         controller.setlabel(lbusers);
         controller.setroomtype(getroomtype(roomid),roomcategory);
         Stage popupstage = new Stage();
@@ -173,11 +174,11 @@ public class PackageController implements Initializable {
         }
          
             
-        if (roomtype.equalsIgnoreCase("couple")) {
+        if (roomcategory.equalsIgnoreCase("private")) {
             List<String> pclist = getpcfromroomid(selectedroomid); 
             
              for (int i = 0; i < pclist.size(); i++) {
-                String pcName = pclist.get(i);
+                String pcName ="pc"+ pclist.get(i);
                 int pcID = Integer.parseInt(pcName.replaceAll("[^0-9]", ""));
                 System.out.println(pcID);
                 int userId = (int) selectedUserIds.get(i);
@@ -185,16 +186,18 @@ public class PackageController implements Initializable {
                 sendToClient("TO|" + pcName + "|" + unlockMsg);
                 updatestatus(pcID,userId);
                 insertdata(userId, pcID, selectedroomid,packageid,starttime,period);
+                dashboard.logActivity(pcName+" started session");
                 System.out.println(unlockMsg);
             }
         } else {
             int userid=selectedUserIds.get(0);
             
             String pcName = "pc" + selectedpcid;
-            s.sendToClient("TO|" + pcName + "|UNLOCK|" + pcName + "|" + selectedUserIds + "|" + selectedroomid + "|" + selectedpackage + "|" + duration);
+            sendToClient("TO|" + pcName + "|UNLOCK|" + pcName + "|" + selectedUserIds + "|" + selectedroomid + "|" + selectedpackage + "|" + duration);
 //            System.out.println("userid: "+userid+"pcid: "+selectedpcid+"roomid: "+selectedroomid+"packageid: "+packageid+"time: "+starttime+"period: "+period);
             updatestatus(selectedpcid,userid);
             insertdata(userid, selectedpcid, selectedroomid,packageid,starttime,period);
+            dashboard.logActivity(pcName+" started session");
             System.out.println("Sent to pc: " + selectedpcid);
         }
         

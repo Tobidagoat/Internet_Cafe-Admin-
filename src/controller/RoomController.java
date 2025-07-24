@@ -20,13 +20,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class RoomController implements Initializable {
     @FXML private Button btngeneral;
@@ -35,7 +39,9 @@ public class RoomController implements Initializable {
     @FXML private AnchorPane roompane;
     @FXML private FlowPane pccontainer;
     @FXML private ScrollPane pcpane;
-
+    @FXML private Button btnaddroom;
+    @FXML private Button btnback;
+    
     public static RoomController instance;
     private Connection con;
     private PreparedStatement pst;
@@ -57,10 +63,14 @@ public class RoomController implements Initializable {
         btnprivate.setStyle("-fx-background-color: #141619;-fx-border-color: #494949;-fx-text-fill: #ffffff;-fx-background-radius: 0 10px 0 0;-fx-border-radius: 0 10px 0 0;");
         } catch (ClassNotFoundException | SQLException | IOException ex) {
             Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+            closeResources();
         }
     }
 
     public void loadrooms(String roomcategory) throws SQLException, IOException {
+        closeResources();
+        btnback.setVisible(false);
+        btnback.setDisable(true);
         roompane.setVisible(true);
         pcpane.setVisible(false);
         cardcontainer.getChildren().clear();
@@ -83,24 +93,34 @@ public class RoomController implements Initializable {
         }
     }
 
-    public void loadpcforroom(int roomid) throws SQLException, IOException, ClassNotFoundException {
-        pcpane.setVisible(true);
-        roompane.setVisible(false);
-        pcCardMap.clear();
-        pccontainer.getChildren().clear();
+ public void loadpcforroom(int roomid) {
+    btnback.setVisible(true);
+    btnback.setDisable(false);
+    pcpane.setVisible(true);
+    roompane.setVisible(false);
+    pcCardMap.clear();
+    pccontainer.getChildren().clear();
 
-        Task<Void> loadTask = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                PreparedStatement pst = con.prepareStatement("SELECT * FROM pcs WHERE room_id = ?");
-                pst.setInt(1, roomid);
-                ResultSet rs = pst.executeQuery();
+    Task<Void> loadTask = new Task<Void>() {
+        @Override
+        protected Void call() throws Exception {
+            Connection taskCon = null;
+            PreparedStatement taskPst = null;
+            ResultSet taskRs = null;
+            
+            try {
+                // Create new DbConnection instance for the task
+                DbConnection db = new DbConnection();
+                taskCon = db.getConnection();
+                taskPst = taskCon.prepareStatement("SELECT * FROM pcs WHERE room_id = ?");
+                taskPst.setInt(1, roomid);
+                taskRs = taskPst.executeQuery();
 
-                while (rs.next()) {
-                    int no = rs.getInt("pc_no");
+                while (taskRs.next()) {
+                    int no = taskRs.getInt("pc_no");
                     String pcname = "PC - " + no;
-                    int pcid = rs.getInt("pc_id");
-                    int statusid = rs.getInt("status_id");
+                    int pcid = taskRs.getInt("pc_id");
+                    int statusid = taskRs.getInt("status_id");
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/pccard.fxml"));
                     AnchorPane card = loader.load();
@@ -109,26 +129,35 @@ public class RoomController implements Initializable {
                     cardcontrol.setRoomType(roomcategory);
                     cardcontrol.setpcinfo(pcname, RoomController.this, roomid, pcid, card, statusid);
 
-                    if (statusid == 2) Platform.runLater(() -> card.setDisable(true));
-
                     pcCardMap.put(pcid, cardcontrol);
                     card.setUserData(cardcontrol);
 
                     Platform.runLater(() -> pccontainer.getChildren().add(card));
                 }
-                return null;
+            } finally {
+                // Close resources in reverse order of creation
+                if (taskRs != null) {
+                    try { taskRs.close(); } catch (SQLException e) { /* log error */ }
+                }
+                if (taskPst != null) {
+                    try { taskPst.close(); } catch (SQLException e) { /* log error */ }
+                }
+                if (taskCon != null) {
+                    try { taskCon.close(); } catch (SQLException e) { /* log error */ }
+                }
             }
-        };
+            return null;
+        }
+    };
 
-        new Thread(loadTask).start();
-    }
+    new Thread(loadTask).start();
+}
 
     public void updateCardToNormal(int pcId) {
         Platform.runLater(() -> {
             PcCardController cardController = pcCardMap.get(pcId);
             if (cardController != null) {
                 AnchorPane cardPane = cardController.card;
-                if (cardPane != null) cardPane.setDisable(false);
                 try {
                     cardController.setStatus(1);
                 } catch (SQLException ex) {
@@ -136,6 +165,15 @@ public class RoomController implements Initializable {
                 }
             }
         });
+    }
+    public void updateCardStatus(int pcId, int statusid) throws SQLException {
+        PcCardController cardController = pcCardMap.get(pcId);
+        if (cardController != null) {
+            cardController.setStatus(statusid);
+            AnchorPane cardPane = cardController.card;
+        } else {
+            System.out.println("PC card not found for id: " + pcId);
+        }
     }
 
     public void showuserlist(int pcid, int roomid) throws IOException {
@@ -167,22 +205,9 @@ public class RoomController implements Initializable {
         popupstage.setTitle("Select Package");
         popupstage.setScene(new Scene(popup));
         popupstage.showAndWait();
-
-        if (controller.getresult()) {
-            card.setDisable(true);
-        }
     }
 
-    public void updateCardStatus(int pcId, int statusid) throws SQLException {
-        PcCardController cardController = pcCardMap.get(pcId);
-        if (cardController != null) {
-            cardController.setStatus(statusid);
-            AnchorPane cardPane = cardController.card;
-            if (cardPane != null) cardPane.setDisable(statusid == 2);
-        } else {
-            System.out.println("PC card not found for id: " + pcId);
-        }
-    }
+
 
     @FXML
     private void btngeneralaction(ActionEvent event) throws SQLException, IOException {
@@ -196,5 +221,58 @@ public class RoomController implements Initializable {
         loadrooms("private");
         btnprivate.setStyle("-fx-background-color: #ffffff;-fx-border-color: #494949;-fx-text-fill: #141619;-fx-background-radius: 0 10px 0 0;-fx-border-radius: 0 10px 0 0;");
         btngeneral.setStyle("-fx-background-color: #141619;-fx-border-color: #494949;-fx-text-fill: #ffffff;-fx-background-radius: 10px 0 0 0;-fx-border-radius: 10px 0 0 0;");
+    }
+    
+    @FXML
+    void btnaddroomaction(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/roomadd.fxml"));
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(((Node)event.getSource()).getScene().getWindow());
+        Parent root=loader.load();
+        Scene scene = new Scene(root, Color.TRANSPARENT);
+        dialog.setScene(scene);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        RoomaddController addController = loader.getController();
+        //addController.setRoomController(this);
+        dialog.setTitle("Add New Room");
+        dialog.showAndWait();
+    } catch (IOException e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Could not open room add dialog");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+    }        
+    }
+    
+    @FXML
+    void btnbackaction(ActionEvent event) {
+        if (pcpane.isVisible()) {
+        pcpane.setVisible(false);
+        roompane.setVisible(true);
+        btnback.setVisible(false);
+        btnback.setDisable(true);
+    }
+    }
+    
+    private void closeResources() {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
+    public void shutdown() {
+        try {
+            closeResources();
+            if (con != null) con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }    

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -35,11 +38,13 @@ import javax.swing.JOptionPane;
  * @author USER
  */
 public class PcCardController implements Initializable {
-
+    
     @FXML
     private Label lbpcno;
     @FXML
     private Label lbstatus;
+    @FXML
+    private Button btnterminate;
     
     private RoomController controller;
     private String pcno;
@@ -55,6 +60,7 @@ public class PcCardController implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+    private boolean isUnlocked = false;
     /**
      * Initializes the controller class.
      */
@@ -82,6 +88,7 @@ public class PcCardController implements Initializable {
         this.roomtype=roomtype;
         this.card=card;
         this.statusid=statusid;
+        setStatus(statusid);
         String status=getstatus(statusid);
         lbstatus.setText(status);
         lbpcno.setText(pcno);
@@ -113,21 +120,44 @@ public class PcCardController implements Initializable {
     public void setStatus(int statusid) throws SQLException{
         String status=getstatus(statusid);
         lbstatus.setText(status);
-        if(statusid==1)
+        if(statusid==1){
+            isUnlocked=false;
             lbstatus.setStyle("-fx-text-fill: green;");
-        else
+            btnterminate.setDisable(true);
+            btnterminate.setVisible(false);}
+        else{
+            isUnlocked=true;
             lbstatus.setStyle("-fx-text-fill: red;");
+            btnterminate.setDisable(false);
+            btnterminate.setVisible(true);
+        }
+    }
+    
+    @FXML
+    void btnterminateaction(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Warning");
+        alert.setContentText("Do you want to terminate this session?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        boolean accepted= result.isPresent() && result.get() == ButtonType.OK;
+            if (accepted) {
+                server.sendToClient("TO|pc"+pcid+"|TERMINATE");
+                    }
     }
      @FXML
     private void loadpackage(MouseEvent event) throws IOException, ClassNotFoundException, SQLException {
+        
         userlist =s.getConnectedClients();
         str="pc"+pcid;
         if(userlist.contains(str)){
+            if(!isUnlocked){
+            
             if(roomtype.equalsIgnoreCase("general")){
                 controller.showuserlist(pcid, roomid);
             }else{
                 controller.showpackages(pcid,roomid,card);
-            }
+            }}
         }
         else{
             JOptionPane.showMessageDialog(null, "This pc is not connected yet.");

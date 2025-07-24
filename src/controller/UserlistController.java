@@ -50,7 +50,7 @@ public class UserlistController implements Initializable {
     private String selectedpackage;
     private Stage packagestage;
     private RoomController roomController;
-
+    private DashboardController dashboard=DashboardController.getInstance();
 
     private final List<User> allusers = new ArrayList<>();
     private final List<User> selectedusers = new ArrayList<>();
@@ -100,6 +100,8 @@ public class UserlistController implements Initializable {
         this.roomtype = roomtype;
         this.roomcategory = roomcategory;
         if (roomtype.equalsIgnoreCase("couple")) userlimit = 2;
+        else if (roomtype.equalsIgnoreCase("team")) userlimit = 4;
+        else if (roomtype.equalsIgnoreCase("squad")) userlimit = 8;
         else userlimit = 1;
     }
 
@@ -162,13 +164,13 @@ public class UserlistController implements Initializable {
             int duration = 3600;
             LocalTime now = LocalTime.now();
             String starttime = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-
+            String pcName = "pc" + pcid;
             for (Integer userid : userIds) {
-                insertSale(userid, pcid, roomid, selectedPackage, starttime, duration);
+                insertSale(userid, pcid, roomid, selectedPackage, starttime);
+                dashboard.logActivity(pcName+" started session");
                 updatePcStatus(pcid);
             }
-
-            String pcName = "pc" + pcid;
+            
             s.sendToClient("TO|" + pcName + "|UNLOCK|" + pcName + "|" + userIds + "|" + roomid + "|" + selectedPackage + "|" + duration);
             if (roomController != null) {
                 roomController.updateCardStatus(pcid, 2);
@@ -176,12 +178,11 @@ public class UserlistController implements Initializable {
 
             
         }
-
         Stage stage = (Stage) listconfirmbtn.getScene().getWindow();
         stage.close();
     }
 
-    private void insertSale(int userid, int pcid, int roomid, String packageName, String startTime, int duration) throws SQLException {
+    private void insertSale(int userid, int pcid, int roomid, String packageName, String startTime) throws SQLException {
         int packageid = getPackageId(packageName);
         pst = con.prepareStatement("INSERT INTO sale_detail(customer_id, pc_id, room_id, package_id, status_id, start_time, period, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         pst.setInt(1, userid);
@@ -190,7 +191,7 @@ public class UserlistController implements Initializable {
         pst.setInt(4, packageid);
         pst.setInt(5, 2);
         pst.setString(6, startTime);
-        pst.setInt(7, duration / 60);
+        pst.setInt(7, 1);
         pst.setDate(8, java.sql.Date.valueOf(LocalDate.now()));
         pst.executeUpdate();
     }

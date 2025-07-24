@@ -46,3 +46,162 @@
     -fx-border-color: rgba(255, 98, 0, 0.496);
 }
 
+.card-pane{
+    -fx-background-color: #1C1F21;
+    -fx-border-color: #494949;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+}
+.rounded-container {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: #6495ED;
+    -fx-border-width: 2px;
+}
+.scroll-pane > .viewport {
+    -fx-background-color:  #202225;
+}
+
+.scroll-pane {
+    -fx-background-color: #202225; 
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}
+
+.scroll-pane > .scroll-bar:vertical,
+.scroll-pane > .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+
+.scroll-pane > .scroll-bar:vertical > .track,
+.scroll-pane > .scroll-bar:horizontal > .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+
+.scroll-pane > .scroll-bar:vertical > .thumb,
+.scroll-pane > .scroll-bar:horizontal > .thumb {
+    -fx-background-color: rgba(0,0,0,0.2); /* Semi-transparent thumb */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+/* ===== LISTVIEW CONTAINER ===== */
+.list-view.activity-feed {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+    -fx-border-width: 0;
+}
+
+/* ===== SCROLL PANE (INTERNAL) ===== */
+.list-view.activity-feed .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-view.activity-feed .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ===== LIST CELLS ===== */
+.list-view.activity-feed .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10px 8px;
+    -fx-font-size: 22px;
+    -fx-font-weight: Bold;
+    -fx-font-family:  Arial;
+    -fx-text-fill: #e0e0e0; /* Light text for dark background */
+}
+
+/* Alternate row coloring */
+.list-view.activity-feed .list-cell:even {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+}
+
+.list-view.activity-feed .list-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Hover and selection states */
+.list-view.activity-feed .list-cell:hover {
+    -fx-background-color: rgba(255, 106, 0, 0.2) !important;
+}
+
+.list-view.activity-feed .list-cell:selected {
+    -fx-background-color: rgba(255, 106, 0, 0.3) !important;
+}
+
+/* ===== SCROLL BAR ===== */
+.list-view.activity-feed .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-view.activity-feed .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.list-view.activity-feed .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 106, 0, 0.4);
+    -fx-background-radius: 4px;
+}
+
+.list-view.activity-feed .scroll-bar:vertical .increment-button,
+.list-view.activity-feed .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+/* ===== CORNER ===== */
+.list-view.activity-feed .corner {
+    -fx-background-color: transparent;
+}
+
+/* === Dark Mode Round Back Button === */
+.back-button {
+    -fx-background-radius: 50%; /* Perfect circle */
+    -fx-min-width: 50px;        /* Bigger size */
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-background-color: #141619; /* Dark background */
+    -fx-border-color: #494949;     /* Border color */
+    -fx-border-radius: 50%;        /* Circular border */
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;              /* Pointer cursor */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 8, 0, 0, 2);
+}
+
+/* Hover effect: Rotate slightly + glow */
+.back-button:hover {
+    -fx-background-color: #1e1f23; /* Slightly lighter dark */
+    -fx-border-color: #5a5a5a;     /* Brighter border */
+    -fx-rotate: -7;               /* Slight left rotation */
+    -fx-effect: dropshadow(gaussian, rgba(100, 100, 100, 0.3), 12, 0, 0, 3);
+}
+
+/* Pressed effect: Scale down + darker */
+.back-button:pressed {
+    -fx-background-color: #0d0e10; /* Darker press */
+    -fx-border-color: #3a3a3a;
+    -fx-scale-x: 0.95;             /* Slight shrink */
+    -fx-scale-y: 0.95;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 0, 2);
+}

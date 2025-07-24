@@ -1,0 +1,70 @@
+
+.chart {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #e0e0e0;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+/* ===== SERIES 1 (Blue) ===== */
+.default-color0.chart-series-area-line { 
+    -fx-stroke: #6495ED;  /* Soft blue */
+    -fx-stroke-width: 2px;
+}
+
+.default-color0.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, 
+        rgba(100, 149, 237, 0.3),  /* Start color (top) */
+        rgba(100, 149, 237, 0.05)  /* End color (bottom) */
+    );
+}
+
+/* ===== SERIES 2 (Coral) ===== */
+.default-color1.chart-series-area-line {
+    -fx-stroke: #FF7F50;  /* Coral */
+    -fx-stroke-width: 2px;
+}
+
+.default-color1.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, 
+        rgba(255, 127, 80, 0.3), 
+        rgba(255, 127, 80, 0.05)
+    );
+}
+
+/* ===== SHARED ELEMENTS ===== */
+/* Axis styling */
+.axis {
+    -fx-tick-label-fill: #a0a0a0;
+    -fx-tick-length: 5px;
+    -fx-font-size: 11px;
+}
+
+.axis-label {
+    -fx-text-fill: #d0d0d0;
+}
+
+/* Grid lines (dashed) */
+.chart-vertical-grid-lines, 
+.chart-horizontal-grid-lines {
+    -fx-stroke: #404040;
+    -fx-stroke-dash-array: 5 3;  /* Dashed pattern */
+}
+
+
+
+/* Legend (if enabled) */
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.chart-legend-item-symbol {
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+    -fx-background-radius: 6px;
+}
+

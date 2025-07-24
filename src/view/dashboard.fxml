@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+   <children>
+      <AnchorPane layoutX="32.8" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="270.0" styleClass="card-pane" stylesheets="@../css/style.css" AnchorPane.leftAnchor="32.8">
+         <children>
+            <Label layoutX="14.0" layoutY="147.0" opacity="0.6" text="Available PCs" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbactivepc" layoutX="51.0" layoutY="72.0" text="88/100" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbpcratio" layoutX="56.0" layoutY="107.0" prefHeight="18.0" prefWidth="190.0" text="8% occupied" textFill="#ff8175">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+            <Circle fill="WHITE" layoutX="38.0" layoutY="34.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="209.2" AnchorPane.topAnchor="11.0" />
+            <FontAwesomeIcon fill="#202225" glyphName="DESKTOP" layoutX="28.0" layoutY="45.0" selectionFill="#202225" size="2em" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="33.0" layoutY="217.0" prefHeight="180.0" prefWidth="270.0" style="-fx-background-color: #F2E4FF; -fx-background-radius: 15;">
+         <children>
+            <Circle fill="WHITE" layoutX="37.0" layoutY="30.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="11.0" />
+            <Label layoutX="14.0" layoutY="150.0" opacity="0.6" text="Today's Revenue" textFill="#834cb7">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fill="#f2e4ff" glyphName="MONEY" layoutX="25.0" layoutY="42.0" size="2em" />
+            <Label fx:id="lbtodaysale" layoutX="51.0" layoutY="72.0" text="10000 KS" textFill="#252c37">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbtodaysalecompare" layoutX="51.0" layoutY="107.0" prefHeight="18.0" prefWidth="213.0" text="+$32.50 from yesterday" textFill="#6cc95c">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="322.0" layoutY="21.0" prefHeight="180.0" prefWidth="270.0" style="-fx-background-color: #F2E4FF; -fx-background-radius: 15;">
+         <children>
+            <Circle fill="WHITE" layoutX="37.0" layoutY="37.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="11.0" />
+            <Label layoutX="16.0" layoutY="146.0" opacity="0.6" text="Active Sessions" textFill="#834cb7">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fill="#f2e4ff" glyphName="HISTORY" layoutX="28.0" layoutY="42.0" size="2em" />
+            <Label fx:id="lbactivesession" layoutX="44.0" layoutY="72.0" text="24 sessions" textFill="#252c37">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="322.0" layoutY="217.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="270.0" styleClass="card-pane" stylesheets="@../css/style.css">
+         <children>
+            <Circle fill="WHITE" layoutX="34.0" layoutY="38.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="11.0" />
+            <Label layoutX="18.0" layoutY="149.0" opacity="0.6" text="New Users" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fill="#202225" glyphName="USER" layoutX="31.0" layoutY="45.0" size="2em" />
+            <Label fx:id="lbnewuser" alignment="CENTER" layoutX="36.0" layoutY="72.0" prefHeight="35.0" prefWidth="199.0" text="0 New users" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbnewusercompare" layoutX="36.0" layoutY="106.0" prefHeight="18.0" prefWidth="198.0" text="+2 from yesterday" textFill="#6cc95c">
+               <font>
+                  <Font name="Consolas Bold" size="15.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="612.0" layoutY="20.8" prefHeight="377.0" prefWidth="686.0" styleClass="card-pane" stylesheets="@../css/style.css" AnchorPane.topAnchor="21.0">
+         <children>
+            <AreaChart fx:id="chart" layoutX="1.0" layoutY="55.0" prefHeight="319.0" prefWidth="676.0" style="-fx-background-color: transparent;" stylesheets="@../css/chart.css">
+               <xAxis>
+                  <NumberAxis autoRanging="true" label="Date" tickLabelRotation="40.0" fx:id="xAxis" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis label="Income" />
+               </yAxis>
+            </AreaChart>
+            <Label layoutX="14.0" layoutY="14.0" opacity="0.93" text="This week's Sales" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="249.0" layoutY="16.0" prefHeight="18.0" prefWidth="124.0" text="session's income" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="12.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="CORNFLOWERBLUE" height="11.0" layoutX="216.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="26.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="CORAL" height="11.0" layoutX="373.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="26.0" />
+            <Label layoutX="406.0" layoutY="16.0" prefHeight="18.0" prefWidth="136.0" text="food's income" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="12.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="886.0" layoutY="464.0" prefHeight="220.0" prefWidth="411.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15;" styleClass="card-pane" stylesheets="@../css/style.css">
+         <children>
+            <ListView fx:id="activityLogListView" layoutX="106.0" layoutY="10.0" prefHeight="220.0" prefWidth="411.2" styleClass="activity-feed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="33.0" layoutY="464.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="834.0" style="-fx-background-radius: 0 15 15 15; -fx-border-radius: 0 15 15 15; -fx-background-color: #202225;" styleClass="card-pane" stylesheets="@../css/style.css">
+         <children>
+            <ScrollPane fitToHeight="true" layoutX="324.0" layoutY="10.0" prefHeight="220.0" prefWidth="834.4" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <HBox fx:id="timerequestcontainer" prefHeight="100.0" spacing="15.0" style="-fx-background-color: transparent;">
+                     <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="886.0" layoutY="419.0" prefHeight="46.0" prefWidth="411.0" style="-fx-background-radius: 15 15 0 0; -fx-border-radius: 15 15 0 0;" styleClass="card-pane" stylesheets="@../css/style.css">
+         <children>
+            <Label layoutX="41.0" layoutY="12.0" opacity="0.93" text="Live User Feed" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="19.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fill="#d6ffbd" glyphName="BOLT" layoutX="21.0" layoutY="33.0" opacity="0.92" size="2em" text="" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="33.0" layoutY="419.0" prefHeight="46.0" prefWidth="270.0" style="-fx-background-radius: 15 15 0 0; -fx-border-radius: 15 15 0 0;" styleClass="card-pane" stylesheets="@../css/style.css">
+         <children>
+            <Label layoutX="55.0" layoutY="12.0" opacity="0.93" text="Users Time Requests" textFill="WHITE">
+               <font>
+                  <Font name="Consolas Bold" size="19.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fill="WHITE" glyphName="HISTORY" layoutX="14.0" layoutY="31.0" opacity="0.92" size="2em" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

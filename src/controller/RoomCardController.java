@@ -25,10 +25,6 @@ public class RoomCardController implements Initializable {
     @FXML
     private Label lbroomno;
     @FXML
-    private Circle activeball;
-    @FXML
-    private Label lbactiveno;
-    @FXML
     private Label lbroomcategory;
     
     private RoomController controller;

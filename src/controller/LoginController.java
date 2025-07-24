@@ -8,6 +8,8 @@ import database.DbConnection;
 import internet_cafe_admin.Internet_Cafe_admin;
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,6 +58,8 @@ public class LoginController implements Initializable {
     PreparedStatement pst;
     ResultSet rs;
     Stage stage=Internet_Cafe_admin.stage;
+    private String username;
+    private String password;
     /**
      * Initializes the controller class.
      */
@@ -68,13 +72,25 @@ public class LoginController implements Initializable {
             
         }
     }    
-
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Password hashing failed", e);
+        }
+    }
     @FXML
     private void loginaction(ActionEvent event) throws SQLException, IOException {
         boolean valid=false;
         
-        String username=txtusername.getText();
-        String password=txtpassword.getText();
+        username=txtusername.getText();
+        password=txtpassword.getText();
         
         if(txtusername.getText().isEmpty()){
             lbusernameerror.setText("Please enter username");
@@ -95,32 +111,31 @@ public class LoginController implements Initializable {
         }
            
         
-        if(valid){
-            String sql="Select * from admins where admin_name=? and password=?";
-            pst=con.prepareStatement(sql);
+        if(valid) {
+            String hashedPassword = hashPassword(password);
+            String sql = "SELECT * FROM admins WHERE admin_name = ? AND password = ?";
+            pst = con.prepareStatement(sql);
             
             pst.setString(1, username);
-            pst.setString(2, password);
+            pst.setString(2, hashedPassword); // Compare hashed passwords
             
-            rs=pst.executeQuery();
+            rs = pst.executeQuery();
 
-//            Stage stage=Internet_Cafe_admin.stage;
-           if(rs.next()){
-               root = FXMLLoader.load(getClass().getResource("/view/Default.fxml"));
+            if (rs.next()) {
+                String adminpf = rs.getString("admin_profile_pic");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Default.fxml"));
+                Parent root = loader.load();
+                DefaultController controller = loader.getController();
+                controller.getadmininfo(username, adminpf);
 
-            Scene scene = new Scene(root);
-//            stage.initStyle(StageStyle.UTILITY);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setMaximized(true);
-            
-            stage.show();
-               
-           }else{
-               JOptionPane.showMessageDialog(null, "Username or Password  is wrong!");
-           }
-            
-            
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.setMaximized(true);
+                stage.show();
+            } else {
+                JOptionPane.showMessageDialog(null, "Username or Password is wrong!");
+            }
         }
     }
 

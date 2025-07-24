@@ -2,22 +2,10 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="card" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#loadpc" prefHeight="274.4" prefWidth="274.4" style="-fx-border-color: #494949; -fx-border-radius: 4; -fx-background-color: #202225; -fx-background-radius: 4;" styleClass="card" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RoomCardController">
    <children>
-      <Label layoutX="48.0" layoutY="251.0" text="Online" textFill="WHITE">
-         <font>
-            <Font name="Candara" size="12.0" />
-         </font>
-      </Label>
-      <Circle fx:id="activeball" fill="#10ff4c" layoutX="12.0" layoutY="259.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="lbactiveno" alignment="CENTER" layoutX="23.0" layoutY="248.0" prefHeight="22.0" prefWidth="22.0" text="0" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Candara Bold" size="17.0" />
-         </font>
-      </Label>
       <Label fx:id="lbroomno" alignment="CENTER" layoutX="95.0" layoutY="124.0" text="Room - 1" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Candara Bold" size="22.0" />

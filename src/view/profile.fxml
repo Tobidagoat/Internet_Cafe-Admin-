@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="358.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/pattern-pin01.jpg" />
+         </image>
+      </ImageView>
+      <StackPane layoutX="137.0" layoutY="14.0" prefHeight="80.0" prefWidth="80.0" styleClass="rounded-container" stylesheets="@../css/style.css" AnchorPane.leftAnchor="137.0">
+         <children>
+            <ImageView fx:id="profileImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </StackPane>
+      <TextField fx:id="txtname" layoutX="40.0" layoutY="145.0" prefHeight="29.0" prefWidth="299.0" promptText="type your name" style="-fx-background-color: transparent; -fx-border-color: #7c7e9d; -fx-border-radius: 8px;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <Circle fill="#fdba9d8a" layoutX="209.0" layoutY="86.0" onMouseClicked="#changephoto" radius="9.0" stroke="#0000009f" strokeType="INSIDE" strokeWidth="0.0" />
+      <FontIcon disable="true" iconColor="#000000cf" iconLiteral="fa-pencil" layoutX="204.0" layoutY="90.0" />
+      <Label layoutX="40.0" layoutY="117.0" text="Full Name" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtemail" layoutX="40.0" layoutY="220.0" prefHeight="29.0" prefWidth="299.0" promptText="type your email" style="-fx-background-color: transparent; -fx-border-color: #7c7e9d; -fx-border-radius: 8px;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="40.0" layoutY="192.0" text="Email" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtoldpassword" layoutX="40.0" layoutY="299.0" prefHeight="29.0" prefWidth="299.0" promptText="type your password" style="-fx-background-color: transparent; -fx-border-color: #7c7e9d; -fx-border-radius: 8px;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="40.0" layoutY="271.0" text="Old-password" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtnewpassword" layoutX="40.0" layoutY="378.0" prefHeight="29.0" prefWidth="299.0" promptText="type your password" style="-fx-background-color: transparent; -fx-border-color: #7c7e9d; -fx-border-radius: 8px;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="40.0" layoutY="350.0" text="New-password" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btncancel" layoutX="41.0" layoutY="440.0" mnemonicParsing="false" onAction="#btncancelaction" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-border-color: #7c7e9d; -fx-border-radius: 5;" text="CANCEL" textFill="#7c7e9d">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnsave" layoutX="179.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnsaveaction" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: #7c7e9d; -fx-background-radius: 5;" text="SAVE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

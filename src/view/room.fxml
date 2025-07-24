@@ -19,6 +19,11 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Button fx:id="btnaddroom" layoutX="1181.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnaddroomaction" prefHeight="46.0" prefWidth="149.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;" text="Add Room" textAlignment="JUSTIFY" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
       <AnchorPane fx:id="roompane" layoutX="28.0" layoutY="65.0" prefHeight="630.0" prefWidth="1351.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 0 5px 5px 5px;">
          <children>
             <ScrollPane fitToWidth="true" layoutX="1.0" prefHeight="630.4" prefWidth="1351.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -49,5 +54,10 @@
             </AnchorPane>
          </content>
       </ScrollPane>
+      <Button fx:id="btnback" layoutX="1254.0" layoutY="644.0" mnemonicParsing="false" onAction="#btnbackaction" prefHeight="40.0" prefWidth="40.0" styleClass="back-button" stylesheets="@../css/style.css" text="back">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
