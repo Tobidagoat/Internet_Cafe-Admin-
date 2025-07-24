@@ -79,7 +79,7 @@
     -fx-text-fill: white;
     -fx-font-size:40px;
 }
-.total_customer_icon{
+.ttl_customer_icon{
     -fx-font-size:40px;
     -fx-fill:rgb(208, 0, 255)
 }
@@ -284,6 +284,13 @@
     -fx-border-color:rgb(0, 0, 0);
      
     
+}
+.rounded-container {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: #6495ED;
+    -fx-border-width: 2px;
+   
 }
 
 

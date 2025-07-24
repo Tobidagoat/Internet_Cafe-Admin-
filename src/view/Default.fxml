@@ -15,25 +15,25 @@
    <children>
       <AnchorPane layoutX="114.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="sidebar_anchor_pane" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ToggleButton fx:id="btnHome" layoutX="6.0" layoutY="129.0" mnemonicParsing="false" onAction="#HandleSwitchHomeAction" styleClass="sidebar_button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
+            <ToggleButton fx:id="btnHome" layoutX="6.0" layoutY="129.0" mnemonicParsing="false" onAction="#HandleSwitchHomeAction" selected="true" styleClass="sidebar_button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
                <toggleGroup>
                   <ToggleGroup fx:id="sideBarToggleGroup" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton fx:id="btnData" layoutX="46.0" layoutY="293.0" mnemonicParsing="false" onAction="#HandleSwitchDataAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="270.0" />
-            <ToggleButton fx:id="btnBooking" mnemonicParsing="false" onAction="#HandleSwitchBookingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="340.0" />
             <ToggleButton fx:id="btnFood" mnemonicParsing="false" onAction="#HandleSwitchFoodAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="410.0" />
-            <ToggleButton fx:id="btnCustomer" mnemonicParsing="false" onAction="#HandleSwitchCustomerAction" selected="true" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="480.0" />
+            <ToggleButton fx:id="btnCustomer" mnemonicParsing="false" onAction="#HandleSwitchCustomerAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="340.0" />
             <ToggleButton fx:id="btnLogout" layoutY="729.0" mnemonicParsing="false" onAction="#HandleSwitchLogoutAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="729.6" />
-            <ToggleButton fx:id="btnSetting" layoutY="659.0" mnemonicParsing="false" onAction="#HandleSwitchSettingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" />
+            <ToggleButton fx:id="btnData" layoutY="659.0" mnemonicParsing="false" onAction="#HandleSwitchDataAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="550.0" />
             <FontIcon disable="true" iconLiteral="fa-home" layoutX="78.0" layoutY="243.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="222.0" />
-            <FontIcon disable="true" iconLiteral="fa-bar-chart" layoutX="80.0" layoutY="289.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="292.0" />
-            <FontIcon disable="true" iconLiteral="fa-calendar-plus-o" layoutX="80.0" layoutY="352.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="362.0" />
+            <FontIcon disable="true" iconLiteral="fa-bar-chart" layoutX="80.0" layoutY="289.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="572.0" />
             <FontIcon disable="true" iconLiteral="fa-cutlery" layoutX="80.0" layoutY="435.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="432.0" />
-            <FontIcon disable="true" iconLiteral="fa-users" layoutX="87.0" layoutY="529.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="502.0" />
             <FontIcon disable="true" iconLiteral="fa-sign-out" layoutX="79.0" layoutY="774.0" styleClass="sidebar_button_icon" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="80.0" />
-            <FontIcon disable="true" iconLiteral="fa-gear" layoutX="88.0" layoutY="681.0" styleClass="sidebar_button_icon" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="80.0" />
             <Circle fx:id="reddot" fill="WHITE" layoutX="107.0" layoutY="224.0" radius="6.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0" />
+            <ToggleButton fx:id="btnBooking" layoutX="4.0" layoutY="235.0" mnemonicParsing="false" onAction="#HandleSwitchBookingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="270.0" />
+            <FontIcon disable="true" iconLiteral="fa-desktop" layoutX="78.0" layoutY="323.0" styleClass="sidebar_button_icon" text="" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="292.0" />
+            <FontIcon disable="true" iconLiteral="fa-users" layoutX="86.0" layoutY="383.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="362.0" />
+            <ToggleButton fx:id="btnSetting" layoutX="-13.0" layoutY="481.0" mnemonicParsing="false" onAction="#HandleSwitchSettingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="480.0" />
+            <FontIcon disable="true" iconLiteral="fa-file-text-o" layoutX="82.0" layoutY="528.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="502.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="281.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" styleClass="topbar_anchor_pane" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">

@@ -1,6 +1,5 @@
 package controller;
 
-import static com.mysql.cj.protocol.x.XProtocolDecoder.instance;
 import database.DbConnection;
 import javafx.concurrent.Task;
 import java.io.IOException;

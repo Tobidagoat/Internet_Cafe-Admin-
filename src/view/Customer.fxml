@@ -8,7 +8,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -18,17 +21,44 @@
       <AnchorPane layoutX="76.0" layoutY="89.0" prefHeight="114.0" prefWidth="274.0" styleClass="customer_cards_anchor_pane" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="90.0">
          <children>
             <Text fill="WHITE" layoutX="83.2" layoutY="46.18203125" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="customer_cards_text" text="Total Customers" wrappingWidth="150.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="17.0" />
-            <FontIcon iconLiteral="fa-id-card" layoutX="26.0" layoutY="36.0" styleClass="total_customer_icon" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="10.0" />
             <Label fx:id="txtTotalCustomer" layoutX="34.0" layoutY="111.0" styleClass="customer_cards_data_text" text="100" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" />
+            <FontIcon iconLiteral="fa-github-alt" layoutX="21.0" layoutY="44.0" styleClass="ttl_customer_icon" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="363.0" layoutY="111.0" prefHeight="114.0" prefWidth="274.0" styleClass="customer_cards_anchor_pane" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="90.0">
          <children>
             <Text fill="WHITE" layoutX="81.6" layoutY="40.78203125" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="customer_cards_text" text="Loyal Customers" wrappingWidth="268.73748779296875" AnchorPane.leftAnchor="81.0" AnchorPane.topAnchor="18.0" />
             <FontIcon iconLiteral="fa-calendar" layoutX="22.0" layoutY="36.0" styleClass="loyal_customer_icon" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="10.0" />
-            <Label fx:id="txtLoyalCustomer1" layoutX="53.0" layoutY="67.0" prefHeight="18.0" prefWidth="162.0" text="1.      Kyaw Gyi" textFill="WHITE" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="70.0" />
-            <Label fx:id="txtLoyalCustomer2" layoutX="47.0" layoutY="96.0" prefHeight="18.0" prefWidth="162.0" text="2.      Kyaw Gyi" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="70.0" />
-            <Label fx:id="txtLoyalCustomer3" layoutX="51.0" layoutY="94.0" prefHeight="18.0" prefWidth="162.0" text="3.      Kyaw Gyi" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="70.0" />
+            <VBox alignment="TOP_CENTER" layoutX="27.2" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="90.0" style="-fx-spacing: 10;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0">
+               <children>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="rounded-container">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
+                  <Label fx:id="txtLoyalCustomer2" text="Label" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="122.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="90.0" style="-fx-spacing: 10;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="135.0">
+               <children>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="rounded-container">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
+                  <Label fx:id="txtLoyalCustomer1" text="Label" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="193.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="65.0" prefWidth="90.0" style="-fx-spacing: 10;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="26.0">
+               <children>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="rounded-container">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
+                  <Label fx:id="txtLoyalCustomer3" text="Label" />
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="488.0" layoutY="102.0" prefHeight="114.0" prefWidth="274.0" styleClass="customer_cards_anchor_pane" AnchorPane.leftAnchor="495.0" AnchorPane.topAnchor="90.0">
@@ -48,37 +78,43 @@
          <children>
             <TableView fx:id="cTable" layoutX="7.2" layoutY="133.0" prefHeight="326.0" prefWidth="1194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="83.19999999999999">
                <columns>
-                  <TableColumn fx:id="cid" prefWidth="141.60000616312027" text="Customer_ID">
+                  <TableColumn fx:id="cid" prefWidth="130.3999908566475" text="Customer_ID">
                      <styleClass>
                         <String fx:value="column-header-background" />
                         <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableColumn>
-                  <TableColumn fx:id="cName" minWidth="0.800018310546875" prefWidth="168.80007934570312" text="Customer_Name">
+                  <TableColumn fx:id="cName" minWidth="0.800018310546875" prefWidth="168.80001831054688" text="Customer_Name">
                      <styleClass>
                         <String fx:value="column-header-background" />
                         <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableColumn>
-                  <TableColumn fx:id="cPhno" minWidth="0.0" prefWidth="188.79998779296875" text="Phone_No">
+                  <TableColumn fx:id="cPhno" minWidth="0.0" prefWidth="199.19998168945312" text="Phone_No">
                      <styleClass>
                         <String fx:value="column-header-background" />
                         <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableColumn>
-                  <TableColumn fx:id="cEmail" prefWidth="288.0" text="E_mail">
+                  <TableColumn fx:id="cEmail" prefWidth="211.99993896484375" text="E_mail">
                      <styleClass>
                         <String fx:value="column-header-background" />
                         <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableColumn>
-                  <TableColumn fx:id="cProfile" minWidth="8.0" prefWidth="206.400146484375" text="Profile_pic">
+                  <TableColumn fx:id="cProfile" minWidth="8.0" prefWidth="201.60003662109375" text="Profile_pic">
                      <styleClass>
                         <String fx:value="column-header-background" />
                         <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableColumn>
-                  <TableColumn fx:id="cDate" minWidth="0.0" prefWidth="160.7999267578125" text="Date">
+                  <TableColumn fx:id="cDate" minWidth="0.0" prefWidth="150.39996337890625" text="Date">
+                     <styleClass>
+                        <String fx:value="column-header-background" />
+                        <String fx:value="table-row-cell" />
+                     </styleClass>
+                  </TableColumn>
+                  <TableColumn fx:id="cStatus" minWidth="0.0" prefWidth="136.0001220703125" text="Status">
                      <styleClass>
                         <String fx:value="column-header-background" />
                         <String fx:value="table-row-cell" />
