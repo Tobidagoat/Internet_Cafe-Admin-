@@ -205,3 +205,98 @@
     -fx-scale-y: 0.95;
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 0, 2);
 }
+.glass-pane-dark {
+    /* Base color: Dark but not TOO dark (critical for visibility) */
+    -fx-background-color: rgba(50, 50, 60, 0.5); /* Soft dark gray with 50% opacity */
+
+    /* Heavy blur for frosted glass */
+    -fx-backdrop-filter: blur(20px); /* Increase blur to compensate for darkness */
+
+    /* Glossy edge to emphasize the glass */
+    -fx-border-color: rgba(120, 120, 140, 0.3); /* Light gray border */
+    -fx-border-width: 0.8px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+
+    /* Inner shine to fake light refraction */
+    -fx-effect: innershadow(gaussian, rgba(150, 150, 180, 0.15), 30, 0.3, 0, 0);
+
+    /* Subtle drop shadow for depth */
+    -fx-box-shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0.2, 0, 0);
+}
+/* For ScrollPanes INSIDE glass panes only */
+.glass-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.glass-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.glass-scroll .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 2px;
+}
+
+.glass-scroll .scroll-bar .thumb {
+    -fx-background-color: rgba(140, 140, 160, 0.4);
+    -fx-background-radius: 100px;
+    -fx-background-insets: 2px;
+    -fx-effect: innershadow(gaussian, rgba(255,255,255,0.1), 5, 0.1, 0, 0);
+    -fx-cursor: hand;
+}
+
+.glass-scroll .scroll-bar .thumb:hover {
+    -fx-background-color: rgba(160, 160, 180, 0.6);
+}
+
+.glass-scroll .scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.glass-scroll .corner {
+    -fx-background-color: transparent;
+}
+/* Horizontal content container inside glass scroll */
+.glass-hbox {
+    -fx-alignment: center-left; /* Align items to left (or use 'center' for centered) */
+    -fx-spacing: 20px;         /* Space between items */
+    -fx-padding: 15px;         /* Inner padding */
+    
+    /* Glass-like item styling */
+    -fx-background-color: transparent;
+    
+    /* Prevent vertical expansion */
+    -fx-fill-height: false;
+}
+
+/* Style for individual items in the HBox */
+.glass-hbox-item {
+    -fx-background-color: rgba(70, 70, 90, 0.4);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.2, 0, 1);
+    
+    /* Default item size - adjust as needed */
+    -fx-min-width: 400px;
+    -fx-min-height: 500px;
+    -fx-pref-width: 400px;
+    -fx-pref-height: 500px;
+}
+
+/* Hover effect for items */
+.glass-hbox-item:hover {
+    -fx-background-color: rgba(90, 90, 110, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 8, 0.3, 0, 1);
+}
+
+/* Optional: Selected item state */
+.glass-hbox-item:selected {
+    -fx-background-color: rgba(100, 100, 130, 0.7);
+    -fx-border-color: rgba(150, 150, 180, 0.4);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}

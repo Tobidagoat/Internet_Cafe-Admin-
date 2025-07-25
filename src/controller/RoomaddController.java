@@ -126,7 +126,8 @@ public class RoomaddController implements Initializable {
             return;
         }
         
-        insertRoom(category, type, pcAmount);
+        if(type == null) insertRoom(category, "general", pcAmount);
+        else insertRoom(category, type, pcAmount);
         
         ((Stage) btnadd.getScene().getWindow()).close();
     }

@@ -1,0 +1,56 @@
+/* ===== MAIN TABLE ===== */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+/* ===== BLACK HEADER ===== */
+.table-view .column-header,
+.table-view .column-header-background {
+    -fx-background-color: black;       /* Black header */
+    -fx-border-width: 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;              /* White header text */
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 0;
+}
+
+/* ===== SPACED ROWS (NO ALTERNATING COLORS) ===== */
+.table-row-cell {
+    -fx-background-color: white;       /* All rows white */
+    -fx-border-width: 0 0 1px 0;      /* Bottom border for spacing */
+    -fx-border-color: #e0e0e0;        /* Light gray border (spacing effect) */
+    -fx-cell-size: 40px;              /* Slightly taller rows */
+    -fx-padding: 0;
+}
+
+/* Remove selection highlight */
+.table-row-cell:filled:selected {
+    -fx-background-color: white;      /* Keep white when selected */
+    -fx-border-color: #e0e0e0;        /* Ensure border remains */
+}
+
+/* ===== CELL STYLING ===== */
+.table-cell {
+    -fx-alignment: CENTER_LEFT;       /* Left-align items */
+    -fx-padding: 0 10px;              /* Spacing inside cells */
+    -fx-border-width: 0;
+}
+
+/* Right-align numbers (GTT, PRICE, AMOUNT) */
+.table-column.right-align .table-cell {
+    -fx-alignment: CENTER_RIGHT;
+}
+
+/* ===== REMOVE SCROLLBAR & FOCUS RING ===== */
+.table-view .scroll-bar:vertical {
+    -fx-opacity: 0;
+}
+
+.table-view:focused {
+    -fx-background-insets: 0;
+}

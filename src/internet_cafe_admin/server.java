@@ -164,6 +164,7 @@ public class server {
         }else if (msg.startsWith("SESSION_END|")) {
             String[] parts = msg.split("\\|");
             int pcId = Integer.parseInt(parts[1]);
+            int saleId =Integer.parseInt(parts[2]);
 
              Platform.runLater(() -> {
             if (RoomController.instance != null) {
