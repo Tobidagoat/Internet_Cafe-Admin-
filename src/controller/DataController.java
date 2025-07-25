@@ -163,12 +163,9 @@ public class DataController implements Initializable {
     }
 }
 
-    private void updateChartData(Granularity granularity) throws SQLException {
-   String sql="";
-        switch(granularity){
-            case DAILY -> sql = "SELECT d.sale_date as week_start, m.total_main AS main_income, f.total_food AS food_income FROM ( SELECT sale_date FROM sale UNION SELECT sale_date FROM food_order ) d LEFT JOIN ( SELECT sale_date, SUM(total_price) AS total_main FROM sale GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN ( SELECT sale_date, SUM(total_food_price) AS total_food FROM food_order GROUP BY sale_date) f ON d.sale_date = f.sale_date ORDER BY d.sale_date ASC;";
-                case WEEKLY -> sql = "SELECT     STR_TO_DATE(CONCAT(YEARWEEK(d.sale_date, 1), ' Monday'), '%X%V %W') AS week_start,     AVG(m.total_main) AS main_income,     AVG(f.total_food) AS food_income FROM (    SELECT DISTINCT sale_date FROM sale      UNION     SELECT DISTINCT sale_date FROM food_order ) d LEFT JOIN (     SELECT sale_date, SUM(total_price) AS total_main  FROM sale      GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN (    SELECT sale_date, SUM(total_food_price) AS total_food     FROM food_order     GROUP BY sale_date ) f ON d.sale_date = f.sale_date GROUP BY YEARWEEK(d.sale_date, 1)ORDER BY week_start ASC;";   
-        }
+    private void updateChartData() throws SQLException {
+   String sql = "SELECT d.sale_date as week_start, m.total_main AS main_income, f.total_food AS food_income FROM ( SELECT sale_date FROM sale UNION SELECT sale_date FROM food_order ) d LEFT JOIN ( SELECT sale_date, SUM(total_price) AS total_main FROM sale GROUP BY sale_date ) m ON d.sale_date = m.sale_date LEFT JOIN ( SELECT sale_date, SUM(total_food_price) AS total_food FROM food_order GROUP BY sale_date) f ON d.sale_date = f.sale_date ORDER BY d.sale_date ASC;";
+       
 
 
     PreparedStatement st = con.prepareStatement(sql);
@@ -467,7 +464,7 @@ public class DataController implements Initializable {
 //    charTimeline.play();
 
 
-updateChartData(granularity);
+updateChartData();
         } catch (SQLException ex) {
             System.out.println("Update area chart data error");
         }
