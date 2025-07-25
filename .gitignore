@@ -18,3 +18,5 @@ dist/
 Thumbs.db
 desktop.ini
 
+nbproject/
+build/
