@@ -293,4 +293,20 @@
    
 }
 
+.chart-area-symbol { 
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+    -fx-padding: 0px;
+    -fx-shape: "";
+    visibility: hidden;
+}
+
+.chart-series-area-symbol {
+    -fx-shape: "";
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
 
