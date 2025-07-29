@@ -55,6 +55,7 @@ public class PackageController implements Initializable {
     Connection con;
     PreparedStatement stmt;
     ResultSet rs;
+    private AnchorPane selectedPane = null;
     private RoomController roomController;
     private DashboardController dashboard=DashboardController.getInstance();
     private boolean result=false;
@@ -68,7 +69,7 @@ public class PackageController implements Initializable {
     private List<Integer> selectedUserIds = new ArrayList<>();
     private List<String> selectedUsernames = new ArrayList<>();
 
-    server s = new server();
+    server s = server.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -117,8 +118,14 @@ public class PackageController implements Initializable {
 
     @FXML
     void packagecardaction(MouseEvent event) {
-        Node node = (Node) event.getSource();
-        String packagename = node.getId();
+        AnchorPane clickedpane = (AnchorPane) event.getSource();
+        if (selectedPane != null) {
+        selectedPane.getStyleClass().remove("pricing-card-selected");
+    }
+        clickedpane.getStyleClass().add("pricing-card-selected");
+        selectedPane=clickedpane;
+        
+        String packagename = clickedpane.getId();
         selectedpackage = packagename;
         System.out.println(packagename);
     }

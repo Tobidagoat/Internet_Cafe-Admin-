@@ -28,12 +28,13 @@
             <FontIcon disable="true" iconLiteral="fa-bar-chart" layoutX="80.0" layoutY="289.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="572.0" />
             <FontIcon disable="true" iconLiteral="fa-cutlery" layoutX="80.0" layoutY="435.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="432.0" />
             <FontIcon disable="true" iconLiteral="fa-sign-out" layoutX="79.0" layoutY="774.0" styleClass="sidebar_button_icon" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="80.0" />
-            <Circle fx:id="reddot" fill="WHITE" layoutX="107.0" layoutY="224.0" radius="6.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="reddot" fill="WHITE" layoutX="107.0" layoutY="224.0" radius="6.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0" visible="false" />
             <ToggleButton fx:id="btnBooking" layoutX="4.0" layoutY="235.0" mnemonicParsing="false" onAction="#HandleSwitchBookingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="270.0" />
             <FontIcon disable="true" iconLiteral="fa-desktop" layoutX="78.0" layoutY="323.0" styleClass="sidebar_button_icon" text="" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="292.0" />
             <FontIcon disable="true" iconLiteral="fa-users" layoutX="86.0" layoutY="383.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="362.0" />
             <ToggleButton fx:id="btnSetting" layoutX="-13.0" layoutY="481.0" mnemonicParsing="false" onAction="#HandleSwitchSettingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="480.0" />
             <FontIcon disable="true" iconLiteral="fa-file-text-o" layoutX="82.0" layoutY="528.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="502.0" />
+            <Circle fx:id="invoicenoti" fill="WHITE" layoutX="107.0" layoutY="504.0" radius="6.0" stroke="#00ff55" strokeType="INSIDE" strokeWidth="3.0" visible="false" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="281.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" styleClass="topbar_anchor_pane" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">

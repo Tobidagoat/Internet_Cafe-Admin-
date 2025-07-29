@@ -6,6 +6,7 @@ package controller;
 
 import database.DbConnection;
 import internet_cafe_admin.Internet_Cafe_admin;
+import internet_cafe_admin.server;
 import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -47,7 +48,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnlogin;
     @FXML
-    private Button signinbtn;
+    private Button btnsignup;
     @FXML
     private Label lbusernameerror;
     @FXML
@@ -140,14 +141,22 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void signinaction(ActionEvent event) throws IOException {
-        
-        
+    private void btnsignupaction(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/signup.fxml"));
+
+        Stage signupStage = new Stage();
+        signupStage.initStyle(StageStyle.DECORATED);
+        signupStage.setScene(new Scene(root));
+        signupStage.setTitle("Sign Up");
+        signupStage.show();
+
+        ((Stage) btnsignup.getScene().getWindow()).close();
     }
     
     @FXML
     void closeaction(ActionEvent event) {
         stage.close();
+        server.getInstance().stopServer();
     }
     
     @FXML

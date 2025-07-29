@@ -138,8 +138,8 @@ public class DashboardController implements Initializable {
             // 3. Auto-scroll to the newest entry
             activityLogListView.scrollTo(activityLogs.size() - 1);
             
-            // 4. Limit log size (e.g., last 50 messages) and fade out da oldest
-            if (activityLogs.size() > 50) {
+            // 4. Limit log size (e.g., last 10 messages) and fade out da oldest
+            if (activityLogs.size() > 10) {
                 FadeTransition fadeOut = new FadeTransition(Duration.millis(300), 
                     activityLogListView.lookup(".list-cell")); // Targets the oldest cell
                 fadeOut.setFromValue(1.0);
@@ -280,8 +280,7 @@ public class DashboardController implements Initializable {
     public void triggerNotificationEvent() {
     Platform.runLater(() -> {
         if (defaultController != null) {
-            // Always set the notification, let DefaultController handle visibility
-            defaultController.setNotification(true);
+            defaultController.showNotificationDot();
         }
     });
     }

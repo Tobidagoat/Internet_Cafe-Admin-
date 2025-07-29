@@ -51,7 +51,12 @@ public class ProfileController implements Initializable {
     private String name;
     private boolean componentsInitialized = false;
     private Stage currentStage;
-
+    private ProfileUpdateCallback updateCallback;
+    
+    public interface ProfileUpdateCallback {
+        void onProfileUpdated(String newName, String newProfileImage);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("[DEBUG] initialize() started");
@@ -101,6 +106,10 @@ public class ProfileController implements Initializable {
             });
         }
     }
+    
+    public void setProfileUpdateCallback(ProfileUpdateCallback callback) {
+        this.updateCallback = callback;
+}
 
     private void loadOriginalData(String adminname) throws SQLException {
         System.out.println("[DEBUG] Loading data for: " + adminname);
@@ -127,12 +136,22 @@ public class ProfileController implements Initializable {
                     File imageFile = new File("src/img/" + originalpic);
                     System.out.println("[DEBUG] Image path: " + imageFile.getAbsolutePath());
                     
-                    if (imageFile.exists()) {
-                        profileImage.setImage(new Image(imageFile.toURI().toString()));
-                    } else {
-                        System.err.println("[WARN] Image not found, loading default");
-                        loadDefaultImage();
-                    }
+                if (imageFile.exists()) {
+                    Image image = new Image(
+                        imageFile.toURI().toString(),
+                        550,  
+                        550,  
+                        true, 
+                        true, 
+                        true  
+                    );
+                    profileImage.setImage(image);
+                    profileImage.setPreserveRatio(true);
+                    profileImage.setSmooth(true);
+                    profileImage.setCache(true);
+                } else {
+                    loadDefaultImage();
+                }
                 } else {
                     loadDefaultImage();
                 }
@@ -146,8 +165,11 @@ public class ProfileController implements Initializable {
 
     private void loadDefaultImage() {
         try {
-            Image defaultImage = new Image(getClass().getResourceAsStream("/images/default_profile.png"));
+            Image defaultImage = new Image(getClass().getResourceAsStream("/images/default_profile.jpg"));
             profileImage.setImage(defaultImage);
+            profileImage.setPreserveRatio(true);
+            profileImage.setSmooth(true);
+            profileImage.setCache(true);
             System.out.println("[DEBUG] Default image loaded");
         } catch (Exception e) {
             System.err.println("[ERROR] Failed to load default image: " + e.getMessage());
@@ -182,8 +204,18 @@ public class ProfileController implements Initializable {
         
         if (selectedImageFile != null) {
             try {
-                Image image = new Image(selectedImageFile.toURI().toString());
-                profileImage.setImage(image);
+                Image image = new Image(
+                    selectedImageFile.toURI().toString(),
+                        550,  
+                        550,  
+                        true, 
+                        true, 
+                        true  
+                    );
+                    profileImage.setImage(image);
+                    profileImage.setPreserveRatio(true);
+                    profileImage.setSmooth(true);
+                    profileImage.setCache(true);
                 makeImageCircular();
             } catch (Exception e) {
                 showAlert("Error", "Failed to load selected image");
@@ -222,9 +254,12 @@ public class ProfileController implements Initializable {
         }
 
         if (updateProfile()) {
-            currentStage=(Stage) btnsave.getScene().getWindow();
+            if (updateCallback != null) {
+                updateCallback.onProfileUpdated(txtname.getText(), originalpic);
+            }
+            currentStage = (Stage) btnsave.getScene().getWindow();
             if (currentStage != null) {
-                currentStage.close(); // Close window on successful save
+                currentStage.close();
             }
         }
     }

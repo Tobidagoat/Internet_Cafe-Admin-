@@ -276,27 +276,69 @@
 
 /* Style for individual items in the HBox */
 .glass-hbox-item {
-    -fx-background-color: rgba(70, 70, 90, 0.4);
-    -fx-background-radius: 10px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.2, 0, 1);
+    -fx-background-color:  #ffffff30; /* Solid color instead of hex with opacity */
+    -fx-background-radius: 15px; /* Slightly larger radius */
+    -fx-border-radius: 15px; /* Match background radius */
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.2, 0, 2);
     
-    /* Default item size - adjust as needed */
+    /* Smooth transitions for hover effects */
+    -fx-transition: all 0.3s ease;
+    
+    /* Card sizing */
     -fx-min-width: 400px;
     -fx-min-height: 500px;
     -fx-pref-width: 400px;
-    -fx-pref-height: 500px;
+    -fx-pref-height: 520px;
+    -fx-max-width: 400px;
+    
 }
-
-/* Hover effect for items */
+.glass-hbox-item .pay-button:hover {
+    -fx-background-color: black; /* Slightly darker blue */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
+    -fx-text-fill: rgba(255, 251, 245, 0.9);
+    -fx-cursor: hand;
+}
+/* Hover effects */
 .glass-hbox-item:hover {
-    -fx-background-color: rgba(90, 90, 110, 0.5);
-    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 8, 0.3, 0, 1);
+    -fx-background-color: #ffffff; /* Warmer, brighter color */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0.3, 0, 3);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-cursor: hand;
+    
+    /* Subtle glow effect */
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1.5px;
 }
 
-/* Optional: Selected item state */
-.glass-hbox-item:selected {
-    -fx-background-color: rgba(100, 100, 130, 0.7);
-    -fx-border-color: rgba(150, 150, 180, 0.4);
-    -fx-border-width: 1px;
-    -fx-border-radius: 10px;
+/* Pressed effect 
+.glass-hbox-item:pressed {
+    -fx-scale-x: 0.99;
+    -fx-scale-y: 0.99;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.2, 0, 2);
+}*/
+
+.glass-hbox-item:hover {
+    -fx-animation: hover-float 2s ease-in-out infinite;
+}
+.glass-hbox-item .pay-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 16px;
+    -fx-font-weight: bold;
+}
+
+/* Pay button hover */
+
+
+/* Pay button pressed */
+.glass-hbox-item .pay-button:pressed {
+    -fx-background-color: rgba(255, 251, 245, 1);
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 1);
 }

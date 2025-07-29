@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controller;
 
 import static internet_cafe_admin.Internet_Cafe_admin.stage;
@@ -17,8 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,197 +29,221 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jdk.jshell.execution.LoaderDelegate;
 
-/**
- * FXML Controller class
- *
- * @author Linn Hein Htet
- */
 public class DefaultController implements Initializable {
 
-    @FXML
-    private ToggleButton btnHome;
-    @FXML
-    private ToggleGroup sideBarToggleGroup;
-    @FXML
-    private ToggleButton btnData;
-    @FXML
-    private ToggleButton btnBooking;
-    @FXML
-    private ToggleButton btnFood;
-    @FXML
-    private ToggleButton btnCustomer;
-    @FXML
-    private ToggleButton btnLogout;
-    @FXML
-    private ToggleButton btnSetting;
-    @FXML
-    private AnchorPane mainContentAnchorPane;
-    
-    @FXML
-    private Button btnedit;
-
-    @FXML
-    private Label lbdate;
-
-    @FXML
-    private Label lbname;
-
-    @FXML
-    private Label lbtime;
-    
-    @FXML
-    private ImageView pfp;
-    
-    @FXML
-    private Circle reddot;
+    @FXML private ToggleButton btnHome;
+    @FXML private ToggleGroup sideBarToggleGroup;
+    @FXML private ToggleButton btnData;
+    @FXML private ToggleButton btnBooking;
+    @FXML private ToggleButton btnFood;
+    @FXML private ToggleButton btnCustomer;
+    @FXML private ToggleButton btnLogout;
+    @FXML private ToggleButton btnSetting;
+    @FXML private AnchorPane mainContentAnchorPane;
+    @FXML private Button btnedit;
+    @FXML private Label lbdate;
+    @FXML private Label lbname;
+    @FXML private Label lbtime;
+    @FXML private ImageView pfp;
+    @FXML private Circle reddot;
+    @FXML private Circle invoicenoti;
     
     private String name;
     private String profile;
-    private final BooleanProperty hasNotifications = new SimpleBooleanProperty(false);
-    private final BooleanProperty isDashboardActive = new SimpleBooleanProperty(false);
+    private DashboardController dashboardController;
+    private InvoicepaneController invoicepanecontroller;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        reddot.visibleProperty().bind(
-            hasNotifications.and(isDashboardActive.not())
-        );
-        sideBarToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
-        if (newToggle == null) {
-            // Re-select the previous toggle
-            sideBarToggleGroup.selectToggle(oldToggle);
-        }
-    });
-        try {
-            loadUI("/view/dashboard.fxml",true);
-            btnHome.setSelected(true);
-            // TODO
-        } catch (IOException ex) {
-            Logger.getLogger(DefaultController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        setupUIComponents();
+        loadInitialView();
         startClock();
-        String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("M/d/yyyy"));
-        lbdate.setText(formattedDate);
+        setCurrentDate();
+    }
+
+    private void setupUIComponents() {
+        sideBarToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle == null) {
+                sideBarToggleGroup.selectToggle(oldToggle);
+            }
+        });
+
         Circle clip = new Circle(
             pfp.getFitWidth()/2,
             pfp.getFitHeight()/2,
             pfp.getFitWidth()/2
         );
         pfp.setClip(clip);
-    }    
+    }
+
+    private void loadInitialView() {
+        try {
+            loadUI("/view/dashboard.fxml");
+            btnHome.setSelected(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DefaultController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void setCurrentDate() {
+        String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        lbdate.setText(formattedDate);
+    }
 
     @FXML
     private void HandleSwitchHomeAction(ActionEvent event) throws IOException {
-        loadUI("/view/dashboard.fxml",true);
+        reddot.setVisible(false);
+        loadUI("/view/dashboard.fxml");
     }
 
     @FXML
     private void HandleSwitchDataAction(ActionEvent event) throws IOException {
-       loadUI("/view/data.fxml",false);
+        loadUI("/view/data.fxml");
     }
 
     @FXML
     private void HandleSwitchBookingAction(ActionEvent event) throws IOException {
-        loadUI("/view/room.fxml",false);
+        loadUI("/view/room.fxml");
     }
 
     @FXML
     private void HandleSwitchFoodAction(ActionEvent event) throws IOException {
-        loadUI("/view/login.fxml",false);
+        loadUI("/view/login.fxml");
     }
 
     @FXML
     private void HandleSwitchCustomerAction(ActionEvent event) throws IOException {
-         loadUI("/view/Customer.fxml",false);
+        loadUI("/view/Customer.fxml");
     }
 
     @FXML
     private void HandleSwitchLogoutAction(ActionEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-            Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+        Parent root = loader.load();
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setMaximized(true);
-            stage.show();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setMaximized(true);
+        stage.show();
     }
 
     @FXML
-    private void HandleSwitchSettingAction(ActionEvent event) {
+    private void HandleSwitchSettingAction(ActionEvent event) throws IOException {
+        invoicenoti.setVisible(false);
+        loadUI("/view/invoicepane.fxml");
     }
-    
+
     @FXML
     void btneditaction(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/profile.fxml"));
         AnchorPane popup = loader.load();
         ProfileController controller = loader.getController();
         controller.getname(name);
+        controller.setProfileUpdateCallback((newName, newProfileImage) -> {
+            // Update the main controller's data
+            this.name = newName;
+            this.profile = newProfileImage;
+
+            // Update the UI immediately
+            Platform.runLater(() -> {
+                lbname.setText(newName.toUpperCase());
+                if (newProfileImage != null && !newProfileImage.isEmpty()) {
+                    File file = new File("src/img/" + newProfileImage);
+                    if (file.exists()) {
+                       Image image = new Image(
+                    file.toURI().toString(),
+                        550,  
+                        550,  
+                        true, 
+                        true, 
+                        true  
+                    );
+                    pfp.setImage(image);
+                    pfp.setPreserveRatio(true);
+                    pfp.setSmooth(true);
+                    pfp.setCache(true);
+                    }
+                }
+            });
+        }); 
         Stage popupstage = new Stage();
         popupstage.initModality(Modality.APPLICATION_MODAL);
         popupstage.setTitle("Select Package");
         popupstage.setScene(new Scene(popup));
         popupstage.showAndWait();
     }
-    
+
     private void startClock() {
-    DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mm:ss a");
-    AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long now) {
-            lbtime.setText(LocalTime.now().format(timeFormat));
-        }
-    };
-    timer.start();
-}
-    
-    public void getadmininfo(String name,String profile){
-        this.name=name;
-        this.profile=profile;
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mm:ss a");
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                lbtime.setText(LocalTime.now().format(timeFormat));
+            }
+        };
+        timer.start();
+    }
+
+    public void getadmininfo(String name, String profile) {
+        this.name = name;
+        this.profile = profile;
         lbname.setText(name.toUpperCase());
         File file = new File("src/img/"+profile);
-        Image image = new Image(file.toURI().toString());
-        pfp.setImage(image);
+        Image image = new Image(
+                    file.toURI().toString(),
+                        550,  
+                        550,  
+                        true, 
+                        true, 
+                        true  
+                    );
+                    pfp.setImage(image);
+                    pfp.setPreserveRatio(true);
+                    pfp.setSmooth(true);
+                    pfp.setCache(true);
     }
-    
-    public void setNotification(boolean hasNotification) {
-            hasNotifications.set(hasNotification);
-    }
-    
-    public void setActivePane(AnchorPane newPane, boolean isDashboard) {
-        mainContentAnchorPane.getChildren().setAll(newPane);
-        isDashboardActive.set(isDashboard);
-        
-        // Clear notification if switching to dashboard
-        if (isDashboard) {
-            hasNotifications.set(false);
+
+    public void showNotificationDot() {
+        if (!btnHome.isSelected()) {
+            reddot.setVisible(true);
         }
     }
-    
-    public BooleanProperty hasNotificationsProperty() {
-        return hasNotifications;
+
+    public void hideNotificationDot() {
+        reddot.setVisible(false);
     }
-    
-    public void loadUI(String fxmlPath, boolean isDashboard) throws IOException{
+
+    public void showInvoiceNotification() {
+        if (!btnSetting.isSelected()) {
+            invoicenoti.setVisible(true);
+        }
+    }
+
+    public void hideInvoiceNotification() {
+        invoicenoti.setVisible(false);
+    }
+
+    private void loadUI(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         AnchorPane newLoadedPane = loader.load();
-        if (isDashboard && loader.getController() instanceof DashboardController) {
-            ((DashboardController)loader.getController()).setDefaultController(this);
+
+        if (fxmlPath.equals("/view/dashboard.fxml")) {
+            dashboardController = loader.getController();
+            dashboardController.setDefaultController(this);
+        }
+        else if(fxmlPath.equals("/view/invoicepane.fxml")){
+            invoicepanecontroller = loader.getController();
+            invoicepanecontroller.setMainController(this);
         }
 
-        setActivePane(newLoadedPane, isDashboard);
         mainContentAnchorPane.getChildren().clear();
         mainContentAnchorPane.getChildren().add(newLoadedPane);
         
         AnchorPane.setTopAnchor(newLoadedPane, 0.0);
         AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
-         AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
-          AnchorPane.setRightAnchor(newLoadedPane, 0.0);
+        AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+        AnchorPane.setRightAnchor(newLoadedPane, 0.0);
     }
-   
 }

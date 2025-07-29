@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 
 
@@ -45,6 +46,8 @@ public class PcCardController implements Initializable {
     private Label lbstatus;
     @FXML
     private Button btnterminate;
+    @FXML
+    private FontIcon isconnected;
     
     private RoomController controller;
     private String pcno;
@@ -54,7 +57,8 @@ public class PcCardController implements Initializable {
     public AnchorPane card;
     private String str;
     private int statusid;
-    server s = new server();
+    private boolean checkcon;
+    server s =server.getInstance();
     ArrayList<String> userlist;
     
     Connection con;
@@ -66,6 +70,7 @@ public class PcCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        isconnected.setVisible(false);
         DbConnection db=new DbConnection();
         
         try {
@@ -88,10 +93,12 @@ public class PcCardController implements Initializable {
         this.roomtype=roomtype;
         this.card=card;
         this.statusid=statusid;
+        isconnectedcheck(pcid);
         setStatus(statusid);
         String status=getstatus(statusid);
         lbstatus.setText(status);
         lbpcno.setText(pcno);
+        if(checkcon) isconnected.setVisible(true);
         if ("Playing".equalsIgnoreCase(status)) {
             lbstatus.setStyle("-fx-text-fill: red;");
         } else {
@@ -101,7 +108,16 @@ public class PcCardController implements Initializable {
     
    
     
-   
+   private boolean isconnectedcheck(int pcid) throws SQLException{
+       String sql="select isconnected from pcs where pc_id = ?";
+       pst=con.prepareStatement(sql);
+       pst.setInt(1, pcid);
+       rs=pst.executeQuery();
+       if(rs.next()){
+           checkcon=rs.getBoolean("isconnected");
+       }
+       return checkcon;
+   }
 
     private String getstatus(int statusid) throws SQLException {
         String statusname = "";

@@ -30,7 +30,7 @@ public class Internet_Cafe_admin extends Application {
 
         stage.show();
         new Thread(() -> {
-            server s = new server();
+            server s = server.getInstance();
              
             s.startServer();
         }).start();

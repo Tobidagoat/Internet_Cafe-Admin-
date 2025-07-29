@@ -1,62 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #202225;" stylesheets="@../css/sign_up.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignupController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="345.0" layoutX="262.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="500.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../img/signup_bg.png" />
+            <Image url="@../img/pic.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="135.0" layoutY="51.0" text="Hello!" textFill="WHITE">
+      <MediaView fx:id="videobg" fitHeight="500.0" fitWidth="750.0" layoutX="31.0" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="signuppane" layoutX="261.0" layoutY="80.0" prefHeight="304.0" prefWidth="228.0" styleClass="glass-pane" visible="false" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <Label layoutX="98.0" layoutY="14.0" text="Sign up" textFill="#ff6a00">
+               <font>
+                  <Font name="ROG Fonts STRIX SCAR" size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtnewemail" layoutX="57.0" layoutY="153.0" onAction="#txtnewemail" prefHeight="26.0" prefWidth="192.0" styleClass="inputfields">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnsignup" layoutX="57.0" layoutY="255.0" mnemonicParsing="false" onAction="#btnsignupaction" prefHeight="26.0" prefWidth="192.0" styleClass="btn" text="Sign up">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="57.0" layoutY="195.0" text="Password" textFill="#383838a6">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="57.0" layoutY="141.0" text="Email" textFill="#383838a6">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtnewusername" layoutX="57.0" layoutY="101.0" onAction="#txtnewuser" prefHeight="26.0" prefWidth="192.0" styleClass="inputfields">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="57.0" layoutY="89.0" text="Username" textFill="#383838a6">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="88.0" layoutY="54.0" text="Join the community today!" textFill="#383838a6">
+               <font>
+                  <Font name="Arial Bold" size="10.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="txtnewpassword" layoutX="57.0" layoutY="206.0" onAction="#txtnewpass" prefHeight="26.0" prefWidth="192.0" styleClass="inputfields">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </PasswordField>
+            <AnchorPane layoutX="344.0" layoutY="1.6" prefHeight="338.0" prefWidth="251.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-opacity: 0.7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="298.00000000000006" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="loginpane" layoutX="99.0" layoutY="80.0" prefHeight="340.0" prefWidth="550.0" styleClass="glass-pane" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <AnchorPane layoutY="1.0" prefHeight="338.0" prefWidth="251.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-opacity: 0.7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="51.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/CC1.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label layoutX="355.0" layoutY="14.0" text="Log in" textFill="#ff6a00">
+               <font>
+                  <Font name="ROG Fonts STRIX SCAR" size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtusername" layoutX="301.0" layoutY="113.0" onAction="#txtuser" prefHeight="26.0" prefWidth="192.0" styleClass="inputfields">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnconfirm" layoutX="301.0" layoutY="256.0" mnemonicParsing="false" onAction="#btnconfirmaction" prefHeight="26.0" prefWidth="192.0" styleClass="btn" text="Confirm">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="301.0" layoutY="177.0" text="Password" textFill="#383838a6">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="301.0" layoutY="101.0" text="Username" textFill="#383838a6">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="txtpassword" layoutX="301.0" layoutY="188.0" onAction="#txtpass" prefHeight="26.0" prefWidth="192.0" styleClass="inputfields">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </PasswordField>
+            <Label alignment="CENTER" layoutX="310.0" layoutY="43.0" prefHeight="30.0" prefWidth="206.0" text="First Login with admin account to Sign up!" textAlignment="CENTER" textFill="#ff1414a6" wrapText="true">
+               <font>
+                  <Font name="Arial Bold" size="10.0" />
+               </font>
+            </Label>
+            <FontIcon iconColor="RED" iconLiteral="fa-exclamation-circle" iconSize="13" layoutX="295.0" layoutY="62.0" />
+         </children>
+      </AnchorPane>
+      <FontIcon iconColor="#ff6a00" iconLiteral="fa-close" iconSize="26" layoutX="708.0" layoutY="36.0" onMouseClicked="#btncloseaction" />
+      <Label layoutX="265.0" layoutY="446.0" text="Already have an account?" textFill="#ffffffa6">
          <font>
-            <Font name="Arial Bold" size="30.0" />
+            <Font name="Arial Bold" size="10.0" />
          </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.3263157904148102" green="0.3263157904148102" blue="0.3263157904148102" />
+               </color>
+            </DropShadow>
+         </effect>
       </Label>
-      <TextField fx:id="txtusername" alignment="CENTER" layoutX="41.0" layoutY="151.0" prefHeight="26.0" prefWidth="178.0" promptText="create a username" stylesheets="@../css/style.css" />
-      <PasswordField fx:id="txtpassword" alignment="CENTER" layoutX="41.0" layoutY="210.0" prefHeight="26.0" prefWidth="178.0" promptText="create a password" stylesheets="@../css/style.css" />
-      <Button fx:id="btnsignup" layoutX="41.0" layoutY="287.0" mnemonicParsing="false" onAction="#signupaction" prefHeight="26.0" prefWidth="178.0" styleClass="button-login" stylesheets="@../css/style.css" text="Sign up" textFill="WHITE">
+      <Button fx:id="btnsignin" layoutX="410.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnsigninaction" style="-fx-background-color: transparent;" text="Sign in" textFill="#ff6600" underline="true">
          <font>
-            <Font name="Arial Bold" size="13.0" />
+            <Font name="Arial Bold" size="10.0" />
          </font>
       </Button>
-      <Label layoutX="75.0" layoutY="327.0" text="Have an account?" textFill="WHITE">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="76.0" layoutY="102.0" text="Let's start a journey with us" textFill="WHITE" />
-      <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="50.0" layoutY="168.0" />
-      <FontAwesomeIcon fill="WHITE" glyphName="LOCK" layoutX="50.0" layoutY="228.0" />
-      <Label layoutX="280.0" layoutY="149.0" text="Welcome, Friend!" textAlignment="RIGHT">
-         <font>
-            <Font name="Arial Bold" size="35.0" />
-         </font>
-      </Label>
-      <Label layoutX="320.0" layoutY="208.0" prefHeight="42.0" prefWidth="251.0" text="i dunno what to put here so yeah there's nothing to show you right now" textAlignment="RIGHT" wrapText="true">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnclose" layoutX="555.0" layoutY="5.0" mnemonicParsing="false" onAction="#closeaction" prefHeight="36.0" prefWidth="38.0" style="-fx-background-color: transparent;" text="X" textFill="#ff0000">
-         <font>
-            <Font name="Arial Black" size="18.0" />
-         </font>
-      </Button>
-      <Label layoutX="180.0" layoutY="327.0" text="Log In" textFill="#9d4edd">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-      </Label>
-      <Button fx:id="loginbtn" layoutX="177.0" layoutY="322.0" mnemonicParsing="false" onAction="#loginaction" prefHeight="18.0" prefWidth="44.0" style="-fx-background-color: transparent;" textFill="WHITE" />
    </children>
 </AnchorPane>

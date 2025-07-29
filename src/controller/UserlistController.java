@@ -58,7 +58,7 @@ public class UserlistController implements Initializable {
     private Connection con;
     private PreparedStatement pst;
     private ResultSet rs;
-    server s = new server();
+    server s = server.getInstance();
 
     private static class User {
         int id;
@@ -106,7 +106,7 @@ public class UserlistController implements Initializable {
     }
 
     private void loaduserlist() throws SQLException {
-        pst = con.prepareStatement("SELECT customer_id, customer_name FROM users");
+        pst = con.prepareStatement("SELECT customer_id, customer_name FROM users where status = 'good'");
         rs = pst.executeQuery();
         allusers.clear();
         while (rs.next()) {
@@ -119,6 +119,7 @@ public class UserlistController implements Initializable {
         listvbox.getChildren().clear();
         for (User user : usersToShow) {
             CheckBox check = new CheckBox(user.name);
+            check.getStyleClass().add("check-box");
             if (selectedusers.contains(user)) check.setSelected(true);
 
             check.setOnAction(event -> {
@@ -130,6 +131,7 @@ public class UserlistController implements Initializable {
             });
 
             HBox box = new HBox(check);
+            box.getStyleClass().add("user-item");
             box.setPadding(new Insets(10));
             box.setSpacing(10);
             box.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #ccc;");

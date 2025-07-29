@@ -4,17 +4,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="400.0" style="-fx-background-color: #EDE9DD; -fx-background-radius: 3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="400.0" styleClass="glass-hbox-item" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceController">
    <children>
-      <Button fx:id="btnpay" layoutX="313.0" layoutY="504.0" mnemonicParsing="false" onAction="#btnpayaction" prefHeight="31.0" prefWidth="62.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5;" text="Pay">
+      <Button fx:id="btnpay" layoutX="313.0" layoutY="476.0" mnemonicParsing="false" onAction="#btnpayaction" prefHeight="31.0" prefWidth="62.0" styleClass="pay-button" text="Pay">
          <font>
             <Font name="Consolas Bold" size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="tbfoodsale" layoutX="20.0" layoutY="192.0" prefHeight="224.0" prefWidth="360.0" stylesheets="@../css/table.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <TableView fx:id="tbfoodsale" layoutX="21.6" layoutY="192.0" prefHeight="174.0" prefWidth="358.0" stylesheets="@../css/table.css" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
         <columns>
           <TableColumn fx:id="tbitemname" prefWidth="116.79998779296875" text="ITEM DETAILS" />
           <TableColumn fx:id="tbitemqty" prefWidth="72.800048828125" text="QTY" />
@@ -22,7 +24,7 @@
             <TableColumn fx:id="tbamount" prefWidth="84.0" text="AMOUNT" />
         </columns>
       </TableView>
-      <AnchorPane layoutX="249.0" layoutY="428.0" prefHeight="67.0" prefWidth="127.0" style="-fx-border-color: black; -fx-border-width: 0.5; -fx-border-radius: 3;">
+      <AnchorPane layoutX="249.0" layoutY="394.0" prefHeight="67.0" prefWidth="127.0" style="-fx-border-color: black; -fx-border-width: 0.5; -fx-border-radius: 3;">
          <children>
             <Label layoutX="46.0" layoutY="12.0" text="TOTAL" textAlignment="CENTER">
                <font>
@@ -41,7 +43,7 @@
             <Font name="Consolas Bold" size="13.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="20.0" layoutY="428.0" prefHeight="67.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 3;" AnchorPane.leftAnchor="20.0">
+      <AnchorPane layoutX="22.0" layoutY="394.0" prefHeight="67.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 3;" AnchorPane.leftAnchor="22.0">
          <children>
             <Label layoutX="14.0" layoutY="10.0" text="Thanks for Gaming With Us!" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -50,11 +52,6 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label alignment="CENTER" layoutX="323.0" layoutY="14.0" prefHeight="51.0" prefWidth="62.0" style="-fx-border-color: black; -fx-border-radius: 3;" text="LOGO HERE" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Consolas Bold" size="15.0" />
-         </font>
-      </Label>
       <AnchorPane layoutX="20.0" layoutY="102.0" prefHeight="30.0" prefWidth="360.0" style="-fx-background-color: black; -fx-background-radius: 3;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <children>
             <Label layoutX="7.0" layoutY="5.0" prefHeight="18.0" prefWidth="95.0" text="Package Name" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="6.0">
@@ -108,5 +105,10 @@
             <Font name="Consolas Bold" size="17.0" />
          </font>
       </Label>
+      <ImageView fitHeight="59.0" fitWidth="62.0" layoutX="322.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/CC1.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

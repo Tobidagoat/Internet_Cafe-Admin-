@@ -1,0 +1,26 @@
+.glass-pane {
+    /*-fx-background-color: rgba(255, 255, 255, 0.15);*/
+    -fx-background-color: rgba(255, 255, 255, 0.501);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: rgba(255, 255, 255, 0.18);
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(99, 98, 98, 0.37), 10, 0, 0, 8);
+}
+.inputfields{
+    -fx-background-color: transparent;
+    -fx-border-color: #ff6a00;
+    -fx-border-width: 0 0 1 0;
+}
+.btn{
+    -fx-background-color: #ff8635;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px;
+}
+.btn:hover{
+    -fx-background-color: #ff6a00;
+}
+.btn:pressed{
+    -fx-background-color: white;
+    -fx-text-fill: #ff6a00;
+}

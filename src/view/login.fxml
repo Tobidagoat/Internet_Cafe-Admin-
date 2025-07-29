@@ -55,8 +55,8 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="signinbtn" layoutX="404.0" layoutY="434.0" mnemonicParsing="false" onAction="#signinaction" prefHeight="18.0" prefWidth="44.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="410.0" />
-            <Label layoutX="266.0" layoutY="428.0" styleClass="signin_label" stylesheets="@../css/style.css" text="Sign In" textFill="#671ca4" underline="true" AnchorPane.leftAnchor="266.0" AnchorPane.topAnchor="428.0">
+            <Button fx:id="btnsignup" layoutX="265.0" layoutY="423.0" mnemonicParsing="false" onAction="#btnsignupaction" prefHeight="18.0" prefWidth="44.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="191.0" AnchorPane.topAnchor="423.0" />
+            <Label disable="true" layoutX="266.0" layoutY="428.0" styleClass="signin_label" stylesheets="@../css/style.css" text="Sign up" textFill="#671ca4" underline="true" AnchorPane.leftAnchor="266.0" AnchorPane.topAnchor="428.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>

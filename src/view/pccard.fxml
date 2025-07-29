@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane fx:id="card" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#loadpackage" prefHeight="274.4" prefWidth="274.4" style="-fx-border-color: #494949; -fx-border-radius: 10; -fx-background-color: #202225; -fx-background-radius: 10;" styleClass="card" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PcCardController">
    <children>
@@ -13,7 +14,7 @@
          </font>
       </Label>
       <AnchorPane layoutX="19.0" layoutY="10.0" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: black; -fx-background-radius: 15px; -fx-opacity: 0.3;" />
-      <Label fx:id="lbstatus" layoutX="31.0" layoutY="17.0" text="Available" textFill="#57ff76">
+      <Label fx:id="lbstatus" alignment="CENTER" layoutX="17.0" layoutY="17.0" prefHeight="15.0" prefWidth="85.0" text="Available" textAlignment="CENTER" textFill="#57ff76" AnchorPane.rightAnchor="173.0">
          <font>
             <Font name="Arial Bold" size="12.0" />
          </font>
@@ -23,5 +24,6 @@
             <Font name="Arial Bold" size="14.0" />
          </font>
       </Button>
+      <FontIcon fx:id="isconnected" iconColor="#78fc61" iconLiteral="fa-check-circle-o" iconSize="21" layoutX="242.0" layoutY="32.0" visible="false" />
    </children>
 </AnchorPane>
