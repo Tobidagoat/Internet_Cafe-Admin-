@@ -1,6 +1,7 @@
 package controller;
 
 import static internet_cafe_admin.Internet_Cafe_admin.stage;
+import internet_cafe_admin.server;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -109,7 +110,7 @@ public class DefaultController implements Initializable {
 
     @FXML
     private void HandleSwitchFoodAction(ActionEvent event) throws IOException {
-        loadUI("/view/login.fxml");
+        loadUI("/view/food_1.fxml");
     }
 
     @FXML
@@ -236,6 +237,10 @@ public class DefaultController implements Initializable {
         else if(fxmlPath.equals("/view/invoicepane.fxml")){
             invoicepanecontroller = loader.getController();
             invoicepanecontroller.setMainController(this);
+        }
+        else if(fxmlPath.equals("/view/food_1.fxml")){
+            FoodController foodcontroller=loader.getController();
+            server.getInstance().setFoodController(foodcontroller);
         }
 
         mainContentAnchorPane.getChildren().clear();

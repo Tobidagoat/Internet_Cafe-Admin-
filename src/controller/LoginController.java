@@ -129,11 +129,9 @@ public class LoginController implements Initializable {
                 DefaultController controller = loader.getController();
                 controller.getadmininfo(username, adminpf);
 
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.setMaximized(true);
-                stage.show();
+                Internet_Cafe_admin.stage.setScene(new Scene(root));
+                Internet_Cafe_admin.stage.centerOnScreen();
+                Internet_Cafe_admin.stage.setMaximized(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Username or Password is wrong!");
             }
@@ -142,15 +140,23 @@ public class LoginController implements Initializable {
 
     @FXML
     private void btnsignupaction(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/signup.fxml"));
-
-        Stage signupStage = new Stage();
-        signupStage.initStyle(StageStyle.DECORATED);
-        signupStage.setScene(new Scene(root));
-        signupStage.setTitle("Sign Up");
-        signupStage.show();
-
-        ((Stage) btnsignup.getScene().getWindow()).close();
+    // Hide the current login window
+    Internet_Cafe_admin.stage.hide();
+    
+    // Load signup
+    Parent root = FXMLLoader.load(getClass().getResource("/view/signup.fxml"));
+    Stage signupStage = new Stage();
+    signupStage.initOwner(Internet_Cafe_admin.stage);
+    signupStage.initStyle(StageStyle.DECORATED);
+    signupStage.setScene(new Scene(root));
+    signupStage.setTitle("Sign Up");
+    
+    // When signup closes, show login again
+//    signupStage.setOnHidden(e -> {
+//        Internet_Cafe_admin.stage.show();
+//    });
+    
+    signupStage.show();
     }
     
     @FXML

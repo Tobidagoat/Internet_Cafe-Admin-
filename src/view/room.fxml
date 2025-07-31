@@ -41,7 +41,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <ScrollPane fx:id="pcpane" fitToWidth="true" hbarPolicy="NEVER" layoutX="28.0" layoutY="65.0" prefHeight="652.0" prefWidth="1348.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="25.200000000000045" AnchorPane.topAnchor="65.0">
+      <ScrollPane fx:id="pcpane" fitToWidth="true" hbarPolicy="NEVER" layoutX="28.0" layoutY="65.0" prefHeight="652.0" prefWidth="1348.0" visible="false" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="25.200000000000045" AnchorPane.topAnchor="65.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1333.0" style="-fx-background-color: #141619;">
                <children>

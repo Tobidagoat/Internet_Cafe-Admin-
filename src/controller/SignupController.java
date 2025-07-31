@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -104,100 +105,85 @@ public class SignupController implements Initializable {
         */
     }
 
-    @FXML
-    private void btnsignupaction(ActionEvent event) {
-        String email = txtnewemail.getText().trim();
-        String username = txtnewusername.getText().trim();
-        String password = txtnewpassword.getText().trim();
-        
-        if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
-            showAlert("Input Error", "Please fill in all fields");
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            showAlert("Input Error", "Please enter a valid email address");
-            return;
-        }
-        
-        if (password.length() < 6) {
-            showAlert("Input Error", "Password must be at least 6 characters");
-            return;
-        }
-        
-        try {
-            String checkSql = "SELECT * FROM admins WHERE admin_name = ? OR email = ?";
-            pst = con.prepareStatement(checkSql);
-            pst.setString(1, username);
-            pst.setString(2, email);
-            rs = pst.executeQuery();
-            
-            if (rs.next()) {
-                showAlert("Registration Error", "Username or email already exists");
-                return;
-            }
-            
-            // Insert new user
-            String insertSql = "INSERT INTO admins (admin_name, email, password) VALUES (?, ?, ?)";
-            pst = con.prepareStatement(insertSql);
-            pst.setString(1, username);
-            pst.setString(2, email);
-            pst.setString(3, hashPassword(password));
-            int rowsAffected = pst.executeUpdate();
-            
-            if (rowsAffected > 0) {
-                showAlert("Success", "New Admin registered successfully!");
-                txtnewemail.clear();
-                txtnewusername.clear();
-                txtnewpassword.clear();
-                // Switch back to login pane
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Default.fxml"));
-                Parent root = loader.load();
-                DefaultController controller = loader.getController();
-                controller.getadmininfo(username, "");
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.setMaximized(true);
-                stage.show();
-                //fade animation
-                FadeTransition fadeOut = new FadeTransition(Duration.millis(300), signuppane);
-                fadeOut.setFromValue(1.0);
-                fadeOut.setToValue(0.0);
-                fadeOut.setOnFinished(e -> {
-                    signuppane.setVisible(false);
-                    loginpane.setOpacity(0);
-                    loginpane.setVisible(true);
-                    FadeTransition fadeIn = new FadeTransition(Duration.millis(300), loginpane);
-                    fadeIn.setFromValue(0.0);
-                    fadeIn.setToValue(1.0);
-                    fadeIn.play();
-                });
-                fadeOut.play();
-                
-                Stage stage = (Stage) loginpane.getScene().getWindow();
-                stage.close();
-            } else {
-                showAlert("Registration Error", "Failed to register user");
-            }
-        } catch (SQLException ex) {
-            showAlert("Database Error", "Error registering user: " + ex.getMessage());
-        } catch (IOException ex) {
-            Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+@FXML
+private void btnsignupaction(ActionEvent event) {
+    String email = txtnewemail.getText().trim();
+    String username = txtnewusername.getText().trim();
+    String password = txtnewpassword.getText().trim();
+    
+    if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        showAlert("Input Error", "Please fill in all fields");
+        return;
     }
+    
+    if (!isValidEmail(email)) {
+        showAlert("Input Error", "Please enter a valid email address");
+        return;
+    }
+    
+    if (password.length() < 6) {
+        showAlert("Input Error", "Password must be at least 6 characters");
+        return;
+    }
+    
+    try {
+        String checkSql = "SELECT * FROM admins WHERE admin_name = ? OR email = ?";
+        pst = con.prepareStatement(checkSql);
+        pst.setString(1, username);
+        pst.setString(2, email);
+        rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            showAlert("Registration Error", "Username or email already exists");
+            return;
+        }
+        
+        // Insert new user
+        String insertSql = "INSERT INTO admins (admin_name, email, password) VALUES (?, ?, ?)";
+        pst = con.prepareStatement(insertSql);
+        pst.setString(1, username);
+        pst.setString(2, email);
+        pst.setString(3, hashPassword(password));
+        int rowsAffected = pst.executeUpdate();
+        
+        if (rowsAffected > 0) {
+            showAlert("Success", "New Admin registered successfully!");
+            txtnewemail.clear();
+            txtnewusername.clear();
+            txtnewpassword.clear();
+            
+            // Close the signup window
+            Stage signupStage = (Stage) btnsignup.getScene().getWindow();
+            signupStage.close();
+            
+            // Directly open main application window
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Default.fxml"));
+            Parent root = loader.load();
+            DefaultController controller = loader.getController();
+            controller.getadmininfo(username, "");
+
+            Internet_Cafe_admin.stage.setScene(new Scene(root));
+            Internet_Cafe_admin.stage.centerOnScreen();
+            Internet_Cafe_admin.stage.setMaximized(true);
+            Internet_Cafe_admin.stage.show();
+            
+        } else {
+            showAlert("Registration Error", "Failed to register user");
+        }
+    } catch (SQLException | IOException ex) {
+        showAlert("Error", "An error occurred: " + ex.getMessage());
+        Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
 
     @FXML
     private void btnsigninaction(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
-
-        Stage loginstage = new Stage();
-        loginstage.initStyle(StageStyle.DECORATED);
-        loginstage.setScene(new Scene(root));
-        loginstage.setTitle("Log In");
-        loginstage.show();
-
-        ((Stage) btnconfirm.getScene().getWindow()).close();
+    // Close current signup window
+    Stage currentStage = (Stage) btnsignin.getScene().getWindow();
+    currentStage.close();
+    
+    // Show the login window (static stage)
+    Internet_Cafe_admin.stage.show();
     }
 
     @FXML
@@ -262,8 +248,9 @@ public class SignupController implements Initializable {
 
     @FXML
     private void btncloseaction(MouseEvent event) {
-        Stage stage = (Stage) loginpane.getScene().getWindow();
-        stage.close();
+        // Get stage from the event source (button)
+    Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    stage.close();
         server.getInstance().stopServer();
     }
     

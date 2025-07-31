@@ -106,7 +106,7 @@ public class UserlistController implements Initializable {
     }
 
     private void loaduserlist() throws SQLException {
-        pst = con.prepareStatement("SELECT customer_id, customer_name FROM users where status = 'good'");
+        pst = con.prepareStatement("SELECT customer_id, customer_name FROM users where status = 'active'");
         rs = pst.executeQuery();
         allusers.clear();
         while (rs.next()) {

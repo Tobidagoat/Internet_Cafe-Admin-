@@ -1,6 +1,7 @@
 package internet_cafe_admin;
 
 import controller.DashboardController;
+import controller.FoodController;
 import controller.InvoicepaneController;
 import controller.RoomController;
 import database.DbConnection;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import model.foods;
 
 public class server {
     
@@ -30,6 +32,7 @@ public class server {
     private ServerSocket serverSocket;
     private volatile boolean isRunning = false;
     private final Object shutdownLock = new Object();
+    private static FoodController foodController;
 
     // Private constructor for singleton
     private server() {
@@ -275,9 +278,31 @@ public class server {
                     }
                 });
             }
-        } else if (msg.startsWith("ORDER|")) {
+        } else if (msg.startsWith("FoodOrder|")) {
             String[] parts = msg.split("\\|", 2);
+             String data = parts[1];
+            ArrayList<foods> cartList = new ArrayList<>();
+
+            String[] items = data.split(";");
+            for (String itemData : items) {
+                String[] fields = itemData.split(",");
+                String name = fields[0];
+                double price = Double.parseDouble(fields[1]);
+                int quantity = Integer.parseInt(fields[2]);
+                cartList.add(new foods(name, quantity, price));
+                DashboardController.getInstance().logActivity(clientName+" ordered "+name);
+            }
             System.out.println("Order from " + clientName + ": " + (parts.length > 1 ? parts[1] : "Unknown item"));
+            Platform.runLater(() -> {
+                //DashboardController.getInstance().logActivity("Food Order From "+clientName+" has arrived in Food Order Pane");
+                if (foodController != null) {
+                    try {
+                        foodController.addOrderCard(clientName, cartList);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(server.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
         } else if (msg.startsWith("SESSION_END|")) {
             String[] parts = msg.split("\\|");
             int pcId = Integer.parseInt(parts[1]);
@@ -308,7 +333,11 @@ public class server {
             System.out.println("Message from " + clientName + ": " + msg);
         }
     }
-        
+    
+    public void setFoodController(FoodController controller) {
+        this.foodController = controller;
+        server.foodController = controller;
+    }
     private static boolean showConfirmDialog(String pcName, String seconds) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Add Time Request");

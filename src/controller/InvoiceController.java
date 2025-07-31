@@ -85,9 +85,9 @@ public class InvoiceController implements Initializable {
     }    
 
     private void setupTableColumns() {
-        tbitemname.setCellValueFactory(new PropertyValueFactory<>("foodName"));
-        tbitemqty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        tbitemprice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tbitemname.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        tbitemqty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tbitemprice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         tbamount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         
         // Format price columns
@@ -114,7 +114,7 @@ public class InvoiceController implements Initializable {
         PreparedStatement stmt=connection.prepareStatement(sql);
         stmt.setInt(1, saleid);
         stmt.executeUpdate();
-        //database logic
+        
         InvoicepaneController.instance.removeInvoiceBySaleId(saleid);
     }
 
@@ -141,11 +141,11 @@ public class InvoiceController implements Initializable {
                 
                 if (rs.next()) {
                     lbpackagename.setText(rs.getString("package_type"));
-                    lbperiod.setText(rs.getString("period"));
+                    lbperiod.setText(rs.getString("period")+" hour");
                     lbusername.setText(rs.getString("customer_name"));
-                    lbpackageprice.setText(String.format("$%.2f", rs.getDouble("package_price")));
-                    lbgameamount.setText(String.format("$%.2f", rs.getDouble("total_price")));
-                    lbtotalamount.setText(Integer.toString(gettotalamount(saleid)));
+                    lbpackageprice.setText(String.format("%.2fKs", rs.getDouble("package_price")));
+                    lbgameamount.setText(String.format("%.2fKs", rs.getDouble("total_price")));
+                    lbtotalamount.setText(Integer.toString(gettotalamount(saleid))+"Ks");
                 }
             }
             

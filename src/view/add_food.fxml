@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="421.0" style="-fx-background-color: #191919;" stylesheets="@../css/food_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_foodController">
+    <Label layoutX="30.0" layoutY="26.0" text="Name:" textFill="WHITE" />
+        <TextField fx:id="nameField" layoutX="100.0" layoutY="20.0" prefWidth="250" styleClass="text-field" />
+
+        <Label layoutX="30.0" layoutY="73.0" text="Price:" textFill="WHITE" />
+        <TextField fx:id="priceField" layoutX="100.0" layoutY="66.0" prefWidth="250" styleClass="text-field" stylesheets="@../css/food_style.css" />
+
+        <Label layoutX="30.0" layoutY="237.0" text="Image:" textFill="WHITE" />
+        <Button fx:id="uploadBtn" layoutX="100.0" layoutY="231.0" onAction="#handleImageUpload" stylesheets="@../css/food_style.css" text="Choose Image" />
+        <TextField fx:id="imagePathField" layoutX="100.0" layoutY="280.0" prefWidth="250" promptText="Selected image path will appear" />
+        <Button fx:id="saveBtn" layoutX="296.0" layoutY="328.0" text="Save" />
+        <Button fx:id="cancelBtn" layoutX="201.0" layoutY="327.0" text="Cancel" />
+   <ComboBox fx:id="foodTypeComboBox" layoutX="100.0" layoutY="110.0" prefHeight="41.0" prefWidth="250.0" stylesheets="@../css/food_style.css" />
+   <Label layoutX="28.0" layoutY="118.0" text="Category" textFill="WHITE" />
+   <TextField fx:id="stockField" layoutX="100.0" layoutY="189.0" prefWidth="250" styleClass="text-field" stylesheets="@../css/food_style.css" />
+   <Label layoutX="28.0" layoutY="190.0" text="Stock" textFill="WHITE" />
+</AnchorPane>
