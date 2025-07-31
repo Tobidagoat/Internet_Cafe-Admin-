@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -11,9 +12,29 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" styleClass="background_anchor_pane" stylesheets="@../css/fx_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DefaultController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1600.0" styleClass="background_anchor_pane" stylesheets="@../css/fx_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DefaultController">
    <children>
-      <AnchorPane layoutX="114.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="sidebar_anchor_pane" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="575.0" layoutY="-107.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button layoutX="1512.0" layoutY="2.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="50.0" style="-fx-background-color: red; -fx-border-color: #ff6a00;" text="X" AnchorPane.rightAnchor="0.0">
+               <effect>
+                  <InnerShadow choke="0.05" radius="25.205" width="81.82" />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="1434.0" layoutY="2.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="50.0" style="-fx-background-color: #292b2f; -fx-border-color: grey;" text="-" textFill="WHITE" AnchorPane.rightAnchor="50.0">
+               <effect>
+                  <InnerShadow choke="0.05" radius="25.205" width="81.82" />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="114.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="sidebar_anchor_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
             <ToggleButton fx:id="btnHome" layoutX="6.0" layoutY="129.0" mnemonicParsing="false" onAction="#HandleSwitchHomeAction" selected="true" styleClass="sidebar_button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
                <toggleGroup>
@@ -37,7 +58,7 @@
             <Circle fx:id="invoicenoti" fill="WHITE" layoutX="107.0" layoutY="504.0" radius="6.0" stroke="#00ff55" strokeType="INSIDE" strokeWidth="3.0" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="281.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" styleClass="topbar_anchor_pane" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="281.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" styleClass="topbar_anchor_pane" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-0.40000000000009095" AnchorPane.topAnchor="30.0">
          <children>
             <Label layoutX="21.0" layoutY="12.0" text="Welcome in," textFill="WHITE">
                <font>
@@ -71,6 +92,6 @@
             <Button fx:id="btnedit" layoutX="1263.0" layoutY="16.0" mnemonicParsing="false" onAction="#btneditaction" prefHeight="27.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-border-color: #494949; -fx-border-radius: 7;" text="Edit" textFill="#b9b9b9" />
          </children></AnchorPane>
       <AnchorPane layoutX="291.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" styleClass="bottombar_anchor_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" />
-      <AnchorPane fx:id="mainContentAnchorPane" layoutX="385.0" layoutY="173.0" prefHeight="200.0" prefWidth="200.0" styleClass="content_anchor_pane" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="60.0" />
+      <AnchorPane fx:id="mainContentAnchorPane" layoutX="194.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0" styleClass="content_anchor_pane" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="100.0" />
    </children>
 </AnchorPane>

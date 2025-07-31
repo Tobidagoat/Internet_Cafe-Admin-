@@ -1,7 +1,7 @@
 .background_anchor_pane{
     -fx-background-color:#202225;
-    -fx-pref-width:1600px;
-    -fx-pref-height:800px;
+    -fx-pref-width:1550px;
+    -fx-pref-height:840px;
 
 }
 .sidebar_anchor_pane{
@@ -14,7 +14,7 @@
 }
 .topbar_anchor_pane{
     -fx-background-color:#292b2f;
-    -fx-pref-width:1400px;
+    -fx-pref-width:1350px;
     -fx-pref-height:60px;
     -fx-border-width:0 0 1px  0;
     -fx-border-color:#494949;
@@ -22,7 +22,7 @@
 }
 .bottombar_anchor_pane{
     -fx-background-color:#292b2f;
-    -fx-pref-width:1400px;
+    -fx-pref-width:1350px;
     -fx-pref-height:40px;
     -fx-border-width: 1px 0 0  0;
     -fx-border-color:#494949;
@@ -30,7 +30,7 @@
 }
 .content_anchor_pane{
     -fx-background-color:#202225;
-    -fx-pref-width:1400px;
+    -fx-pref-width:1350px;
     -fx-pref-height:700px;
     -fx-border-width: 0 0 0  1px;
     -fx-border-color:#494949;
@@ -127,6 +127,12 @@
     -fx-background-color: #292b2f;
     -fx-pref-width:1200px;
     -fx-font-size:14px;
+
+    
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
     
 
     
@@ -145,6 +151,12 @@
     -fx-border-width:1px;
     -fx-padding: 15px 0px 15px 0px;
     -fx-text-fill:white;
+
+    
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
    
 }
 .filler{
@@ -155,6 +167,10 @@
     -fx-text-fill: rgb(255, 255, 255);
     -fx-background-color: rgb(255, 255, 255);
     -fx-color: rgb(156, 156, 156);
+   -fx-border-width: 1px 0 1px 1px;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 .table-row-cell:filled{
     -fx-border-width:1px;
@@ -171,6 +187,13 @@
     -fx-border-color: #292b2f;
     -fx-background-color: #292b2f;
 
+    
+    -fx-border-width: 1px 0 1px 1px;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding:0px;
+
 }
 .table-view .corner{
     -fx-background-color:#292b2f ;
@@ -180,6 +203,7 @@
     -fx-background-color: transparent;
     -fx-pref-width: 10px;
 }
+
 
 .table-view .scroll-bar:horizontal {
     -fx-background-color: transparent;
@@ -288,8 +312,7 @@
 .rounded-container {
     -fx-background-radius: 50%;
     -fx-border-radius: 50%;
-    -fx-border-color: #6495ED;
-    -fx-border-width: 2px;
+    
    
 }
 

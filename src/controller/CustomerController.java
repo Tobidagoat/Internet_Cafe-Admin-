@@ -46,7 +46,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import controller.Update_CustomerController;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Circle;
 
 import model.customer;
 /**
@@ -90,6 +96,16 @@ public class CustomerController implements Initializable {
     private Label txtLoyalCustomer3;
        @FXML
     private Label txtTotalCustomer;
+    @FXML
+    private TableColumn<customer, String> cStatus;
+     @FXML
+    private ImageView imgFir;
+
+    @FXML
+    private ImageView imgSec;
+
+    @FXML
+    private ImageView imgThi;
 
     
     
@@ -119,125 +135,137 @@ public class CustomerController implements Initializable {
             con = db.getConnection();
             loadTable();
             
-            cDate.setCellFactory(col -> new TableCell<customer, String>() {
-                private final Label lbDate = new Label();
-                private final Button editButton = new Button("⋮");
-                private final ContextMenu rightMenu = new ContextMenu();
-                MenuItem editMenu = new MenuItem("Edit");
-                MenuItem deleteMenu = new MenuItem("Delete");
+             //top 3 customers setup
+             
+//             SetUpimg(imgFir);
+//             SetUpimg(imgSec);
+//             SetUpimg(imgThi);
+             
+        
+             
+            String sql = "SELECT u.customer_name as c_name,profile_pic as img,SUM(s.total_price + s.total_food_price) AS total_spent FROM sale s JOIN users u ON s.customer_id = u.customer_id GROUP BY s.customer_id, u.customer_name ORDER BY total_spent DESC LIMIT 3;";
+            st = con.prepareStatement(sql);
+            rs = st.executeQuery(sql);
+            int i =1;
+            while(rs.next()){
+                String name = rs.getString("c_name");
+                String img = rs.getString("img");
                 
-                private final HBox editBtnContainer = new HBox();
+                
+                switch (i) {
+                    case 1 -> {txtLoyalCustomer1.setText(name);
+                               loadimg(img, imgFir);
+                    }
+                    case 2 ->{ txtLoyalCustomer2.setText(name);
+                                loadimg(img, imgSec);
+                                
+                    }
+                    case 3 ->{ txtLoyalCustomer3.setText(name);
+                                loadimg(img, imgThi);
+                               
+                    }
+                }
+                i++;
+            }
+            
+             } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+       
+        
+        
+        //table edit setup
+            cStatus.setCellFactory(col -> new TableCell<customer, String>() {
 
-        {
-            rightMenu.getItems().addAll(editMenu,deleteMenu);
-            
-            
+    private final Label lbstatus = new Label();
+    private final Button editButton = new Button("⋮");
+    private final ContextMenu rightMenu = new ContextMenu();
+    private final MenuItem editMenu = new MenuItem("Edit");
+    private final MenuItem banMenu = new MenuItem(); // was deleteMenu
+
+    private final HBox editBtnContainer = new HBox();
+
+    {
+        rightMenu.getItems().addAll(editMenu, banMenu);
+
         editButton.setStyle("-fx-background-color: transparent; -fx-font-size: 30px; -fx-text-fill:white;");
-        lbDate.setStyle("-fx-font-size: 14px;");
+        lbstatus.setStyle("-fx-font-size: 14px;");
         editButton.setPadding(new Insets(0));
-        HBox.setHgrow(lbDate, Priority.ALWAYS);
-         editBtnContainer.setMinHeight(40);
+        HBox.setHgrow(lbstatus, Priority.ALWAYS);
+        editBtnContainer.setMinHeight(40);
         editBtnContainer.setPrefHeight(40);
         editBtnContainer.setMaxHeight(40);
-        
-        //Menu style
-        editMenu.setStyle("-fx-font-size:14px; -fx-padding:0px;");
-        deleteMenu.setStyle("-fx-font-size:14px; -fx-padding:0px;");
-  
 
-        editBtnContainer.getChildren().addAll(lbDate, editButton);
+        // Menu item styles
+        editMenu.setStyle("-fx-font-size:14px; -fx-padding:0px;");
+        banMenu.setStyle("-fx-font-size:14px; -fx-padding:0px;");
+
+        editBtnContainer.getChildren().addAll(lbstatus, editButton);
         editBtnContainer.setAlignment(Pos.TOP_LEFT);
         editBtnContainer.setSpacing(80);
-        
-        
-        //Menu action
-        editButton.setOnAction(e->{
-            rightMenu.show(editButton,Side.RIGHT,0,0);
-            
-        });
-        //Edit  action
-         editMenu.setOnAction(e -> {
-             
-              customer c =(customer)cTable.getSelectionModel().getSelectedItem();
-              String ccName= c.getName();
-              String ccPhone = c.getPhno();
-              String ccEmail = null;
-              ccEmail=c.getEmail();
-              int ccId = c.getCid();
-             
-              
-              
-             
 
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Update_Customer.fxml"));
-             
+        // Context menu trigger
+        editButton.setOnAction(e -> {
+            rightMenu.show(editButton, Side.RIGHT, 0, 0);
+        });
+
+        // Edit action (unchanged)
+        editMenu.setOnAction(e -> {
+            customer c = getTableView().getItems().get(getIndex());
+            String ccName = c.getName();
+            String ccPhone = c.getPhno();
+            String ccEmail = c.getEmail();
+            int ccId = c.getCid();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Update_Customer.fxml"));
             try {
-                Parent editRoot= loader.load();
+                Parent editRoot = loader.load();
                 Update_CustomerController controller = loader.getController();
                 controller.UpdateData(ccId, ccName, ccPhone, ccEmail);
-                
-                
-                controller.setOnCustomerAdded1(()->{
-            try {
-                loadTable();
-            } catch (SQLException ex) {
-                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         });
-                    Stage editStage = new Stage();
+
+                controller.setOnCustomerAdded1(() -> {
+                    try {
+                        loadTable();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+
+                Stage editStage = new Stage();
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.setScene(new Scene(editRoot));
                 editStage.setTitle("Edit Customer");
                 editStage.setResizable(false);
                 editStage.showAndWait();
-                
-                
             } catch (IOException ex) {
                 Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-         
-         
-            
-    });
-        deleteMenu.setOnAction(e->{
-            customer c =(customer)cTable.getSelectionModel().getSelectedItem();
-            int ccId = c.getCid();
-            
-            String sql ="delete from users where customer_id=?";
-                try {
-                    pst=con.prepareStatement(sql);
-                    pst.setInt(1, ccId);
-                    
-                    pst.executeUpdate();
-                    loadTable();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            
-            
         });
-        
-        
-        }
 
-    
-      @Override
-    protected void updateItem(String date, boolean empty) {
-        super.updateItem(date, empty);
+        // Ban/Unban logic is now handled in updateItem()
+    }
 
-        if (empty || date == null) {
+    @Override
+    protected void updateItem(String status, boolean empty) {
+        super.updateItem(status, empty);
+
+        if (empty || status == null) {
             setGraphic(null);
         } else {
-            lbDate.setText(date);
+            customer c = getTableView().getItems().get(getIndex());
+
+            lbstatus.setText(status);
             setGraphic(editBtnContainer);
 
             TableRow<?> row = getTableRow();
             boolean showButton = row != null && (row.isSelected() || isFocused());
             editButton.setVisible(showButton);
 
-            // Reactive listeners
+            // Show/hide logic
             row.selectedProperty().addListener((obs, wasSel, isNowSel) -> {
                 editButton.setVisible(isNowSel || isFocused());
             });
@@ -245,21 +273,44 @@ public class CustomerController implements Initializable {
             focusedProperty().addListener((obs, wasFocus, isNowFocus) -> {
                 editButton.setVisible(isNowFocus || row.isSelected());
             });
+
+            // Dynamically change ban menu text and logic
+            String currentStatus = c.getStatus();
+            if ("ban".equalsIgnoreCase(currentStatus)) {
+                banMenu.setText("Unban");
+            } else {
+                banMenu.setText("Ban");
+            }
+
+            banMenu.setOnAction(e -> {
+                String newStatus = "ban".equalsIgnoreCase(currentStatus) ? "active" : "ban";
+                c.setStatus(newStatus);
+
+                // OPTIONAL: Save to DB
+                String sql = "UPDATE users SET status = ? WHERE customer_id = ?";
+                try {
+                    pst = con.prepareStatement(sql);
+                    pst.setString(1, newStatus);
+                    pst.setInt(2, c.getCid());
+                    pst.executeUpdate();
+                    loadTable();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                getTableView().refresh();
+            });
         }
-    }});
+    }
+});
+
 
             
                         
             
            
             
-        } catch (ClassNotFoundException ex) {
-            
-            
-            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
         
     }    
     
@@ -276,14 +327,14 @@ public class CustomerController implements Initializable {
             
             pst = con.prepareStatement(sql);
             pst.setString(1, txtSearch.getText()+"%");
-            pst.setString(2, txtSearch.getText()+"%");
+            pst.setString(2,"%"+ txtSearch.getText()+"%");
             rs = pst.executeQuery();
             boolean found = false;
             customerList.removeAll(customerList);
             
             while(rs.next()){
                 found =true;
-                customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date")));
+                customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date"),rs.getString("status")));
             }
             if(!found){
                  initCustomerList();
@@ -355,7 +406,7 @@ public class CustomerController implements Initializable {
             
             while(rs.next()){
                 found =true;
-                customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date")));
+                customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date"),rs.getString("status")));
             }
             
             
@@ -373,7 +424,7 @@ public class CustomerController implements Initializable {
         rs =st.executeQuery(sql);
         
         while(rs.next()){
-          customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date")));
+          customerList.add(new customer(rs.getInt("customer_id"),rs.getString("customer_name"),rs.getString("ph_no"),rs.getString("e_mail"),rs.getString("profile_pic"),rs.getString("date"),rs.getString("status")));
 
         }
     }
@@ -386,17 +437,28 @@ public class CustomerController implements Initializable {
             cEmail.setCellValueFactory(new PropertyValueFactory("email"));
             cProfile.setCellValueFactory(new PropertyValueFactory("profile"));
             cDate.setCellValueFactory(new PropertyValueFactory("date"));
+            cStatus.setCellValueFactory(new PropertyValueFactory("status"));
             
            
             
             cTable.setItems(customerList);
             
-            String sql = "select count(*) from users";
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
+            String sql = "select count(*) as total from users";
+            st = con.prepareStatement(sql);
+             rs= st.executeQuery(sql);
             if(rs.next()){
-                int count  = rs.getInt(1);
-                txtTotalCustomer.setText(count+"");
+                
+                txtTotalCustomer.setText(Integer.toString(rs.getInt("total")));
+                
+                
+            String sqll = "select count(customer_id) as cust from sale_detail where status_id =2 group by customer_id;";
+            st = con.prepareStatement(sqll);
+            rs = st.executeQuery(sqll);
+            if(rs.next()){
+                txtActiveCustomer.setText(Integer.toString(rs.getInt("cust")));
+            }
+                
+            
                 
                 
                 
@@ -404,4 +466,57 @@ public class CustomerController implements Initializable {
             }
 
     }
+    private void loadimg(String imgName, ImageView imageview) {
+        
+              // FOR TESTING NEED TO CHANGE AFTER COMPILE
+            Path targetDir = Paths.get("D:/Internet_cafe_2.0/Internet_Cafe-Admin-/src/img");
+            
+            //USE AFTER COMPILE AS JAR FR
+//            Path targetDir = Paths.get(System.getProperty("user.dir"), "img");
+        
+    // Apply circular clip
+    
+    Circle clip = new Circle(
+        imageview.getFitWidth() / 2,
+        imageview.getFitHeight() / 2,
+        imageview.getFitWidth() / 2
+    );
+    imageview.setClip(clip);
+
+    // Defensive check for null or empty imgName
+    if (imgName == null || imgName.trim().isEmpty()) {
+        setDefaultImage(imageview);
+        return;
+    }
+
+    // File path setup
+    File file = new File(targetDir + File.separator + imgName);
+
+    if (file.exists()) {
+        Image image = new Image(
+            file.toURI().toString(),
+            550, 550, true, true, true
+        );
+        imageview.setImage(image);
+    } else {
+        setDefaultImage(imageview);
+    }
+
+    imageview.setPreserveRatio(true);
+    imageview.setSmooth(true);
+    imageview.setCache(true);
+}
+
+    private void setDefaultImage(ImageView imageview) {
+    try {
+        // Use resource fallback or a static file path as backup
+        Image defaultImg = new Image(getClass().getResourceAsStream("/img/Default_user.png"));
+        imageview.setImage(defaultImg);
+    } catch (Exception e) {
+        System.out.println("Default image not found: " + e.getMessage());
+    }
+}
+
+    
+
 }

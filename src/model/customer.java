@@ -15,14 +15,16 @@ public class customer {
     private String email;
     private String profile;
     private String date;
+    private String status;
 
-    public customer(int cid, String name, String phno, String email, String profile, String date) {
+    public customer(int cid, String name, String phno, String email, String profile, String date,String status) {
         this.cid = cid;
         this.name = name;
         this.phno = phno;
         this.email = email;
         this.profile = profile;
         this.date = date;
+        this.status   = status;
     }
 
     public int getCid() {
@@ -71,6 +73,14 @@ public class customer {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
    

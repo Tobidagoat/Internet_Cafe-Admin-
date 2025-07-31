@@ -39,13 +39,13 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <PasswordField fx:id="txtpassword" alignment="CENTER" layoutX="171.0" layoutY="298.0" onAction="#passwordtxt" prefHeight="26.0" prefWidth="178.0" promptText="password" style="-fx-pref-height: 30;" stylesheets="@../css/style.css" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="290.0" />
+            <PasswordField fx:id="txtpassword" alignment="CENTER" focusTraversable="false" layoutX="171.0" layoutY="298.0" onAction="#passwordtxt" prefHeight="26.0" prefWidth="178.0" promptText="password" style="-fx-pref-height: 30;" stylesheets="@../css/style.css" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="290.0" />
             <Label fx:id="lbpasserror" layoutX="104.0" layoutY="329.0" prefHeight="15.0" prefWidth="219.0" textFill="#ff0f0f" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="323.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btnlogin" layoutX="223.0" layoutY="407.0" mnemonicParsing="false" onAction="#loginaction" prefHeight="26.0" prefWidth="178.0" styleClass="button-login" stylesheets="@../css/style.css" text="Log In" textFill="WHITE" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="350.0">
+            <Button fx:id="btnlogin" focusTraversable="false" layoutX="223.0" layoutY="407.0" mnemonicParsing="false" onAction="#loginaction" prefHeight="26.0" prefWidth="178.0" styleClass="button-login" stylesheets="@../css/style.css" text="Log In" textFill="WHITE" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="350.0">
                <font>
                   <Font name="Arial Bold" size="13.0" />
                </font>
