@@ -122,11 +122,9 @@ public class DefaultController implements Initializable {
     private void HandleSwitchLogoutAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
         Parent root = loader.load();
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
-        stage.setMaximized(true);
         stage.show();
     }
 
@@ -171,7 +169,7 @@ public class DefaultController implements Initializable {
         }); 
         Stage popupstage = new Stage();
         popupstage.initModality(Modality.APPLICATION_MODAL);
-        popupstage.setTitle("Select Package");
+        popupstage.setTitle("Edit User");
         popupstage.setScene(new Scene(popup));
         popupstage.showAndWait();
     }

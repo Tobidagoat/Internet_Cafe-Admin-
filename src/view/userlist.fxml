@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane id="AnchorPane" prefHeight="466.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserlistController">
+<AnchorPane id="AnchorPane" prefHeight="466.0" prefWidth="356.0" stylesheets="@../css/userlist.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserlistController">
    <children>
       <ScrollPane hbarPolicy="NEVER" layoutY="48.0" prefHeight="356.0" prefWidth="348.0" style="-fx-border-color: transparent;">
          <content>
@@ -21,14 +21,14 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Button fx:id="listconfirmbtn" layoutX="271.0" layoutY="416.0" mnemonicParsing="false" onAction="#listconfirmaction" text="Confirm" />
+      <Button fx:id="listconfirmbtn" layoutX="261.0" layoutY="416.0" mnemonicParsing="false" onAction="#listconfirmaction" text="Confirm" />
       <Label layoutX="41.0" layoutY="13.0" text="Users">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtsearch" layoutX="90.0" layoutY="11.0" onAction="#txtsearchaction" onKeyReleased="#txtsearchkey" prefHeight="30.0" prefWidth="233.0" />
-      <FontIcon iconLiteral="fa-users" layoutX="14.0" layoutY="32.0">
+      <FontIcon iconLiteral="fa-users" layoutX="14.0" layoutY="32.0" styleClass="icon">
          <font>
             <Font size="16.0" />
          </font>

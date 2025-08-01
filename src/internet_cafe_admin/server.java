@@ -29,6 +29,7 @@ public class server {
     private static final int PORT = 5000;
     private static final Map<String, ClientHandler> clients = new HashMap<>();
     public static List<Integer> pendingInvoices = new ArrayList<>();
+    private static final List<PendingFoodOrder> pendingFoodOrders = new ArrayList<>();
     private ServerSocket serverSocket;
     private volatile boolean isRunning = false;
     private final Object shutdownLock = new Object();
@@ -37,6 +38,18 @@ public class server {
     // Private constructor for singleton
     private server() {
         // Initialization if needed
+    }
+    
+    
+    
+    private static class PendingFoodOrder {
+        String clientName;
+        ArrayList<foods> foodList;
+
+        PendingFoodOrder(String clientName, ArrayList<foods> foodList) {
+            this.clientName = clientName;
+            this.foodList = foodList;
+        }
     }
 
     // Singleton access method
@@ -301,6 +314,9 @@ public class server {
                     } catch (SQLException ex) {
                         Logger.getLogger(server.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else {
+                    System.out.println("⚠️ FoodController is null — queueing food order");
+                    pendingFoodOrders.add(new PendingFoodOrder(clientName, cartList));
                 }
             });
         } else if (msg.startsWith("SESSION_END|")) {
@@ -337,6 +353,17 @@ public class server {
     public void setFoodController(FoodController controller) {
         this.foodController = controller;
         server.foodController = controller;
+        
+            Platform.runLater(() -> {
+        for (PendingFoodOrder order : pendingFoodOrders) {
+            try {
+                foodController.addOrderCard(order.clientName, order.foodList);
+            } catch (SQLException e) {
+                Logger.getLogger(server.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        pendingFoodOrders.clear();
+    });
     }
     private static boolean showConfirmDialog(String pcName, String seconds) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

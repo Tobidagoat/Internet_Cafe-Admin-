@@ -18,7 +18,7 @@
 }
 .card:hover {
     -fx-background-color: #f0f0f0;
-    -fx-border-color: #0078d7;
+    -fx-border-color: #c94503;
     -fx-border-width: 2;
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
@@ -276,7 +276,7 @@
 
 /* Style for individual items in the HBox */
 .glass-hbox-item {
-    -fx-background-color:  #ffffff30; /* Solid color instead of hex with opacity */
+    -fx-background-color:  #ffffffb0; /* Solid color instead of hex with opacity */
     -fx-background-radius: 15px; /* Slightly larger radius */
     -fx-border-radius: 15px; /* Match background radius */
     -fx-border-color: rgba(255, 255, 255, 0.3);

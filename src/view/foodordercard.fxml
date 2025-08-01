@@ -11,9 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="370.0" style="-fx-background-color: #202225; -fx-border-color: #494949; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FoodordercardController">
+<AnchorPane prefHeight="550.0" prefWidth="370.0" style="-fx-background-color: #202225; -fx-border-color: #494949; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="card" stylesheets="@../css/ordercard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FoodordercardController">
    <children>
-      <Button fx:id="btnconfirm" layoutX="275.0" layoutY="505.0" mnemonicParsing="false" onAction="#btnconfirmaction" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #39CA2C;" text="Confirm" textFill="WHITE">
+      <Button fx:id="btnconfirm" layoutX="275.0" layoutY="505.0" mnemonicParsing="false" onAction="#btnconfirmaction" prefHeight="30.0" prefWidth="78.0" styleClass="confirm-button" text="Confirm" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
@@ -43,7 +43,7 @@
             <Font name="Consolas Bold" size="17.0" />
          </font>
       </Label>
-      <Button fx:id="btncancel" layoutX="16.0" layoutY="505.0" mnemonicParsing="false" onAction="#btncancelaction" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: CA2C2C;" text="Cancel" textFill="WHITE">
+      <Button fx:id="btncancel" layoutX="16.0" layoutY="505.0" mnemonicParsing="false" onAction="#btncancelaction" prefHeight="30.0" prefWidth="78.0" styleClass="cancel-button" text="Cancel" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
