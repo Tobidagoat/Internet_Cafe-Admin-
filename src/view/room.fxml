@@ -26,9 +26,9 @@
       </Button>
       <AnchorPane fx:id="roompane" layoutX="28.0" layoutY="65.0" prefHeight="630.0" prefWidth="1351.0" style="-fx-background-color: #141619; -fx-border-color: #494949; -fx-border-radius: 0 5px 5px 5px;">
          <children>
-            <ScrollPane fitToWidth="true" layoutX="1.0" prefHeight="630.4" prefWidth="1351.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fitToWidth="true" layoutX="4.0" layoutY="4.0" prefHeight="624.0" prefWidth="1400.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-52.0" AnchorPane.topAnchor="3.0">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1333.0" style="-fx-background-color: #141619;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1382.0" style="-fx-background-color: #141619;">
                      <children>
                         <FlowPane fx:id="cardcontainer" hgap="50.0" layoutX="558.0" layoutY="0.8" prefHeight="630.4" prefWidth="1334.4" vgap="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
@@ -41,7 +41,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <ScrollPane fx:id="pcpane" fitToWidth="true" hbarPolicy="NEVER" layoutX="28.0" layoutY="65.0" prefHeight="652.0" prefWidth="1348.0" visible="false" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="25.200000000000045" AnchorPane.topAnchor="65.0">
+      <ScrollPane fx:id="pcpane" fitToWidth="true" hbarPolicy="NEVER" layoutX="29.6" layoutY="67.2" prefHeight="652.0" prefWidth="1400.0" visible="false" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-29.0" AnchorPane.topAnchor="66.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1333.0" style="-fx-background-color: #141619;">
                <children>

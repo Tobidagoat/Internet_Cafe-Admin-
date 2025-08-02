@@ -35,6 +35,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -74,11 +75,19 @@ public class DataController implements Initializable {
 
     @FXML
     private Label txtTotalIncome;
+   
+    @FXML
+    private Circle cir1;
+
+    @FXML
+    private Circle cir2;
 
     
     private Button selectedToggle = null;
     
     private Timeline chartTimeline;
+    
+    boolean circheck = false;
 
    
     //AreaChart elements
@@ -174,8 +183,8 @@ public class DataController implements Initializable {
     // ✅ Create fresh series
     XYChart.Series<Number, Number> gamingIncomeSeries = new XYChart.Series<>();
     XYChart.Series<Number, Number> foodIncomeSeries = new XYChart.Series<>();
-    gamingIncomeSeries.setName("Internet Cafe Income");
-    foodIncomeSeries.setName("Food Income");
+//    gamingIncomeSeries.setName("Internet Cafe Income");
+//    foodIncomeSeries.setName("Food Income");
 
     while (rs.next()) {
         LocalDate date = rs.getDate("week_start").toLocalDate();
@@ -195,6 +204,10 @@ public class DataController implements Initializable {
     Platform.runLater(() -> {
         areaChart.getData().clear(); // remove old series
         areaChart.getData().addAll(gamingIncomeSeries, foodIncomeSeries); // add new ones
+        cirColor();
+
+
+
     });
 }
 
@@ -606,7 +619,20 @@ updateChartData();
 
 
     
-  
+  private void cirColor(){
+      if (circheck == false){
+         
+          
+          cir1.setStyle("-fx-fill : orange;");
+          cir2.setStyle("-fx-fill: yellow;");
+          circheck = true;
+      }
+      else{
+           cir1.setStyle("-fx-fill : green;");
+          cir2.setStyle("-fx-fill: blue;");
+          circheck = false;
+      }
+  }
 
 
     

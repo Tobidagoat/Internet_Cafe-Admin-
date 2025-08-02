@@ -55,16 +55,27 @@
 
 /* === LINE COLOR === */
 .default-color0.chart-series-line {
-    -fx-stroke: #ff0000;
+    -fx-stroke: #4dff00;
     -fx-stroke-width: 2px;
+    -fx-effect: null; /* Prevent shadow effects that break legend display */
 }
 
 .default-color1.chart-series-line {
     -fx-stroke: rgb(128, 87, 0);
     -fx-stroke-width: 2px;
+    -fx-effect: null;
 }
 
-/* === SYMBOLS (Dots) === */
+/* === LEGEND FIX === */
+/* Ensure legend color boxes are visible */
+.chart-legend-item-symbol {
+    -fx-background-radius: 0;
+    -fx-padding: 5;
+    -fx-background-insets: 0;
+    -fx-background-color: inherit; /* Inherit from series color */
+}
+
+/* === SYMBOLS (Dots on line) === */
 .chart-line-symbol {
     -fx-background-radius: 3px;
     -fx-padding: 3;

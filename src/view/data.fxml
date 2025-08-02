@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="content_anchor_pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataController">
@@ -33,9 +34,9 @@
             </AreaChart>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="837.0" layoutY="124.0" prefHeight="280.0" prefWidth="500.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane layoutX="837.0" layoutY="124.0" prefHeight="280.0" prefWidth="530.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="100.0">
          <children>
-            <PieChart fx:id="pieChart" layoutX="-50.0" layoutY="-87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <PieChart fx:id="pieChart" layoutX="-50.0" layoutY="-87.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-13.0" AnchorPane.topAnchor="0.0">
                <styleClass>
                   <String fx:value="chart-pie" />
                   <String fx:value="chart-legend-item-pie" />
@@ -43,7 +44,7 @@
                </styleClass></PieChart>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="837.0" layoutY="398.0" prefHeight="280.0" prefWidth="500.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="80.0">
+      <AnchorPane layoutX="837.0" layoutY="398.0" prefHeight="280.0" prefWidth="530.0" style="-fx-background-color: #161719; -fx-background-radius: 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="35.0">
          <children>
             <PieChart fx:id="pieChart2" layoutX="-50.0" layoutY="-87.0" stylesheets="@../css/chart_style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -93,6 +94,22 @@
             </Label>
          </children>
       </AnchorPane>
+      <HBox alignment="CENTER" layoutX="244.0" layoutY="477.0" prefHeight="50.0" prefWidth="297.0">
+         <children>
+            <Circle fx:id="cir1" fill="#ff781f" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="18.0" prefWidth="146.0" text="Internet Cafe Income" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Circle fx:id="cir2" fill="#ffdf00" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label text="Food Income" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@../css/fx_style.css" />

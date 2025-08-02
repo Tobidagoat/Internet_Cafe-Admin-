@@ -49,6 +49,11 @@ public class DefaultController implements Initializable {
     @FXML private ImageView pfp;
     @FXML private Circle reddot;
     @FXML private Circle invoicenoti;
+    @FXML
+    private Button btnClose;
+    @FXML
+    private Button btnMinimize;
+    
     
     private String name;
     private String profile;
@@ -134,6 +139,18 @@ public class DefaultController implements Initializable {
     private void HandleSwitchSettingAction(ActionEvent event) throws IOException {
         invoicenoti.setVisible(false);
         loadUI("/view/invoicepane.fxml");
+    }
+    
+    @FXML
+    void HandleCloseAction(ActionEvent event) {
+        stage.close();
+        server.getInstance().stopServer();
+    }
+    @FXML
+    void HandleMiniAction(ActionEvent event) {
+        Stage stage = (Stage) btnMinimize.getScene().getWindow();
+        stage.setIconified(true);
+        
     }
 
     @FXML
