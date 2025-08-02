@@ -1,6 +1,7 @@
 package controller;
 
 import database.DbConnection;
+import internet_cafe_admin.server;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,6 +60,7 @@ public class FoodController implements Initializable {
         loadFromDatabase();
         showFoodCards();
         setupUI();
+        server.getInstance().setFoodController(this);
         try {
             reloadOrderCards(); // Load any existing orders
         } catch (SQLException ex) {
@@ -81,7 +83,7 @@ public class FoodController implements Initializable {
             searchFoods(newValue);
         });
     }
-
+    
     private void loadFromDatabase() {
         foodList.clear();
         String query = "SELECT food_id, food_name, food_type, stock, price, img FROM foods";
@@ -109,7 +111,7 @@ public class FoodController implements Initializable {
         isFiltered = false;
         displayFoodCards(foodList);
     }
-
+    
     private void searchFoods(String searchText) {
         filteredList.clear();
         
@@ -128,7 +130,7 @@ public class FoodController implements Initializable {
         isFiltered = true;
         displayFoodCards(filteredList);
     }
-
+    
     private void displayFoodCards(List<foods> foodsToDisplay) {
         cardContainer.getChildren().clear();
         
@@ -147,7 +149,7 @@ public class FoodController implements Initializable {
             }
         }
     }
-
+    
     public void openForm(foods foodToEdit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_food.fxml"));
@@ -187,7 +189,7 @@ public class FoodController implements Initializable {
             }
         }
     }
-
+    
     private void refreshView() {
         if (isFiltered) {
             searchFoods(txtfoodsearch.getText());
@@ -195,7 +197,7 @@ public class FoodController implements Initializable {
             showFoodCards();
         }
     }
-
+    
     @FXML
     private void handleAddButtonClick(ActionEvent event) {
         openForm(null);

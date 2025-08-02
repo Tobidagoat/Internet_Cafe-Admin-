@@ -195,7 +195,7 @@ public class DashboardController implements Initializable {
         int diff = todaytotalrevenue - yestotalrevenue;
         if (diff != 0) {
             lbtodaysalecompare.setText((diff > 0 ? "+" : "") + diff + " from yesterday");
-            lbtodaysalecompare.setStyle("-fx-text-fill: " + (diff > 0 ? "#6cc95c" : "#ff8175") + ";");
+            lbtodaysalecompare.setStyle("-fx-text-fill: " + (diff > 0 ? "#6cc95c" : "#282828") + ";");
         } else lbtodaysalecompare.setText("");
     }
 
