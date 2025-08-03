@@ -146,7 +146,12 @@ public class TimerequestcardController implements Initializable {
 
     @FXML
     private void btncancelaction(ActionEvent event) {
-        animateButtonClick(btncancel, () -> removeCard());
+        animateButtonClick(btncancel, () -> {
+             String msg = "Time Request Declined.";
+             server.sendToClient("TO|" + clientName + "|CONFIRMATION|" + msg);
+             removeCard();
+            
+                });
     }
 
     @FXML
@@ -156,6 +161,10 @@ public class TimerequestcardController implements Initializable {
             System.out.println("Here's the seconds "+seconds);
             if(dashboard!=null){
             dashboard.logActivity("admin added "+formattomin(seconds)+" to "+clientName);}
+            
+             String msg = "Time Request Accepted.";
+             server.sendToClient("TO|" + clientName + "|CONFIRMATION|" + msg);
+            
             removeCard();
         });
     }

@@ -5,6 +5,7 @@
 package controller;
 
 import database.DbConnection;
+import internet_cafe_admin.server;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -117,6 +118,9 @@ public class FoodordercardController implements Initializable {
         }
         stmt.executeBatch();
         
+        String msg = "Food Order Request Accepted.";
+        server.sendToClient("TO|" + clientname + "|CONFIRMATION|" + msg);
+        
         foodController.removeOrderCard(orderCard);
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -124,6 +128,8 @@ public class FoodordercardController implements Initializable {
         alert.setHeaderText("Order Confirmed");
         alert.setContentText("Order ID: " + getorderid(getsaleid(pcid)));
         alert.show();
+        
+        
     }
     
     private int isexist(int pcid) throws SQLException{
@@ -147,6 +153,8 @@ public class FoodordercardController implements Initializable {
         alert.setTitle("Cancelled");
         alert.setHeaderText("Order Cancelled");
         alert.show();
+         String msg = "Food Order Request Declined.";
+        server.sendToClient("TO|" + clientname + "|CONFIRMATION|" + msg);
     }
 
     
