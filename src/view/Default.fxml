@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -56,6 +58,14 @@
             <ToggleButton fx:id="btnSetting" layoutX="-13.0" layoutY="481.0" mnemonicParsing="false" onAction="#HandleSwitchSettingAction" styleClass="sidebar_button" toggleGroup="$sideBarToggleGroup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="480.0" />
             <FontIcon disable="true" iconLiteral="fa-file-text-o" layoutX="82.0" layoutY="528.0" styleClass="sidebar_button_icon" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="502.0" />
             <Circle fx:id="invoicenoti" fill="WHITE" layoutX="107.0" layoutY="504.0" radius="6.0" stroke="#00ff55" strokeType="INSIDE" strokeWidth="3.0" visible="false" />
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="54.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/CC1.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.17" contrast="0.47" />
+               </effect>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="281.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" styleClass="topbar_anchor_pane" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-0.40000000000009095" AnchorPane.topAnchor="30.0">
