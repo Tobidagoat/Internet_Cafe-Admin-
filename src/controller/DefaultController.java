@@ -126,11 +126,18 @@ public class DefaultController implements Initializable {
     @FXML
     private void HandleSwitchLogoutAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
+          Parent root = loader.load();
+          boolean wasMaximized = stage.isMaximized();
+
+          // Create and set the new scene
+          Scene scene = new Scene(root);
+          stage.setScene(scene);
+          stage.centerOnScreen();
+
+          // If you want to preserve the previous state instead, use:
+           stage.setMaximized(wasMaximized);
+
+          stage.show();
     }
 
     @FXML

@@ -155,22 +155,12 @@ private void btnsignupaction(ActionEvent event) {
             // Close the signup window
             Stage signupStage = (Stage) btnsignup.getScene().getWindow();
             signupStage.close();
-            
-            // Directly open main application window
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Default.fxml"));
-            Parent root = loader.load();
-            DefaultController controller = loader.getController();
-            controller.getadmininfo(username, "");
-
-            Internet_Cafe_admin.stage.setScene(new Scene(root));
-            Internet_Cafe_admin.stage.centerOnScreen();
-            Internet_Cafe_admin.stage.setMaximized(true);
+            Internet_Cafe_admin.stage.setMaximized(false);
             Internet_Cafe_admin.stage.show();
-            
         } else {
             showAlert("Registration Error", "Failed to register user");
         }
-    } catch (SQLException | IOException ex) {
+    } catch (SQLException ex) {
         showAlert("Error", "An error occurred: " + ex.getMessage());
         Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -183,6 +173,7 @@ private void btnsignupaction(ActionEvent event) {
     currentStage.close();
     
     // Show the login window (static stage)
+    Internet_Cafe_admin.stage.setMaximized(false);
     Internet_Cafe_admin.stage.show();
     }
 
