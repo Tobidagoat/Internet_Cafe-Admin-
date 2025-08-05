@@ -16,9 +16,9 @@ public class DbConnection {
     
     public Connection getConnection() throws ClassNotFoundException{
         Connection con=null;
-        String username="root";
-        String password="20051120";
-        String url="jdbc:mysql://localhost:3306/internet_cafe";
+         String username = "User";
+    String password = "12345"; // or your actual MySQL password
+    String url = "jdbc:mysql://172.16.201.164:3306/internet_cafe?useSSL=false&serverTimezone=UTC";
         
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("Load Driver.......");

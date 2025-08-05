@@ -1,0 +1,142 @@
+/* === CHART CONTAINER === */
+.chart {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+    -fx-border-color: #333;
+    -fx-border-width: 0 0 1 0;
+    -fx-text-fill: white;
+    -fx-tick-label-fill: rgb(255, 106, 0);
+}
+
+/* === PLOT BACKGROUND === */
+.chart-plot-background {
+    -fx-background-color: linear-gradient(to bottom, #000000, #000000);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* === GRID LINES === */
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+    -fx-stroke: #2a2929;
+    -fx-stroke-dash-array: 2 2;
+}
+
+/* === AXIS STYLING === */
+.axis {
+    -fx-tick-label-fill: rgb(255, 106, 0);
+    -fx-tick-length: 5;
+    -fx-minor-tick-visible: false;
+}
+
+.axis-label {
+    -fx-text-fill: rgb(255, 106, 0);
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.axis .label {
+    -fx-text-fill: orange;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* === CHART LEGEND === */
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+    -fx-hgap: 10;
+    -fx-vgap: 5;
+}
+
+/* All chart legend items */
+.chart-legend-item {
+    -fx-max-width: 140px;
+    -fx-wrap-text: true;
+    -fx-text-overrun: ellipsis;
+    -fx-text-fill: white; /* <<< Restores text color */
+    -fx-font-size: 12px;
+}
+
+/* Legend symbols */
+.chart-legend-item-symbol {
+    -fx-background-radius: 10;
+}
+
+/* Pie chart specific symbol coloring */
+.chart-pie .chart-legend-item-symbol {
+    -fx-background-color: derive(-fx-pie-color, 0%);
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+}
+
+/* Pie chart legend block */
+.chart-legend-pie {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 20;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-alignment: center-right;
+}
+
+/* Pie chart individual legend item */
+.chart-legend-item-pie {
+    -fx-padding: 5px;
+    -fx-text-fill: white;
+}
+
+/* === AREA CHART FILL === */
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(255, 72, 0, 0.2); /* Internet income */
+}
+.default-color1.chart-series-area-fill {
+    -fx-fill: rgba(255, 174, 0, 0.25); /* Food income */
+}
+
+/* === LINE COLORS === */
+.default-color0.chart-series-line {
+    -fx-stroke: #4dff00;
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+.default-color1.chart-series-line {
+    -fx-stroke: rgb(128, 87, 0);
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+
+/* === SYMBOLS ON LINE CHARTS === */
+.chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #0090ff, rgb(0, 255, 30);
+}
+.default-color1.chart-line-symbol {
+    -fx-background-color: #ff8000, rgb(68, 255, 0);
+}
+
+/* === TOOLTIP === */
+.chart-tooltip {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+    -fx-padding: 5;
+    -fx-font-size: 11px;
+}
+
+/* === CHART TITLE === */
+.chart-title {
+    -fx-text-fill: #ffaa00;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* === PIE CHART GENERAL === */
+.chart-pie {
+    -fx-pie-label-visible: false; /* Hide labels on pie */
+    -fx-border-color: transparent;
+}
