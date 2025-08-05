@@ -29,6 +29,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.control.TableCell;
 
 /**
@@ -68,6 +70,11 @@ public class InvoiceController implements Initializable {
     private AnchorPane parentCard;
     private int totalamount;
     private InvoicepaneController invoicepane=InvoicepaneController.getinstance();
+    
+    @FXML
+    private Button btnprint;
+    @FXML
+    private AnchorPane invoicecard;
     
     /**
      * Initializes the controller class.
@@ -216,5 +223,26 @@ public class InvoiceController implements Initializable {
     
     public AnchorPane getParentCard() {
         return parentCard;
+    }
+
+    @FXML
+    private void btnprintaction(ActionEvent event) {
+        Printer printer=Printer.getDefaultPrinter();
+        if(printer==null){
+            System.out.println("No Printers Installed.");
+            return;
+        }
+        PrinterJob job= PrinterJob.createPrinterJob(printer);
+        
+        if(job!=null && job.showPrintDialog(invoicecard.getScene().getWindow())){
+            boolean success =job.printPage(invoicecard);
+            if(success){
+                job.endJob();
+                System.out.println("Voucher printed successfully.");
+            }else{
+                System.out.println("Printing failed.");
+            }
+        }
+
     }
 }

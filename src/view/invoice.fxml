@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="400.0" styleClass="glass-hbox-item" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceController">
+<AnchorPane id="AnchorPane" fx:id="invoicecard" prefHeight="550.0" prefWidth="400.0" styleClass="glass-hbox-item" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceController">
    <children>
       <Button fx:id="btnpay" layoutX="313.0" layoutY="476.0" mnemonicParsing="false" onAction="#btnpayaction" prefHeight="31.0" prefWidth="62.0" styleClass="pay-button" text="Pay">
          <font>
@@ -110,5 +110,10 @@
             <Image url="@../img/CC1.png" />
          </image>
       </ImageView>
+      <Button fx:id="btnprint" layoutX="29.0" layoutY="476.0" mnemonicParsing="false" onAction="#btnprintaction" prefHeight="36.0" prefWidth="79.0" styleClass="pay-button" text="Print">
+         <font>
+            <Font name="Consolas Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
