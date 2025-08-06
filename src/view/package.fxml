@@ -62,25 +62,25 @@
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="171.0" />
-            <Label layoutX="35.0" layoutY="157.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="157.0" text="Basic Customer Support" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="205.0" />
-            <Label layoutX="35.0" layoutY="191.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="191.0" text="Basic Internet Connection" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="237.0" />
-            <Label layoutX="35.0" layoutY="223.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="223.0" text="Normal Headset" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="140.0" />
-            <Label layoutX="35.0" layoutY="126.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="126.0" text="Can Play 20+ Games" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
@@ -137,25 +137,25 @@
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="171.0" />
-            <Label layoutX="35.0" layoutY="157.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="157.0" text="Priority Customer Support" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="205.0" />
-            <Label layoutX="35.0" layoutY="191.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="191.0" text="Better Internet Connection" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="237.0" />
-            <Label layoutX="35.0" layoutY="223.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="223.0" text="Normal Headset" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="140.0" />
-            <Label layoutX="35.0" layoutY="126.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="126.0" text="Can play 40+ Games" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
@@ -207,25 +207,25 @@
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="171.0" />
-            <Label layoutX="35.0" layoutY="157.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="157.0" text="VIP Customer Support" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="205.0" />
-            <Label layoutX="35.0" layoutY="191.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="191.0" text="Fast Internet Connection" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="237.0" />
-            <Label layoutX="35.0" layoutY="223.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="223.0" text="Include Gaming Headset" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
             <FontIcon iconColor="#7e7e7e" iconLiteral="fa-check-circle" iconSize="15" layoutX="14.0" layoutY="140.0" />
-            <Label layoutX="35.0" layoutY="126.0" text="Sample text Sample Text" textFill="#7e7e7e">
+            <Label layoutX="35.0" layoutY="126.0" text="Can play 70+ Games" textFill="#7e7e7e">
                <font>
                   <Font size="11.0" />
                </font>
