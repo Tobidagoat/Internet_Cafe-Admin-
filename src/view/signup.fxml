@@ -68,7 +68,14 @@
                   <Font name="Arial Bold" size="12.0" />
                </font>
             </PasswordField>
-            <AnchorPane layoutX="344.0" layoutY="1.6" prefHeight="338.0" prefWidth="251.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-opacity: 0.7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="298.00000000000006" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane layoutX="344.0" layoutY="1.6" prefHeight="338.0" prefWidth="251.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-opacity: 0.7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="298.00000000000006" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/CC1.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="loginpane" layoutX="99.0" layoutY="80.0" prefHeight="340.0" prefWidth="550.0" styleClass="glass-pane" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="80.0">
