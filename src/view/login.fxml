@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,10 +14,20 @@
    <children>
       <ImageView fitHeight="509.0" fitWidth="750.0" layoutX="22.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../img/wallpaperflare.com_wallpaper%20(1).jpg" />
+            <Image url="@../img/px-pg-town.jpg" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="200.0" prefWidth="772.0" styleClass="laying_anchor_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane prefHeight="200.0" prefWidth="772.0" styleClass="laying_anchor_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="168.0" fitWidth="166.0" layoutX="496.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/CC1.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.11" contrast="0.19" />
+               </effect>
+            </ImageView>
+         </children></AnchorPane>
       <AnchorPane layoutX="52.0" layoutY="42.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="btnclose" graphicTextGap="0.0" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#closeaction" prefHeight="15.0" prefWidth="26.0" style="-fx-background-color: transparent;" styleClass="close_btn" text="X" textFill="#c15a00">

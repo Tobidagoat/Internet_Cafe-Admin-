@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,6 +73,7 @@ public class LoginController implements Initializable {
         } catch (ClassNotFoundException ex) {
             
         }
+         Platform.runLater(() -> txtusername.requestFocus());
     }    
     private String hashPassword(String password) {
         try {
