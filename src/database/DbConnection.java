@@ -18,7 +18,7 @@ public class DbConnection {
         Connection con=null;
          String username = "User";
     String password = "12345"; // or your actual MySQL password
-    String url = "jdbc:mysql://172.16.201.164:3306/internet_cafe?useSSL=false&serverTimezone=UTC";
+    String url = "jdbc:mysql://172.16.201.209:3306/internet_cafe?useSSL=false&serverTimezone=UTC";
         
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("Load Driver.......");
